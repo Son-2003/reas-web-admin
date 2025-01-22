@@ -1,10 +1,11 @@
+import LoginPage from '@/app/login/page';
 import { createBrowserRouter /*, Navigate */ } from 'react-router-dom';
 
 const router = createBrowserRouter([
-  //   {
-  //     path: "/",
-  //     element: <Login />,
-  //   },
+  {
+    path: '/',
+    element: <LoginPage />,
+  },
 ]);
 
 export default router;
