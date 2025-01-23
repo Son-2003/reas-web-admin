@@ -1,7 +1,11 @@
-import { ApiStatus } from "@/common/enums/apiStatus";
-import { User, UserToken } from "@/common/models/user";
-import { getUserInfo, signIn } from "@/containers/Auth/thunk";
-import { ActionReducerMapBuilder, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ApiStatus } from '@/common/enums/apiStatus';
+import { User, UserToken } from '@/common/models/user';
+import { getUserInfo, signIn } from '@/containers/Auth/thunk';
+import {
+  ActionReducerMapBuilder,
+  createSlice,
+  PayloadAction,
+} from '@reduxjs/toolkit';
 import UserService from '@/services/user';
 
 export interface UserSliceState {

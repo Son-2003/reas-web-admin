@@ -4,7 +4,6 @@ import UserService from '@/services/user';
 import axiosInstance from './axios';
 
 export default async function callApi(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   options: any = {},
   needAuth: boolean = false,
   needRefresh: boolean = false,
@@ -42,7 +41,6 @@ async function checkStatus(response: AxiosResponse) {
   throw error;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const objectToQueryString = <T extends Record<string, any>>(
   data: T,
 ): string => {

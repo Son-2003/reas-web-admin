@@ -1,4 +1,8 @@
-import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY, USER_ID_KEY } from '@/common/constants/auth';
+import {
+  ACCESS_TOKEN_KEY,
+  REFRESH_TOKEN_KEY,
+  USER_ID_KEY,
+} from '@/common/constants/auth';
 import {
   getCookie,
   removeAllCookies,
