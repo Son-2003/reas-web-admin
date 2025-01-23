@@ -4,18 +4,37 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useState } from 'react';
+import { pick } from 'lodash';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { ReduxDispatch } from '@/lib/redux/store';
+import { signIn } from '@/containers/Auth/thunk';
+import { HOME_ROUTE } from '@/common/constants/router';
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<'div'>) {
-  const [email, setEmail] = useState('');
+  const [userNameOrEmailOrPhone, setUserNameOrEmailOrPhone] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch<ReduxDispatch>();
+  const navigate = useNavigate();
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
+
+    const accountSignIn = pick({ userNameOrEmailOrPhone, password }, [
+      'userNameOrEmailOrPhone',
+      'password',
+    ]);
+
+    const resultAction = await dispatch(signIn(accountSignIn));
+
+    console.log(resultAction);
+
+    if (signIn.fulfilled.match(resultAction)) {
+      navigate(HOME_ROUTE);
+    }
   };
 
   return (
@@ -33,12 +52,10 @@ export function LoginForm({
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
+                  type="text"
+                  value={userNameOrEmailOrPhone}
+                  onChange={(e) => setUserNameOrEmailOrPhone(e.target.value)}
                   required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="grid gap-2">
