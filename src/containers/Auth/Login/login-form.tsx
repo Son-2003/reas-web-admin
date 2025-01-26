@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ReduxDispatch } from '@/lib/redux/store';
 import { signIn } from '@/containers/Auth/thunk';
-import { HOME_ROUTE } from '@/common/constants/router';
+import { DASHBOARD_ROUTE } from '@/common/constants/router';
 
 export function LoginForm({
   className,
@@ -33,7 +33,7 @@ export function LoginForm({
     console.log(resultAction);
 
     if (signIn.fulfilled.match(resultAction)) {
-      navigate(HOME_ROUTE);
+      navigate(DASHBOARD_ROUTE);
     }
   };
 
