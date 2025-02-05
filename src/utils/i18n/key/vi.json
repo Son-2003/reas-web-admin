@@ -1,0 +1,7 @@
+{
+  "welcomeMessage": "Chào mừng đến với React và react-i18next",
+  "dashboard": {
+    "title": "Bảng điều khiển",
+    "download": "Tải xuống"
+  }
+}

@@ -9,13 +9,9 @@ import {
 } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { CalendarDateRangePicker } from '@/containers/DashBoard/components/date-range-picker';
-import { MainNav } from '@/containers/DashBoard/components/main-nav';
 import { Overview } from '@/containers/DashBoard/components/overview';
-import { RecentSales } from '@/containers/DashBoard/components/recent-sales';
-import { Search } from '@/containers/DashBoard/components/search';
-import TeamSwitcher from '@/containers/DashBoard/components/team-switcher';
-import { UserNav } from '@/containers/DashBoard/components/user-nav';
-import ThemeSwitch from '@/components/theme-switch';
+import { useTranslation } from 'react-i18next';
+import { SalesPieChart } from './components/pie-chart';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -23,43 +19,20 @@ export const metadata: Metadata = {
 };
 
 export default function Dashboard() {
+  const { t } = useTranslation();
   return (
     <>
-      <div className="h-screen">
-        {/* <div className="md:hidden">
-          <img
-            src="/examples/dashboard-light.png"
-            width={1280}
-            height={866}
-            alt="Dashboard"
-            className="block dark:hidden"
-          />
-          <img
-            src="/examples/dashboard-dark.png"
-            width={1280}
-            height={866}
-            alt="Dashboard"
-            className="hidden dark:block"
-          />
-        </div> */}
+      {/* <div className="h-screen"> replace below div with this if need scroll */}
+      <div className="">
         <div className="hidden flex-col md:flex">
-          <div className="border-b">
-            <div className="flex h-16 items-center px-4">
-              <TeamSwitcher />
-              <MainNav className="mx-6" />
-              <div className="ml-auto flex items-center space-x-4">
-                <Search />
-                <ThemeSwitch />
-                <UserNav />
-              </div>
-            </div>
-          </div>
           <div className="flex-1 space-y-4 p-8 pt-6">
             <div className="flex items-center justify-between space-y-2">
-              <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
+              <h2 className="text-3xl font-bold tracking-tight">
+                {t('dashboard.title')}
+              </h2>
               <div className="flex items-center space-x-2">
                 <CalendarDateRangePicker />
-                <Button>Download</Button>
+                <Button>{t('dashboard.download')}</Button>
               </div>
             </div>
             <Tabs defaultValue="overview" className="space-y-4">
@@ -198,7 +171,8 @@ export default function Dashboard() {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <RecentSales />
+                      {/* <RecentSales /> */}
+                      <SalesPieChart />
                     </CardContent>
                   </Card>
                 </div>

@@ -1,0 +1,7 @@
+{
+  "welcomeMessage": "Welcome to React and react-i18next",
+  "dashboard": {
+    "title": "Dashboard",
+    "download": "Download"
+  }
+}
