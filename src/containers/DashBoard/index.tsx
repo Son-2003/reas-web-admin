@@ -9,9 +9,9 @@ import {
 } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { CalendarDateRangePicker } from '@/containers/DashBoard/components/date-range-picker';
-import { Overview } from '@/containers/DashBoard/components/overview';
 import { useTranslation } from 'react-i18next';
 import { SalesPieChart } from './components/pie-chart';
+import { TooltipChart } from './components/tooltip-chart';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -37,15 +37,17 @@ export default function Dashboard() {
             </div>
             <Tabs defaultValue="overview" className="space-y-4">
               <TabsList>
-                <TabsTrigger value="overview">Overview</TabsTrigger>
+                <TabsTrigger value="overview">
+                  {t('dashboard.overview')}
+                </TabsTrigger>
                 <TabsTrigger value="analytics" disabled>
-                  Analytics
+                  {t('dashboard.analytics')}
                 </TabsTrigger>
                 <TabsTrigger value="reports" disabled>
-                  Reports
+                  {t('dashboard.reports')}
                 </TabsTrigger>
                 <TabsTrigger value="notifications" disabled>
-                  Notifications
+                  {t('dashboard.notifications')}
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="overview" className="space-y-4">
@@ -53,7 +55,7 @@ export default function Dashboard() {
                   <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">
-                        Total Revenue
+                        {t('dashboard.totalRevenue')}
                       </CardTitle>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +80,7 @@ export default function Dashboard() {
                   <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">
-                        Subscriptions
+                        {t('dashboard.subscriptions')}
                       </CardTitle>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +107,7 @@ export default function Dashboard() {
                   <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">
-                        Sales
+                        {t('dashboard.transactions')}
                       </CardTitle>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -131,7 +133,7 @@ export default function Dashboard() {
                   <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">
-                        Active Now
+                        {t('dashboard.residentialArea')}
                       </CardTitle>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -157,10 +159,14 @@ export default function Dashboard() {
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
                   <Card className="col-span-4">
                     <CardHeader>
-                      <CardTitle>Overview</CardTitle>
+                      <CardTitle>{t('dashboard.revenueChart')}</CardTitle>
+                      <CardDescription>
+                        {t('dashboard.barChartDes')}
+                      </CardDescription>
                     </CardHeader>
                     <CardContent className="pl-2">
-                      <Overview />
+                      {/* <Overview /> */}
+                      <TooltipChart />
                     </CardContent>
                   </Card>
                   <Card className="col-span-3">

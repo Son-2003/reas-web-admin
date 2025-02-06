@@ -2,6 +2,18 @@
   "welcomeMessage": "Chào mừng đến với React và react-i18next",
   "dashboard": {
     "title": "Bảng điều khiển",
-    "download": "Tải xuống"
+    "download": "Tải xuống",
+    "overview": "Tổng quan",
+    "analytics": "Phân tích",
+    "reports": "Báo cáo",
+    "notifications": "Thông báo",
+    "totalRevenue": "Tổng doanh thu",
+    "subscriptions": "Đăng ký",
+    "transactions": "Giao dịch",
+    "residentialArea": "Khu dân cư",
+    "revenueChart": "Biểu đồ doanh thu",
+    "buy": "Mua bán",
+    "exchange": "Trao đổi",
+    "barChartDes": "Doanh thu hàng tháng từ mua bán và trao đổi"
   }
 }

@@ -2,10 +2,8 @@
 
 import * as React from 'react';
 import {
-  AudioWaveform,
   BookOpen,
   Bot,
-  Command,
   Frame,
   GalleryVerticalEnd,
   Map,
@@ -35,20 +33,20 @@ const data = {
   },
   teams: [
     {
-      name: 'Acme Inc',
+      name: 'REAS',
       logo: GalleryVerticalEnd,
       plan: 'Enterprise',
     },
-    {
-      name: 'Acme Corp.',
-      logo: AudioWaveform,
-      plan: 'Startup',
-    },
-    {
-      name: 'Evil Corp.',
-      logo: Command,
-      plan: 'Free',
-    },
+    // {
+    //   name: 'Acme Corp.',
+    //   logo: AudioWaveform,
+    //   plan: 'Startup',
+    // },
+    // {
+    //   name: 'Evil Corp.',
+    //   logo: Command,
+    //   plan: 'Free',
+    // },
   ],
   navMain: [
     {
@@ -161,6 +159,31 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
+        {/* <div className={`flex items-center ${!isCollapsed ? "gap-2" : ""}`}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 256 256"
+              className={`transition-all ${
+                isCollapsed ? "h-7 w-7" : "h-8 w-8"
+              }`}
+            >
+              <rect width="256" height="256" fill="none"></rect>
+              <image
+                href="https://res.cloudinary.com/dnslrwedn/image/upload/v1727033068/SKEDEAT_logo-01_niakut.png"
+                width="256"
+                height="256"
+              />
+              <span className="sr-only">SkedEat</span>
+            </svg>
+            <div
+              className={`flex flex-col justify-end truncate ${
+                isCollapsed ? "invisible w-0" : "visible w-auto"
+              }`}
+            >
+              <span className="font-medium">SkedEat</span>
+
+            </div>
+          </div> */}
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />

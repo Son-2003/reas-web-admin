@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ReduxDispatch } from '@/lib/redux/store';
 import { signIn } from '@/containers/Auth/thunk';
-import { DASHBOARD_ROUTE } from '@/common/constants/router';
 import { useTranslation } from 'react-i18next';
 
 export function LoginForm({
@@ -35,7 +34,7 @@ export function LoginForm({
     console.log(resultAction);
 
     if (signIn.fulfilled.match(resultAction)) {
-      navigate(DASHBOARD_ROUTE);
+      navigate('/admin');
     }
   };
 

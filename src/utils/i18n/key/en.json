@@ -2,6 +2,18 @@
   "welcomeMessage": "Welcome to React and react-i18next",
   "dashboard": {
     "title": "Dashboard",
-    "download": "Download"
+    "download": "Download",
+    "overview": "Overview",
+    "analytics": "Analytics",
+    "reports": "Reports",
+    "notifications": "Notifications",
+    "totalRevenue": "Total revenue",
+    "subscriptions": "Subscriptions",
+    "transactions": "Transactions",
+    "residentialArea": "Residential area",
+    "revenueChart": "Revenue chart",
+    "buy": "Buy",
+    "exchange": "Exchange",
+    "barChartDes": "Monthly revenue from buy and exchange"
   }
 }

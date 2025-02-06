@@ -13,7 +13,6 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { Search } from '@/containers/DashBoard/components/search';
 import { UserNav } from '@/containers/DashBoard/components/user-nav';
 import ThemeSwitch from '@/components/theme-switch';
 import { Outlet } from 'react-router-dom';
@@ -52,7 +51,7 @@ export default function AppShell() {
           </div>
           <div className="flex h-16 items-center px-4">
             <div className="ml-auto flex items-center space-x-4">
-              <Search />
+              {/* <Search /> */}
               <ThemeSwitch />
               <div className="flex items-center space-x-2 pr-4">
                 <Switch
