@@ -1,4 +1,4 @@
-export interface User {
+export interface UserDto {
   id: number;
   userName: string;
   fullName: string;
@@ -29,4 +29,14 @@ export interface AccountSignUp {
 export interface UserToken {
   accessToken: string;
   refreshToken: string;
+}
+
+export interface CreateUserDto {
+  username: string;
+  email: string;
+  password: string;
+  fullName: string;
+  phone: string;
+  gender: string;
+  image: string;
 }

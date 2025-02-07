@@ -1,5 +1,14 @@
 {
   "welcomeMessage": "Chào mừng đến với React và react-i18next",
+  "sidebar": {
+    "management": "Quản lý",
+    "human": "Con người",
+    "staffs": "Nhân viên",
+    "users": "Người dùng",
+    "products": "Sản phẩm",
+    "settings": "Cài đặt",
+    "logout": "Đăng xuất"
+  },
   "dashboard": {
     "title": "Bảng điều khiển",
     "download": "Tải xuống",
@@ -14,6 +23,8 @@
     "revenueChart": "Biểu đồ doanh thu",
     "buy": "Mua bán",
     "exchange": "Trao đổi",
-    "barChartDes": "Doanh thu hàng tháng từ mua bán và trao đổi"
+    "barChartDes": "Doanh thu hàng tháng từ mua bán và trao đổi",
+    "pieChartTitle": "Doanh thu tháng trước",
+    "pieChartDes": "Số lượng trao đổi và mua bán"
   }
 }

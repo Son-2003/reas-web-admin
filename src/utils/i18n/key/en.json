@@ -1,5 +1,14 @@
 {
   "welcomeMessage": "Welcome to React and react-i18next",
+  "sidebar": {
+    "management": "Management",
+    "human": "Human",
+    "staffs": "Staffs",
+    "users": "Users",
+    "items": "Items",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
   "dashboard": {
     "title": "Dashboard",
     "download": "Download",
@@ -14,6 +23,8 @@
     "revenueChart": "Revenue chart",
     "buy": "Buy",
     "exchange": "Exchange",
-    "barChartDes": "Monthly revenue from buy and exchange"
+    "barChartDes": "Monthly revenue from buy and exchange",
+    "pieChartTitle": "Revenue previous month",
+    "pieChartDes": "Number of exchanges and buys"
   }
 }

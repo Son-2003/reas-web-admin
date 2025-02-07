@@ -171,9 +171,9 @@ export default function Dashboard() {
                   </Card>
                   <Card className="col-span-3">
                     <CardHeader>
-                      <CardTitle>Recent Sales</CardTitle>
+                      <CardTitle>{t('dashboard.pieChartTitle')}</CardTitle>
                       <CardDescription>
-                        You made 265 sales this month.
+                        {t('dashboard.pieChartDes')}
                       </CardDescription>
                     </CardHeader>
                     <CardContent>

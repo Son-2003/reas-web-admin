@@ -1,6 +1,7 @@
 import DashboardPage from '@/app/dashboard/page';
 import LoginPage from '@/app/login/page';
 import AppShell from '@/components/app-shell';
+import { UsersManagement } from '@/containers/UsersManagement';
 import { createBrowserRouter /*, Navigate */ } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -16,10 +17,10 @@ const router = createBrowserRouter([
         index: true,
         element: <DashboardPage />,
       },
-      // {
-      //   path: "/admin/location",
-      //   element: <Location />,
-      // },
+      {
+        path: '/admin/users-management',
+        element: <UsersManagement />,
+      },
       // {
       //   path: "/admin/location/:locationId",
       //   element: <LocationDetail />,
