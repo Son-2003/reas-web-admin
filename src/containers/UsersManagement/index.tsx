@@ -7,8 +7,10 @@ import { useEffect, useState } from 'react';
 import { columns } from './components/column';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export const UsersManagement = () => {
+  const { t } = useTranslation();
   const [data, setData] = useState([]);
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(10);
@@ -44,7 +46,7 @@ export const UsersManagement = () => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading title={`Quản lí nhà hàng`} description="" />
+        <Heading title={t('usersManagement.title')} description="" />
 
         <Button onClick={() => navigate('/admin/newBrand', { state: null })}>
           <Plus className="mr-2 h-4 w-4" />

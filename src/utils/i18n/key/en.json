@@ -26,5 +26,22 @@
     "barChartDes": "Monthly revenue from buy and exchange",
     "pieChartTitle": "Revenue previous month",
     "pieChartDes": "Number of exchanges and buys"
+  },
+  "usersManagement":{
+    "title": "Users Management",
+    "addUser": "Add User",
+    "editUser": "Edit User",
+    "deleteUser": "Delete User",
+    "searchUser": "Search User",
+    "userList": "User List",
+    "id": "ID",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "role": "Role",
+    "action": "Action",
+    "edit": "Edit",
+    "delete": "Delete"
   }
 }

@@ -26,5 +26,22 @@
     "barChartDes": "Doanh thu hàng tháng từ mua bán và trao đổi",
     "pieChartTitle": "Doanh thu tháng trước",
     "pieChartDes": "Số lượng trao đổi và mua bán"
+  },
+  "usersManagement":{
+    "title": "Quản lý người dùng",
+    "addUser": "Thêm người dùng",
+    "editUser": "Chỉnh sửa người dùng",
+    "deleteUser": "Xóa người dùng",
+    "searchUser": "Tìm kiếm người dùng",
+    "userList": "Danh sách người dùng",
+    "id": "ID",
+    "name": "Tên",
+    "email": "Email",
+    "phone": "Số điện thoại",
+    "address": "Địa chỉ",
+    "role": "Vai trò",
+    "action": "Hành động",
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa"
   }
 }
