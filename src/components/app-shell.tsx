@@ -10,7 +10,9 @@ export default function AppShell() {
       <SidebarInset>
         <AppHeader />
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <Outlet />
+          <div className="hidden flex-col md:flex flex-1 space-y-4 p-8 pt-6">
+            <Outlet />
+          </div>
         </div>
       </SidebarInset>
     </SidebarProvider>

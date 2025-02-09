@@ -40,24 +40,39 @@ export const columns: ColumnDef<UserDto>[] = [
     ),
   },
   {
-    accessorKey: 'name',
-    header: 'Tên nhà hàng',
+    accessorKey: 'userName',
+    header: 'User name',
     cell: ({ row }) => <span>{row.original.fullName}</span>,
   },
   {
-    accessorKey: 'phone',
-    header: 'Số điện thoại',
+    accessorKey: 'fullName',
+    header: 'Full name',
     cell: ({ row }) => <span>{row.original.phone}</span>,
   },
   {
+    accessorKey: 'email',
+    header: 'Email',
+    cell: ({ row }) => <span>{row.original.email}</span>,
+  },
+  {
+    accessorKey: 'phone',
+    header: 'Phone',
+    cell: ({ row }) => <span>{row.original.phone}</span>,
+  },
+  {
+    accessorKey: 'gender',
+    header: 'Gender',
+    cell: ({ row }) => <span>{row.original.gender}</span>,
+  },
+  {
     accessorKey: 'status',
-    header: 'Trạng thái',
+    header: 'Status',
     cell: ({ row }) => {
-      const status = row.original.status.toLowerCase();
+      const status = row.original.statusEntity.toString().toLowerCase();
       const color = status === 'active' ? 'green' : 'red';
       return (
         <span style={{ color: color, fontWeight: 'bold' }}>
-          {row.original.status}
+          {row.original.statusEntity}
         </span>
       );
     },

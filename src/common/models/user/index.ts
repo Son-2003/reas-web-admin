@@ -1,15 +1,27 @@
+import { Gender } from '@/common/enums/gender';
+import { Role } from '@/common/enums/role';
+import { StatusEntity } from '@/common/enums/statusEntity';
+
+export interface SearchUserRequest {
+  userName: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  genders: Gender[];
+  statusEntities: StatusEntity[];
+  roleNames: Role[];
+}
+
 export interface UserDto {
   id: number;
   userName: string;
   fullName: string;
   email: string;
   phone: string;
-  gender: string;
-  status: string;
-  point: number;
+  gender: Gender;
+  statusEntity: StatusEntity;
   image: string;
-  roleName: string;
-  firstLogin: boolean;
+  roleName: Role;
 }
 
 export interface AccountSignIn {

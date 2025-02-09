@@ -1,5 +1,5 @@
 import { ApiStatus } from '@/common/enums/apiStatus';
-import { User, UserToken } from '@/common/models/user';
+import { UserDto, UserToken } from '@/common/models/user';
 import { getUserInfo, signIn } from '@/containers/Auth/thunk';
 import {
   ActionReducerMapBuilder,
@@ -10,7 +10,7 @@ import UserService from '@/services/user';
 
 export interface UserSliceState {
   token: UserToken | undefined;
-  userInfo: User | undefined;
+  userInfo: UserDto | undefined;
   status: ApiStatus;
 }
 
@@ -56,7 +56,7 @@ function setUserInfo(builder: ActionReducerMapBuilder<UserSliceState>) {
     })
     .addCase(
       getUserInfo.fulfilled,
-      (state: UserSliceState, action: PayloadAction<User>) => {
+      (state: UserSliceState, action: PayloadAction<UserDto>) => {
         state.status = ApiStatus.Fulfilled;
         state.userInfo = action.payload;
       },
