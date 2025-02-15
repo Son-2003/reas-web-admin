@@ -42,6 +42,18 @@
     "role": "Vai trò",
     "action": "Hành động",
     "edit": "Chỉnh sửa",
-    "delete": "Xóa"
+    "delete": "Xóa",
+    "createAccountUser": {
+      "title": "Tạo tài khoản",
+      "name": "Tên",
+      "email": "Email",
+      "phone": "Số điện thoại",
+      "address": "Địa chỉ",
+      "role": "Vai trò",
+      "password": "Mật khẩu",
+      "confirmPassword": "Xác nhận mật khẩu",
+      "create": "Tạo",
+      "cancel": "Hủy"
+    }
   }
 }

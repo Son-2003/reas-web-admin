@@ -1,7 +1,8 @@
+import CreateAccountUserPage from '@/app/create-account-user/page';
 import DashboardPage from '@/app/dashboard/page';
 import LoginPage from '@/app/login/page';
 import AppShell from '@/components/app-shell';
-import { UsersManagement } from '@/containers/UsersManagement';
+import { UsersManagement } from '@/containers/UsersManagement/SearchUser';
 import { createBrowserRouter /*, Navigate */ } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: '/admin/users-management',
         element: <UsersManagement />,
+      },
+      {
+        path: '/admin/create-account-user',
+        element: <CreateAccountUserPage />,
       },
       // {
       //   path: "/admin/location/:locationId",

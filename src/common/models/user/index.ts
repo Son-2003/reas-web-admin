@@ -43,12 +43,13 @@ export interface UserToken {
   refreshToken: string;
 }
 
-export interface CreateUserDto {
+export interface CreateAccountUserRequest {
   username: string;
-  email: string;
-  password: string;
   fullName: string;
+  email: string;
   phone: string;
-  gender: string;
+  gender: Gender;
   image: string;
+  password: string;
+  confirmPassword: string;
 }

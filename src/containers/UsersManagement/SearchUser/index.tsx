@@ -18,9 +18,9 @@ import {
 } from '@/common/constants/pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxDispatch } from '@/lib/redux/store';
-import { searchUser } from './thunk';
+import { searchUser } from '../thunk';
 import { SearchRequestPagination } from '@/common/models/pagination';
-import { selectUserSearchResult } from './selector';
+import { selectUserSearchResult } from '../selector';
 
 export const UsersManagement = () => {
   const { t } = useTranslation();
@@ -62,11 +62,14 @@ export const UsersManagement = () => {
 
   return (
     <>
-      {/* <div className="hidden flex-col md:flex flex-1 space-y-4 p-8 pt-6"> */}
       <div className="flex items-center justify-between">
         <Heading title={t('usersManagement.title')} description="" />
 
-        <Button onClick={() => navigate('/admin/newBrand', { state: null })}>
+        <Button
+          onClick={() =>
+            navigate('/admin/create-account-user', { state: null })
+          }
+        >
           <Plus className="mr-2 h-4 w-4" />
           Add New
         </Button>
@@ -87,7 +90,6 @@ export const UsersManagement = () => {
         setPageNo={setPageNo}
         setPageSize={setPageSize}
       />
-      {/* </div> */}
     </>
   );
 };
