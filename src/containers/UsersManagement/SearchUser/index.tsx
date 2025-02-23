@@ -4,9 +4,8 @@ import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 import { LoaderCircle, Plus } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { columns } from './components/column';
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { SearchUserRequest } from '@/common/models/user';
 import {
@@ -21,6 +20,10 @@ import { ReduxDispatch } from '@/lib/redux/store';
 import { searchUser } from '../thunk';
 import { SearchRequestPagination } from '@/common/models/pagination';
 import { selectUserSearchResult } from '../selector';
+import { Role } from '@/common/enums/role';
+import { StatusEntity } from '@/common/enums/statusEntity';
+import { Gender } from '@/common/enums/gender';
+import { useUserColumns } from './components/column';
 
 export const UsersManagement = () => {
   const { t } = useTranslation();
@@ -33,24 +36,50 @@ export const UsersManagement = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<ReduxDispatch>();
   const responsePagination = useSelector(selectUserSearchResult);
+  const [isStaffsManagement, setIsStaffsManagement] = useState<boolean>(false);
+  const columns = useUserColumns();
+  const location = useLocation();
+  const [lastSegment, setLastSegment] = useState<string>('');
 
   useEffect(() => {
-    try {
-      const searchUserRequest: SearchRequestPagination<SearchUserRequest> = {
-        pageNo: DEFAULT_PAGE_NO,
-        pageSize: DEFAULT_PAGE_SIZE,
-        sortBy: DEFAULT_SORT_BY,
-        sortDir: DEFAULT_SORT_DIR,
-        request: undefined, // TODO: ntig - collect data from search form here
-      };
-      dispatch(searchUser(searchUserRequest));
-      setTotalPages(responsePagination?.totalPages || 0);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, [pageNo, pageSize, sortBy, sortDir]);
+    const pathSegments = location.pathname
+      .split('/')
+      .filter((segment) => segment !== '');
+    const currentLastSegment = pathSegments[pathSegments.length - 1];
+    setLastSegment(currentLastSegment);
+    setIsStaffsManagement(currentLastSegment === 'staffs-management');
+  }, [location.pathname]);
+
+  useEffect(() => {
+    // Only dispatch the API call when lastSegment is set
+    if (!lastSegment) return;
+
+    const defaultSearchRequestBody: SearchUserRequest = {
+      userName: '',
+      fullName: '',
+      email: '',
+      phone: '',
+      genders: [Gender.FEMALE, Gender.MALE, Gender.OTHER],
+      statusEntities: [StatusEntity.ACTIVE],
+      roleNames: [isStaffsManagement ? Role.ROLE_STAFF : Role.ROLE_RESIDENT],
+    };
+
+    const searchUserRequestPagination: SearchRequestPagination = {
+      pageNo: DEFAULT_PAGE_NO,
+      pageSize: DEFAULT_PAGE_SIZE,
+      sortBy: DEFAULT_SORT_BY,
+      sortDir: DEFAULT_SORT_DIR,
+    };
+
+    dispatch(
+      searchUser({
+        data: searchUserRequestPagination,
+        request: defaultSearchRequestBody,
+      }),
+    );
+    setTotalPages(responsePagination?.totalPages || 0);
+    setLoading(false);
+  }, [pageNo, pageSize, sortBy, sortDir, lastSegment]);
 
   if (loading) {
     return (
@@ -63,7 +92,14 @@ export const UsersManagement = () => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading title={t('usersManagement.title')} description="" />
+        <Heading
+          title={
+            isStaffsManagement
+              ? t('staffsManagement.title')
+              : t('usersManagement.title')
+          }
+          description=""
+        />
 
         <Button
           onClick={() =>
@@ -80,7 +116,7 @@ export const UsersManagement = () => {
           columns={columns}
           data={responsePagination?.content || []}
           searchKey="id"
-          placeholder="Tìm kiếm nhà hàng tại đây..."
+          placeholder={t('usersManagement.searchPlaceholder')}
         />
       </div>
       <DataTablePagination

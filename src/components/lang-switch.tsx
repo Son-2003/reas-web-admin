@@ -19,7 +19,7 @@ export default function LanguageSwitch() {
         uncheckedIcon={
           <div className="flex items-center justify-center h-full w-full">
             <img
-              src="src/assets/images/us.png"
+              src="https://res.cloudinary.com/dkpg60ca0/image/upload/v1740307845/reas/web-admin/common/icon/header/us.png"
               alt="US Flag"
               className="h-4 w-4 object-cover"
             />
@@ -28,7 +28,7 @@ export default function LanguageSwitch() {
         checkedIcon={
           <div className="flex items-center justify-center h-full w-full">
             <img
-              src="src/assets/images/vietnam.png"
+              src="https://res.cloudinary.com/dkpg60ca0/image/upload/v1740307845/reas/web-admin/common/icon/header/vn.png"
               alt="Vietnam Flag"
               className="h-4 w-4 object-cover"
             />

@@ -8,10 +8,9 @@ export interface ResponseEntityPagination<T> {
   content: T[];
 }
 
-export interface SearchRequestPagination<T> {
+export interface SearchRequestPagination {
   pageNo: number;
   pageSize: number;
   sortBy: string;
   sortDir: string;
-  request: T | undefined;
 }

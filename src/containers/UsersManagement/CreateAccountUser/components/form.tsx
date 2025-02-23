@@ -14,6 +14,7 @@ import { toast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const createAccountSchema = z
   .object({
@@ -43,6 +44,8 @@ const createAccountSchema = z
 type CreateAccountUserRequest = z.infer<typeof createAccountSchema>;
 
 export default function CreateAccountUserForm() {
+  const { t } = useTranslation();
+
   const form = useForm<CreateAccountUserRequest>({
     resolver: zodResolver(createAccountSchema),
     mode: 'onChange',
@@ -83,9 +86,16 @@ export default function CreateAccountUserForm() {
             name="fullName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Full Name</FormLabel>
+                <FormLabel>
+                  {t('usersManagement.createAccountUser.fullName.label')}
+                </FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter full name" {...field} />
+                  <Input
+                    placeholder={t(
+                      'usersManagement.createAccountUser.fullName.placeholder',
+                    )}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -96,11 +106,15 @@ export default function CreateAccountUserForm() {
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone Number</FormLabel>
+                <FormLabel>
+                  {t('usersManagement.createAccountUser.phone.label')}
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="tel"
-                    placeholder="Enter phone number"
+                    placeholder={t(
+                      'usersManagement.createAccountUser.phone.placeholder',
+                    )}
                     {...field}
                   />
                 </FormControl>
@@ -116,9 +130,16 @@ export default function CreateAccountUserForm() {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>
+                  {t('usersManagement.createAccountUser.username.label')}
+                </FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter username" {...field} />
+                  <Input
+                    placeholder={t(
+                      'usersManagement.createAccountUser.username.placeholder',
+                    )}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -129,9 +150,17 @@ export default function CreateAccountUserForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>
+                  {t('usersManagement.createAccountUser.email.label')}
+                </FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="Enter email" {...field} />
+                  <Input
+                    type="email"
+                    placeholder={t(
+                      'usersManagement.createAccountUser.email.placeholder',
+                    )}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -145,11 +174,15 @@ export default function CreateAccountUserForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>
+                  {t('usersManagement.createAccountUser.password.label')}
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder="Enter password"
+                    placeholder={t(
+                      'usersManagement.createAccountUser.password.placeholder',
+                    )}
                     {...field}
                   />
                 </FormControl>
@@ -162,11 +195,15 @@ export default function CreateAccountUserForm() {
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Confirm Password</FormLabel>
+                <FormLabel>
+                  {t('usersManagement.createAccountUser.confirmPassword.label')}
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder="Confirm password"
+                    placeholder={t(
+                      'usersManagement.createAccountUser.confirmPassword.placeholder',
+                    )}
                     {...field}
                   />
                 </FormControl>
@@ -177,21 +214,23 @@ export default function CreateAccountUserForm() {
         </div>
 
         {/* Image and Gender on the same row */}
-        <div className="grid grid-cols-2 gap-4 items-center">
+        <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name="image"
             render={({}) => (
               <FormItem>
-                <FormLabel>Profile Image</FormLabel>
+                <FormLabel>
+                  {t('usersManagement.createAccountUser.profileImage.label')}
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="file"
                     accept="image/*"
-                    onChange={handleImageChange} // Handle file input change
+                    onChange={handleImageChange}
                   />
                 </FormControl>
-                {previewImage && ( // Display preview if image is selected
+                {previewImage && (
                   <div className="mt-4">
                     <img
                       src={previewImage}
@@ -209,29 +248,31 @@ export default function CreateAccountUserForm() {
             name="gender"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Gender</FormLabel>
+                <FormLabel>
+                  {t('usersManagement.createAccountUser.gender.label')}
+                </FormLabel>
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}
                     defaultValue={field.value}
-                    className="flex space-x-4"
+                    className="flex space-x-4 pt-2"
                   >
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="Male" id="male" />
                       <FormLabel htmlFor="male" className="font-normal">
-                        Male
+                        {t('usersManagement.createAccountUser.gender.male')}
                       </FormLabel>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="Female" id="female" />
                       <FormLabel htmlFor="female" className="font-normal">
-                        Female
+                        {t('usersManagement.createAccountUser.gender.female')}
                       </FormLabel>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="Other" id="other" />
                       <FormLabel htmlFor="other" className="font-normal">
-                        Other
+                        {t('usersManagement.createAccountUser.gender.other')}
                       </FormLabel>
                     </div>
                   </RadioGroup>
@@ -244,7 +285,9 @@ export default function CreateAccountUserForm() {
 
         {/* Cancel and Create Account Buttons */}
         <div className="flex space-x-4">
-          <Button type="submit">Create Account</Button>
+          <Button type="submit">
+            {t('usersManagement.createAccountUser.createButton')}
+          </Button>
           <Button
             type="button"
             variant="outline"
@@ -253,7 +296,7 @@ export default function CreateAccountUserForm() {
               setPreviewImage(null); // Clear the image preview
             }}
           >
-            Cancel
+            {t('usersManagement.createAccountUser.cancelButton')}
           </Button>
         </div>
       </form>

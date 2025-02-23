@@ -27,33 +27,67 @@
     "pieChartTitle": "Doanh thu tháng trước",
     "pieChartDes": "Số lượng trao đổi và mua bán"
   },
-  "usersManagement":{
+  "usersManagement": {
     "title": "Quản lý người dùng",
     "addUser": "Thêm người dùng",
     "editUser": "Chỉnh sửa người dùng",
     "deleteUser": "Xóa người dùng",
     "searchUser": "Tìm kiếm người dùng",
     "userList": "Danh sách người dùng",
-    "id": "ID",
-    "name": "Tên",
+    "id": "Id",
+    "username": "Tên đăng nhập",
+    "name": "Họ và tên",
     "email": "Email",
     "phone": "Số điện thoại",
+    "gender": "Giới tính",
+    "status": "Trạng thái",
     "address": "Địa chỉ",
     "role": "Vai trò",
     "action": "Hành động",
     "edit": "Chỉnh sửa",
     "delete": "Xóa",
+    "searchPlaceholder": "Tìm kiếm người dùng tại đây...",
     "createAccountUser": {
       "title": "Tạo tài khoản",
-      "name": "Tên",
-      "email": "Email",
-      "phone": "Số điện thoại",
-      "address": "Địa chỉ",
-      "role": "Vai trò",
-      "password": "Mật khẩu",
-      "confirmPassword": "Xác nhận mật khẩu",
-      "create": "Tạo",
-      "cancel": "Hủy"
+      "createButton": "Tạo tài khoản",
+      "cancelButton": "Hủy",
+      "fullName": {
+        "label": "Họ và tên",
+        "placeholder": "Nhập họ và tên"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Nhập email"
+      },
+      "phone": {
+        "label": "Số điện thoại",
+        "placeholder": "Nhập số điện thoại"
+      },
+      "username": {
+        "label": "Tên đăng nhập",
+        "placeholder": "Nhập tên đăng nhập"
+      },
+      "password": {
+        "label": "Mật khẩu",
+        "placeholder": "Nhập mật khẩu"
+      },
+      "confirmPassword": {
+        "label": "Xác nhận mật khẩu",
+        "placeholder": "Nhập lại mật khẩu"
+      },
+      "profileImage": {
+        "label": "Ảnh đại diện",
+        "placeholder": "Chọn ảnh"
+      },
+      "gender": {
+        "label": "Giới tính",
+        "male": "Nam",
+        "female": "Nữ",
+        "other": "Khác"
+      }
     }
+  },
+  "staffsManagement":{
+    "title": "Quản lý nhân viên"
   }
 }

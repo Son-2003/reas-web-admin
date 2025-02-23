@@ -27,33 +27,67 @@
     "pieChartTitle": "Revenue previous month",
     "pieChartDes": "Number of exchanges and buys"
   },
-  "usersManagement":{
+  "usersManagement": {
     "title": "Users management",
     "addUser": "Add User",
     "editUser": "Edit User",
     "deleteUser": "Delete User",
     "searchUser": "Search User",
     "userList": "User List",
-    "id": "ID",
-    "name": "Name",
+    "id": "Id",
+    "username": "User name",
+    "name": "Full name",
     "email": "Email",
     "phone": "Phone",
+    "gender": "Gender",
+    "status": "Status",
     "address": "Address",
     "role": "Role",
     "action": "Action",
     "edit": "Edit",
     "delete": "Delete",
+    "searchPlaceholder": "Search user here...",
     "createAccountUser": {
       "title": "Create account",
-      "name": "Name",
-      "email": "Email",
-      "phone": "Phone",
-      "address": "Address",
-      "role": "Role",
-      "password": "Password",
-      "confirmPassword": "Confirm Password",
-      "create": "Create",
-      "cancel": "Cancel"
+      "createButton": "Create account",
+      "cancelButton": "Cancel",
+      "fullName": {
+        "label": "Full name",
+        "placeholder": "Enter full name"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Enter email"
+      },
+      "phone": {
+        "label": "Phone number",
+        "placeholder": "Enter phone"
+      },
+      "username": {
+        "label": "Username",
+        "placeholder": "Enter username"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter password"
+      },
+      "confirmPassword": {
+        "label": "Confirm password",
+        "placeholder": "Re-enter password"
+      },
+      "profileImage": {
+        "label": "Profile image",
+        "placeholder": "Choose profile image"
+      },
+      "gender": {
+        "label": "Gender",
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+      }
     }
+  },
+  "staffsManagement":{
+    "title": "Staffs management"
   }
 }

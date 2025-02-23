@@ -7,12 +7,19 @@ const TypePrefix = 'User';
 
 export const searchUser = createAppAsyncThunk(
   `${TypePrefix}/searchUser`,
-  async (data: SearchRequestPagination<SearchUserRequest>) => {
+  async ({
+    data,
+    request,
+  }: {
+    data: SearchRequestPagination;
+    request: SearchUserRequest;
+  }) => {
     const queryString = objectToQueryString(data);
     return await callApi(
       {
-        method: 'get',
+        method: 'post',
         url: `/user/search?${queryString}`,
+        data: request,
       },
       true,
     );

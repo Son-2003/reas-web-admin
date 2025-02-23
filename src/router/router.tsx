@@ -23,6 +23,10 @@ const router = createBrowserRouter([
         element: <UsersManagement />,
       },
       {
+        path: '/admin/staffs-management',
+        element: <UsersManagement />,
+      },
+      {
         path: '/admin/create-account-user',
         element: <CreateAccountUserPage />,
       },
