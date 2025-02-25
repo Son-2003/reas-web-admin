@@ -15,26 +15,35 @@ import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { ReduxDispatch } from '@/lib/redux/store';
+import { createStaffAccount } from '../../thunk';
+import { Gender } from '@/common/enums/gender';
+import { CreateStaffAccountRequest } from '@/common/models/user';
+import { useNavigate } from 'react-router-dom';
 
 const createAccountSchema = z
   .object({
-    username: z
+    userName: z
       .string()
-      .min(2, 'Username must be at least 2 characters.')
+      .min(8, 'Username must be at least 8 characters.')
       .max(30, 'Username must not be longer than 30 characters.'),
     fullName: z.string().min(2, 'Full name must be at least 2 characters.'),
     email: z.string().email('Invalid email address.'),
-    phone: z
-      .string()
-      .regex(/^\+?[1-9]\d{1,14}$/, 'Invalid phone number format.'),
-    gender: z.enum(['Male', 'Female', 'Other'], {
+    phone: z.string().regex(/^0\d{9,12}$/, 'Invalid phone number format.'),
+    gender: z.enum([Gender.MALE, Gender.FEMALE, Gender.OTHER], {
       message: 'Select a valid gender.',
     }),
-    image: z.instanceof(File).optional(), // Handle file input
-    password: z.string().min(6, 'Password must be at least 6 characters.'),
+    image: z.instanceof(File).optional(),
+    password: z
+      .string()
+      .regex(
+        /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/,
+        'Password must be at least 8 characters long, contain at least one uppercase letter, one number, and one special character (!@#$%^&*).',
+      ),
     confirmPassword: z
       .string()
-      .min(6, 'Confirm password must be at least 6 characters.'),
+      .min(8, 'Confirm password must be at least 8 characters.'),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match.',
@@ -45,35 +54,85 @@ type CreateAccountUserRequest = z.infer<typeof createAccountSchema>;
 
 export default function CreateAccountUserForm() {
   const { t } = useTranslation();
-
+  const dispatch = useDispatch<ReduxDispatch>();
+  const navigate = useNavigate();
+  const [previewImage, setPreviewImage] = useState<string | null>(null); // State for image preview
   const form = useForm<CreateAccountUserRequest>({
     resolver: zodResolver(createAccountSchema),
     mode: 'onChange',
   });
 
-  const [previewImage, setPreviewImage] = useState<string | null>(null); // State for image preview
+  // Helper function to upload image to Cloudinary
+  const uploadImageToCloudinary = async (file: File): Promise<string> => {
+    const cloudinaryFormData = new FormData();
+    cloudinaryFormData.append('file', file);
+    cloudinaryFormData.append('upload_preset', 'reas_user_avatar');
+    cloudinaryFormData.append('cloud_name', 'dkpg60ca0');
 
-  function onSubmit(data: CreateAccountUserRequest) {
-    toast({
-      title: 'Account Created Successfully!',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+    const response = await fetch(
+      'https://api.cloudinary.com/v1_1/dkpg60ca0/image/upload',
+      {
+        method: 'POST',
+        body: cloudinaryFormData,
+      },
+    );
+
+    if (!response.ok) throw new Error('Image upload failed');
+    const data = await response.json();
+    return data.secure_url;
+  };
+
+  async function onSubmit(formData: z.infer<typeof createAccountSchema>) {
+    try {
+      const imageUrl = formData.image
+        ? await uploadImageToCloudinary(formData.image)
+        : '';
+
+      const payload: CreateStaffAccountRequest = {
+        ...formData,
+        image: imageUrl,
+        gender: formData.gender as Gender,
+      };
+
+      console.log(payload);
+
+      const resultAction = await dispatch(createStaffAccount(payload));
+
+      console.log(resultAction); //TODO: Remove this line
+
+      if (createStaffAccount.fulfilled.match(resultAction)) {
+        navigate('/admin/staffs-management');
+      }
+
+      toast({
+        title: 'Account Created Successfully!',
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">
+              {JSON.stringify(payload, null, 2)}
+            </code>
+          </pre>
+        ),
+      });
+    } catch (error) {
+      toast({
+        title: 'Error creating account',
+        description:
+          error instanceof Error ? error.message : 'Unknown error occurred',
+        variant: 'destructive',
+      });
+    }
   }
 
-  // Handle file input change
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreviewImage(reader.result as string); // Set preview image
+        setPreviewImage(reader.result as string);
       };
-      reader.readAsDataURL(file); // Convert file to data URL
-      form.setValue('image', file); // Update form value
+      reader.readAsDataURL(file);
+      form.setValue('image', file);
     }
   };
 
@@ -127,7 +186,7 @@ export default function CreateAccountUserForm() {
         <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
-            name="username"
+            name="userName"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
@@ -258,19 +317,19 @@ export default function CreateAccountUserForm() {
                     className="flex space-x-4 pt-2"
                   >
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="Male" id="male" />
+                      <RadioGroupItem value={Gender.MALE} id="male" />
                       <FormLabel htmlFor="male" className="font-normal">
                         {t('usersManagement.createAccountUser.gender.male')}
                       </FormLabel>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="Female" id="female" />
+                      <RadioGroupItem value={Gender.FEMALE} id="female" />
                       <FormLabel htmlFor="female" className="font-normal">
                         {t('usersManagement.createAccountUser.gender.female')}
                       </FormLabel>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="Other" id="other" />
+                      <RadioGroupItem value={Gender.OTHER} id="other" />
                       <FormLabel htmlFor="other" className="font-normal">
                         {t('usersManagement.createAccountUser.gender.other')}
                       </FormLabel>

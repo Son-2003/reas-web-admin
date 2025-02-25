@@ -101,14 +101,16 @@ export const UsersManagement = () => {
           description=""
         />
 
-        <Button
-          onClick={() =>
-            navigate('/admin/create-account-user', { state: null })
-          }
-        >
-          <Plus className="mr-2 h-4 w-4" />
-          Add New
-        </Button>
+        {isStaffsManagement && (
+          <Button
+            onClick={() =>
+              navigate('/admin/create-account-user', { state: null })
+            }
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            Add New
+          </Button>
+        )}
       </div>
       <Separator />
       <div className="-mx-4 flex-1 overflow-auto px-4 py-4 lg:flex-row lg:space-x-12 lg:space-y-0">

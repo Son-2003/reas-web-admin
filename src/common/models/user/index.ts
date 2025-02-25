@@ -43,8 +43,8 @@ export interface UserToken {
   refreshToken: string;
 }
 
-export interface CreateAccountUserRequest {
-  username: string;
+export interface CreateStaffAccountRequest {
+  userName: string;
   fullName: string;
   email: string;
   phone: string;

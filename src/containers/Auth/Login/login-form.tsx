@@ -31,8 +31,6 @@ export function LoginForm({
 
     const resultAction = await dispatch(signIn(accountSignIn));
 
-    console.log(resultAction);
-
     if (signIn.fulfilled.match(resultAction)) {
       navigate('/admin');
     }
