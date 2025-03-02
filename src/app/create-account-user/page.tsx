@@ -1,5 +1,5 @@
-import CreateAccountUser from '@/containers/UsersManagement/CreateAccountUser';
+import CreateUpdateUser from '@/containers/UsersManagement/CreateAccountUser';
 
-export default function CreateAccountUserPage() {
-  return <CreateAccountUser />;
+export default function CreateUpdateUserPage() {
+  return <CreateUpdateUser />;
 }

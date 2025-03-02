@@ -13,14 +13,16 @@ import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ReduxDispatch } from '@/lib/redux/store';
-import { createStaffAccount } from '../../thunk';
+import { createStaffAccount, getUserInfo, updateUser } from '../../thunk';
 import { Gender } from '@/common/enums/gender';
 import { CreateStaffAccountRequest } from '@/common/models/user';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { STAFFS_MANAGEMENT_ROUTE } from '@/common/constants/router';
+import { selectStaffAccountInfo } from '../../selector';
 
 const createAccountSchema = z
   .object({
@@ -52,7 +54,7 @@ const createAccountSchema = z
 
 type CreateAccountUserRequest = z.infer<typeof createAccountSchema>;
 
-export default function CreateAccountUserForm() {
+export default function CreateUpdateUserForm() {
   const { t } = useTranslation();
   const dispatch = useDispatch<ReduxDispatch>();
   const navigate = useNavigate();
@@ -61,6 +63,42 @@ export default function CreateAccountUserForm() {
     resolver: zodResolver(createAccountSchema),
     mode: 'onChange',
   });
+  const { staffId } = useParams();
+  const location = useLocation();
+  const [isEdittingStaff, setIsEdittingStaff] = useState(false);
+  const staffInfo = useSelector(selectStaffAccountInfo);
+
+  useEffect(() => {
+    if (location.pathname.includes('edit-staff') && staffId) {
+      setIsEdittingStaff(true);
+    } else {
+      setIsEdittingStaff(false);
+    }
+  }, [location, staffId]);
+
+  useEffect(() => {
+    if (isEdittingStaff && staffId) {
+      dispatch(getUserInfo(staffId));
+    }
+  }, [isEdittingStaff, staffId, dispatch]);
+
+  useEffect(() => {
+    if (isEdittingStaff && staffInfo) {
+      form.reset({
+        userName: staffInfo.userName,
+        fullName: staffInfo.fullName,
+        email: staffInfo.email,
+        phone: staffInfo.phone,
+        gender: staffInfo.gender as Gender,
+        image: undefined,
+        password: '',
+        confirmPassword: '',
+      });
+      if (staffInfo.image) {
+        setPreviewImage(staffInfo.image);
+      }
+    }
+  }, [isEdittingStaff, staffInfo, form]);
 
   // Helper function to upload image to Cloudinary
   const uploadImageToCloudinary = async (file: File): Promise<string> => {
@@ -94,14 +132,21 @@ export default function CreateAccountUserForm() {
         gender: formData.gender as Gender,
       };
 
-      console.log(payload);
+      if (isEdittingStaff && staffId) {
+        const updateRequest = {
+          id: parseInt(staffId),
+          ...payload,
+        };
 
-      const resultAction = await dispatch(createStaffAccount(payload));
-
-      console.log(resultAction); //TODO: Remove this line
-
-      if (createStaffAccount.fulfilled.match(resultAction)) {
-        navigate('/admin/staffs-management');
+        const resultAction = await dispatch(updateUser(updateRequest));
+        if (updateUser.fulfilled.match(resultAction)) {
+          navigate(STAFFS_MANAGEMENT_ROUTE);
+        }
+      } else {
+        const resultAction = await dispatch(createStaffAccount(payload));
+        if (createStaffAccount.fulfilled.match(resultAction)) {
+          navigate(STAFFS_MANAGEMENT_ROUTE);
+        }
       }
 
       toast({
@@ -313,7 +358,7 @@ export default function CreateAccountUserForm() {
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value}
                     className="flex space-x-4 pt-2"
                   >
                     <div className="flex items-center space-x-2">

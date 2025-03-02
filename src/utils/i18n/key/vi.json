@@ -85,6 +85,12 @@
         "female": "Nữ",
         "other": "Khác"
       }
+    },
+    "cell-action":{
+      "title": "Hành động",
+      "edit": "Chỉnh sửa thông tin nhân viên",
+      "delete": "Vô hiệu hóa nhân viên",
+      "view": "Xem thông tin nhân viên"
     }
   },
   "staffsManagement":{

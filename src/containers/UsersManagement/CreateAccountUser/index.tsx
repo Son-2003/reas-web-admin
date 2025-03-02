@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
-import CreateAccountUserForm from './components/form';
+import CreateUpdateUserForm from './components/form';
 
-export default function CreateAccountUser() {
+export default function CreateUpdateUser() {
   const { t } = useTranslation();
 
   return (
@@ -16,7 +16,7 @@ export default function CreateAccountUser() {
       </div>
       <Separator />
       <div className="-mx-4 flex-1 overflow-auto px-4 py-4 lg:flex-row lg:space-x-12 lg:space-y-0">
-        <CreateAccountUserForm />
+        <CreateUpdateUserForm />
       </div>
     </>
   );

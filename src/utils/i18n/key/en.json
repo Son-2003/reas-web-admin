@@ -85,6 +85,12 @@
         "female": "Female",
         "other": "Other"
       }
+    },
+    "cell-action": {
+      "title": "Action",
+      "edit": "Edit info staff",
+      "delete": "Deactivate staff",
+      "view": "View detail staff"
     }
   },
   "staffsManagement":{

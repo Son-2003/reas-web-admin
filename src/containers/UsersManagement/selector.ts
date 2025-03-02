@@ -5,3 +5,9 @@ export const selectUserSearchResult = (state: ReduxState) =>
 
 export const selectStaffAccountRegistrationResult = (state: ReduxState) =>
   state.userManagement.userInfo;
+
+export const selectStaffAccountInfo = (state: ReduxState) =>
+  state.userManagement.userInfo;
+
+export const selectStaffAccountUpdateResult = (state: ReduxState) =>
+  state.userManagement.userInfo;

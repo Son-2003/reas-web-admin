@@ -53,3 +53,15 @@ export interface CreateStaffAccountRequest {
   password: string;
   confirmPassword: string;
 }
+
+export interface UpdateStaffAccountRequest {
+  id: number;
+  userName: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  gender: Gender;
+  image: string;
+  password: string;
+  confirmPassword: string;
+}
