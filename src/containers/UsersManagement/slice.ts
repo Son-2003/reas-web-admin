@@ -5,16 +5,23 @@ import {
   createSlice,
   PayloadAction,
 } from '@reduxjs/toolkit';
-import { searchUser } from './thunk';
+import {
+  createStaffAccount,
+  getUserInfo,
+  searchUser,
+  updateUser,
+} from './thunk';
 import { ApiStatus } from '@/common/enums/apiStatus';
 
 export interface UserSliceState {
   userPaginationResponse: ResponseEntityPagination<UserDto> | undefined;
+  userInfo: UserDto | undefined;
   status: ApiStatus;
 }
 
 export const initialState: UserSliceState = {
   userPaginationResponse: undefined,
+  userInfo: undefined,
   status: ApiStatus.Idle,
 };
 
@@ -24,6 +31,9 @@ const userManagemetSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     setUserPaginationResponse(builder);
+    setAccountStaffResponse(builder);
+    setInfoStaffResponse(builder);
+    setUpdateStaffResponse(builder);
   },
 });
 
@@ -45,6 +55,59 @@ function setUserPaginationResponse(
       },
     )
     .addCase(searchUser.rejected, (state: UserSliceState) => {
+      state.status = ApiStatus.Failed;
+    });
+}
+
+function setAccountStaffResponse(
+  builder: ActionReducerMapBuilder<UserSliceState>,
+) {
+  builder
+    .addCase(createStaffAccount.pending, (state: UserSliceState) => {
+      state.status = ApiStatus.Loading;
+    })
+    .addCase(
+      createStaffAccount.fulfilled,
+      (state: UserSliceState, action: PayloadAction<UserDto>) => {
+        state.status = ApiStatus.Fulfilled;
+        state.userInfo = action.payload;
+      },
+    )
+    .addCase(createStaffAccount.rejected, (state: UserSliceState) => {
+      state.status = ApiStatus.Failed;
+    });
+}
+
+function setInfoStaffResponse(
+  builder: ActionReducerMapBuilder<UserSliceState>,
+) {
+  builder
+    .addCase(getUserInfo.pending, (state: UserSliceState) => {
+      state.status = ApiStatus.Loading;
+    })
+    .addCase(
+      getUserInfo.fulfilled,
+      (state: UserSliceState, action: PayloadAction<UserDto>) => {
+        state.status = ApiStatus.Fulfilled;
+        state.userInfo = action.payload;
+      },
+    )
+    .addCase(getUserInfo.rejected, (state: UserSliceState) => {
+      state.status = ApiStatus.Failed;
+    });
+}
+
+function setUpdateStaffResponse(
+  builder: ActionReducerMapBuilder<UserSliceState>,
+) {
+  builder
+    .addCase(updateUser.pending, (state: UserSliceState) => {
+      state.status = ApiStatus.Loading;
+    })
+    .addCase(updateUser.fulfilled, (state: UserSliceState) => {
+      state.status = ApiStatus.Fulfilled;
+    })
+    .addCase(updateUser.rejected, (state: UserSliceState) => {
       state.status = ApiStatus.Failed;
     });
 }

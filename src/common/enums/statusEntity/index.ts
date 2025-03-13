@@ -1,4 +1,4 @@
 export enum StatusEntity {
-  ACTIVE,
-  INACTIVE,
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
 }

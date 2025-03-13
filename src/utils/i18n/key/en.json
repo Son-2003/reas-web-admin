@@ -27,21 +27,73 @@
     "pieChartTitle": "Revenue previous month",
     "pieChartDes": "Number of exchanges and buys"
   },
-  "usersManagement":{
-    "title": "Users Management",
+  "usersManagement": {
+    "title": "Users management",
     "addUser": "Add User",
     "editUser": "Edit User",
     "deleteUser": "Delete User",
     "searchUser": "Search User",
     "userList": "User List",
-    "id": "ID",
-    "name": "Name",
+    "id": "Id",
+    "username": "User name",
+    "name": "Full name",
     "email": "Email",
     "phone": "Phone",
+    "gender": "Gender",
+    "status": "Status",
     "address": "Address",
     "role": "Role",
     "action": "Action",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "searchPlaceholder": "Search user here...",
+    "createAccountUser": {
+      "title": "Create account",
+      "createButton": "Create account",
+      "cancelButton": "Cancel",
+      "fullName": {
+        "label": "Full name",
+        "placeholder": "Enter full name"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Enter email"
+      },
+      "phone": {
+        "label": "Phone number",
+        "placeholder": "Enter phone"
+      },
+      "username": {
+        "label": "Username",
+        "placeholder": "Enter username"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter password"
+      },
+      "confirmPassword": {
+        "label": "Confirm password",
+        "placeholder": "Re-enter password"
+      },
+      "profileImage": {
+        "label": "Profile image",
+        "placeholder": "Choose profile image"
+      },
+      "gender": {
+        "label": "Gender",
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+      }
+    },
+    "cell-action": {
+      "title": "Action",
+      "edit": "Edit info staff",
+      "delete": "Deactivate staff",
+      "view": "View detail staff"
+    }
+  },
+  "staffsManagement":{
+    "title": "Staffs management"
   }
 }

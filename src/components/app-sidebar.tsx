@@ -24,6 +24,10 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar';
 import { useTranslation } from 'react-i18next';
+import {
+  STAFFS_MANAGEMENT_ROUTE,
+  USERS_MANAGEMENT_ROUTE,
+} from '@/common/constants/router';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { t } = useTranslation();
@@ -50,11 +54,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         items: [
           {
             title: t('sidebar.staffs'),
-            url: '/admin/staffs-management',
+            url: STAFFS_MANAGEMENT_ROUTE,
           },
           {
             title: t('sidebar.users'),
-            url: '/admin/users-management',
+            url: USERS_MANAGEMENT_ROUTE,
           },
         ],
       },

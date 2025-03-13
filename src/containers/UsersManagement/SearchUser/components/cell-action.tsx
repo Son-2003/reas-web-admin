@@ -7,7 +7,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useToast } from '@/components/ui/use-toast';
@@ -15,6 +14,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MoreHorizontal } from 'lucide-react';
 import { Icons } from '@/components/ui/icons';
+import { useTranslation } from 'react-i18next';
 
 interface CellActionProps {
   data: UserDto;
@@ -26,6 +26,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const [dialogContent] = useState<React.ReactNode | null>(null);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const onConfirm = async () => {
     try {
@@ -50,12 +51,8 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     navigate(`/admin/location/${data.id}`);
   };
 
-  const handleViewPaymentHistoriesClick = () => {
-    navigate(`/admin/location-payment-histories/${data.id}`);
-  };
-
-  const handleViewPaymentBetweenLocationAndSystem = () => {
-    navigate(`/admin/payment-histories-between-location-and-system`);
+  const handleUpdateInfoStaff = () => {
+    navigate(`/admin/edit-staff/${data.id}`);
   };
 
   return (
@@ -75,29 +72,31 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Hành động</DropdownMenuLabel>
+            <DropdownMenuLabel>
+              {t('usersManagement.cell-action.title')}
+            </DropdownMenuLabel>
             <DropdownMenuItem onClick={handleViewDetailsClick}>
               <Icons.info className="mr-2 h-4 w-4" />
-              Xem thông tin chi tiết
+              {t('usersManagement.cell-action.view')}
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleViewPaymentHistoriesClick}>
-              <Icons.speedNext className="mr-2 h-4 w-4" />
-              Lịch sử giao dịch với khách hàng
+            <DropdownMenuItem onClick={handleUpdateInfoStaff}>
+              <Icons.edit className="mr-2 h-4 w-4" />
+              {t('usersManagement.cell-action.edit')}
             </DropdownMenuItem>
-            <DropdownMenuItem
+            {/* <DropdownMenuItem
               onClick={handleViewPaymentBetweenLocationAndSystem}
             >
               <Icons.check className="mr-2 h-4 w-4" />
               Lịch sử giao dịch giữa nhà hàng và hệ thống
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            {/* <DropdownMenuItem
+            <DropdownMenuSeparator /> */}
+            <DropdownMenuItem
               onClick={() => setOpen(true)}
               className="text-red-600"
             >
               <Icons.delete className="mr-2 h-4 w-4" />
-              Delete
-            </DropdownMenuItem> */}
+              {t('usersManagement.cell-action.delete')}
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         {dialogContent && <DialogContent>{dialogContent}</DialogContent>}
