@@ -18,15 +18,14 @@ export const ItemRequest = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch<ReduxDispatch>();
   const items = useSelector(selectPendingItems);
-  
+
   const [pageNo, setPageNo] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(fetchPendingItems())
-      .finally(() => setLoading(false));
+    dispatch(fetchPendingItems()).finally(() => setLoading(false));
   }, [dispatch]);
 
   if (loading) {

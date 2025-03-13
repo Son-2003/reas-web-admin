@@ -5,7 +5,6 @@ import { Icons } from '@/components/ui/icons';
 import { CellAction } from './cell-action';
 import { Item } from '@/common/models/item';
 
-
 export const columns: ColumnDef<Item>[] = [
   {
     id: 'select',
@@ -51,7 +50,6 @@ export const columns: ColumnDef<Item>[] = [
     header: 'Owner',
     cell: ({ row }) => <span>{row.original.owner.userName}</span>,
   },
-
 
   {
     id: 'actions',
