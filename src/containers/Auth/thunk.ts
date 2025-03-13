@@ -1,4 +1,4 @@
-import { AccountSignIn, AccountSignUp, User } from '@/common/models/user';
+import { AccountSignIn, AccountSignUp, UserDto } from '@/common/models/user';
 import { createAppAsyncThunk } from '@/lib/redux/createAppAsyncThunk';
 import { UserToken } from '@/common/models/user';
 import callApi from '@/utils/api';
@@ -76,7 +76,7 @@ export const getUserInfo = createAppAsyncThunk(
       true,
     );
 
-    const userInfo: User = response;
+    const userInfo: UserDto = response;
 
     return userInfo;
   },

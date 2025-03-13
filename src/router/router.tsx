@@ -2,7 +2,11 @@ import DashboardPage from '@/app/dashboard/page';
 import LoginPage from '@/app/login/page';
 import AppShell from '@/components/app-shell';
 import { UsersManagement } from '@/containers/UsersManagement';
-import { createBrowserRouter /*, Navigate */ } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
+import ItemRequestPage from '@/app/itemrequest/page';
+import { ItemRequestDetail } from '@/containers/ItemRequest/detail';
+
+// Import trang chi tiết
 
 const router = createBrowserRouter([
   {
@@ -11,7 +15,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin',
-    element: <AppShell />, // Bọc toàn bộ admin trong AppShell
+    element: <AppShell />,
     children: [
       {
         index: true,
@@ -21,10 +25,14 @@ const router = createBrowserRouter([
         path: '/admin/users-management',
         element: <UsersManagement />,
       },
-      // {
-      //   path: "/admin/location/:locationId",
-      //   element: <LocationDetail />,
-      // },
+      {
+        path: '/admin/item-request',
+        element: <ItemRequestPage />,
+      },
+      {
+        path: '/admin/item-request/:id', // Thêm route chi tiết
+        element: <ItemRequestDetail />,
+      },
     ],
   },
 ]);
