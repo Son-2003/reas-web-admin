@@ -32,7 +32,7 @@ export function LoginForm({
     const resultAction = await dispatch(signIn(accountSignIn));
 
     if (signIn.fulfilled.match(resultAction)) {
-      navigate('/admin');
+      navigate('/admin/item-request');
     }
   };
 

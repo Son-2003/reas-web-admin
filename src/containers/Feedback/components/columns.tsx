@@ -3,9 +3,16 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Icons } from '@/components/ui/icons';
 import { CellAction } from './cell-action';
-import { Item } from '@/common/models/item';
 
-export const columns: ColumnDef<Item>[] = [
+
+// Định nghĩa kiểu dữ liệu đơn giản thay vì dùng model Item
+interface ItemData {
+  id: number;
+  itemName: string;
+  status: string;
+}
+
+export const columns: ColumnDef<ItemData>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -46,17 +53,10 @@ export const columns: ColumnDef<Item>[] = [
   },
 
   {
-    accessorKey: 'owner',
-    header: 'Owner',
-    cell: ({ row }) => <span>{row.original.owner.userName}</span>,
-  },
-  {
-    accessorKey: 'status',
+    accessorKey: 'statusItem',
     header: 'Status',
-    cell: ({ row }) => <span>{row.original.statusItem}</span>,
+    cell: ({ row }) => <span>{row.original.status}</span>,
   },
-
-
   {
     id: 'actions',
     header: 'Actions',

@@ -3,51 +3,34 @@ import { DataTablePagination } from '@/components/DataTable/data-table-paginatio
 import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 import { LoaderCircle, Plus } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { columns } from './components/columns';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { selectSearchResults, selectSearchStatus } from './selector';
+import { searchItems } from './thunk';
 import { ReduxDispatch } from '@/lib/redux/store';
-import { fetchPendingItems } from './thunk';
-import { selectPendingItems } from './selector';
+import { ApiStatus } from '@/common/enums/apiStatus';
 
-export const ItemRequest = () => {
+
+export const ItemManagement = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch<ReduxDispatch>();
-  const items = useSelector(selectPendingItems);
+  const navigate = useNavigate();
 
   const [pageNo, setPageNo] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
+  // Lấy dữ liệu từ Redux store
+  const items = useSelector(selectSearchResults);
+  const searchStatus = useSelector(selectSearchStatus);
+
+  // Gọi API khi component mount hoặc khi `pageNo` thay đổi
   useEffect(() => {
-    setLoading(true);
-    dispatch(fetchPendingItems())
-      .unwrap() // Giúp lấy dữ liệu từ createAsyncThunk
-      .then((data) => {
-        console.log('Fetched Pending Items:', data); // Log dữ liệu từ API
-      })
-      .catch((error) => {
-        console.error('Error fetching pending items:', error);
-      })
-      .finally(() => setLoading(false));
-  }, [dispatch, pageNo, pageSize]);
-  
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <LoaderCircle />
-      </div>
-    );
-  }
-
-  console.log('Redux Store - selectPendingItems:', items);
-
+    dispatch(searchItems({ query: '' })); // Truy vấn tất cả item
+  }, [dispatch, pageNo]);
 
   return (
     <>
@@ -59,18 +42,26 @@ export const ItemRequest = () => {
         </Button>
       </div>
       <Separator />
+
       <div className="-mx-4 flex-1 overflow-auto px-4 py-4 lg:flex-row lg:space-x-12 lg:space-y-0">
-        <DataTable
-          columns={columns}
-          data={items || []} // Sử dụng dữ liệu từ Redux store
-          searchKey="id"
-          placeholder="Tìm kiếm yêu cầu vật phẩm tại đây..."
-          dataType='itemRequests'
-        />
+        {searchStatus === ApiStatus.Loading ? (
+          <div className="flex justify-center py-6">
+            <LoaderCircle className="animate-spin h-8 w-8 text-gray-500" />
+          </div>
+        ) : (
+          <DataTable
+            columns={columns}
+            data={items || []} // Sử dụng dữ liệu từ API
+            searchKey="id"
+            placeholder="Tìm kiếm yêu cầu vật phẩm tại đây..."
+            dataType="itemRequests"
+          />
+        )}
       </div>
+
       <DataTablePagination
         currentPage={pageNo}
-        totalPages={5} // Bạn có thể thay bằng totalPages từ API nếu có
+        totalPages={5}
         pageSize={pageSize}
         setPageNo={setPageNo}
         setPageSize={setPageSize}

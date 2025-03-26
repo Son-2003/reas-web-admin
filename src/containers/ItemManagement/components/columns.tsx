@@ -5,6 +5,9 @@ import { Icons } from '@/components/ui/icons';
 import { CellAction } from './cell-action';
 import { Item } from '@/common/models/item';
 
+// Định nghĩa kiểu dữ liệu đơn giản thay vì dùng model Item
+
+
 export const columns: ColumnDef<Item>[] = [
   {
     id: 'select',
@@ -46,17 +49,10 @@ export const columns: ColumnDef<Item>[] = [
   },
 
   {
-    accessorKey: 'owner',
-    header: 'Owner',
-    cell: ({ row }) => <span>{row.original.owner.userName}</span>,
-  },
-  {
     accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) => <span>{row.original.statusItem}</span>,
   },
-
-
   {
     id: 'actions',
     header: 'Actions',
