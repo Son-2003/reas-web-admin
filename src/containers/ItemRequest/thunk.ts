@@ -7,14 +7,17 @@ export const fetchPendingItems = createAppAsyncThunk(
   `${TypePrefix}/fetchPendingItems`,
   async () => {
     try {
-      const response = await callApi({ method: 'get', url: '/item/pending' }, true);
-      
+      const response = await callApi(
+        { method: 'get', url: '/item/pending' },
+        true,
+      );
+
       return response.content; // Chỉ trả về phần content
     } catch (error) {
       console.error('Error in fetchPendingItems:', error);
       throw error;
     }
-  }
+  },
 );
 
 export const fetchItemDetail = createAppAsyncThunk(

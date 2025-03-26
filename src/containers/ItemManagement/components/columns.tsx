@@ -7,7 +7,6 @@ import { Item } from '@/common/models/item';
 
 // Định nghĩa kiểu dữ liệu đơn giản thay vì dùng model Item
 
-
 export const columns: ColumnDef<Item>[] = [
   {
     id: 'select',

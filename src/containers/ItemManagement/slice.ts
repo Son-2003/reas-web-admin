@@ -27,7 +27,7 @@ const itemSearchSlice = createSlice({
         (state, action: PayloadAction<Item[]>) => {
           state.searchStatus = ApiStatus.Fulfilled;
           state.searchResults = action.payload;
-        }
+        },
       )
       .addCase(searchItems.rejected, (state) => {
         state.searchStatus = ApiStatus.Failed;

@@ -6,12 +6,11 @@ import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 import { columns } from './components/columns';
 
-
 export const FeedbackUser = () => {
-  const { t } = useTranslation();
+  //   const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [pageNo, setPageNo] = useState(1);
@@ -27,7 +26,7 @@ export const FeedbackUser = () => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading title= "Feedback" description="" />
+        <Heading title="Feedback" description="" />
         <Button onClick={() => navigate('/admin/newItemRequest')}>
           <Plus className="mr-2 h-4 w-4" />
           Add New
@@ -40,7 +39,7 @@ export const FeedbackUser = () => {
           data={items} // Sử dụng dữ liệu tĩnh
           searchKey="id"
           placeholder="Tìm kiếm yêu cầu vật phẩm tại đây..."
-          dataType='itemRequests'
+          dataType="itemRequests"
         />
       </div>
       <DataTablePagination

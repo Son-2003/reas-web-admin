@@ -49,7 +49,7 @@ const router = createBrowserRouter([
       {
         path: ITEMS_MANAGEMENT_ROUTE,
         element: <ItemManagementPage />,
-      }
+      },
     ],
   },
 ]);

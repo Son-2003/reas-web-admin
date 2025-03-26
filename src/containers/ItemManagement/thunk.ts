@@ -14,7 +14,7 @@ export const searchItems = createAppAsyncThunk(
           url: 'item/search',
           data: searchParams,
         },
-        true
+        true,
       );
 
       return response.content as Item[];
@@ -22,5 +22,5 @@ export const searchItems = createAppAsyncThunk(
       console.error('Error in searchItems:', error);
       throw error;
     }
-  }
+  },
 );

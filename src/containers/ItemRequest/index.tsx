@@ -36,7 +36,6 @@ export const ItemRequest = () => {
       })
       .finally(() => setLoading(false));
   }, [dispatch, pageNo, pageSize]);
-  
 
   if (loading) {
     return (
@@ -47,7 +46,6 @@ export const ItemRequest = () => {
   }
 
   console.log('Redux Store - selectPendingItems:', items);
-
 
   return (
     <>
@@ -65,7 +63,7 @@ export const ItemRequest = () => {
           data={items || []} // Sử dụng dữ liệu từ Redux store
           searchKey="id"
           placeholder="Tìm kiếm yêu cầu vật phẩm tại đây..."
-          dataType='itemRequests'
+          dataType="itemRequests"
         />
       </div>
       <DataTablePagination

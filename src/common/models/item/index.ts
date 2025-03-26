@@ -39,14 +39,12 @@ export interface Owner {
   numOfFeedbacks: number;
   numOfRatings: number;
   userLocations: UserLocations[];
-  
-
 }
 
-export interface Category{
+export interface Category {
   categoryName: string;
-} 
-export interface Brand{
+}
+export interface Brand {
   brandName: string;
   imgage: string;
 }

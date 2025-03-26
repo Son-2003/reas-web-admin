@@ -1,5 +1,4 @@
-import { ItemManagement } from "@/containers/ItemManagement";
-
+import { ItemManagement } from '@/containers/ItemManagement';
 
 export default function ItemManagementPage() {
   return <ItemManagement />;

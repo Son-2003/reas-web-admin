@@ -56,7 +56,6 @@ export const columns: ColumnDef<Item>[] = [
     cell: ({ row }) => <span>{row.original.statusItem}</span>,
   },
 
-
   {
     id: 'actions',
     header: 'Actions',

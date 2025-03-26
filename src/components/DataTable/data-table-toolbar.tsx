@@ -30,9 +30,8 @@ export function DataTableToolbar<TData>({
 
   const getColumnSafely = (
     columnId: string,
-  ): Column<TData, unknown> | undefined => {
-    return table.getColumn(columnId) || undefined;
-  };
+  ): Column<TData, unknown> | undefined =>
+    table.getColumn(columnId) || undefined;
 
   const statusColumn = getColumnSafely('status');
 
