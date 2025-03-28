@@ -1,15 +1,21 @@
 import DashboardPage from '@/app/dashboard/page';
 import LoginPage from '@/app/login/page';
 import {
+  ITEM_MANAGEMENT_DETAIL_ROUTE,
+  ITEM_REQUEST_DETAIL_ROUTE,
+  ITEM_REQUEST_ROUTE,
+  ITEMS_MANAGEMENT_ROUTE,
   STAFFS_MANAGEMENT_ROUTE,
   USERS_MANAGEMENT_ROUTE,
 } from '@/common/constants/router';
 import AppShell from '@/components/app-shell';
 
 import { createBrowserRouter } from 'react-router-dom';
-import ItemRequestPage from '@/app/itemrequest/page';
-import { ItemRequestDetail } from '@/containers/ItemRequest/detail';
+import ItemRequestPage from '@/app/item-request/page';
 import UsersManagementPage from '@/app/search-users/page';
+import ItemManagementPage from '@/app/item/page';
+import ItemRequestDetailPage from '@/app/item-request-detail/page';
+import ItemDetailPage from '@/app/item-detail/page';
 
 // Import trang chi tiết
 
@@ -35,12 +41,20 @@ const router = createBrowserRouter([
         element: <UsersManagementPage />,
       },
       {
-        path: '/admin/item-request',
+        path: ITEM_REQUEST_ROUTE,
         element: <ItemRequestPage />,
       },
       {
-        path: '/admin/item-request/:id', // Thêm route chi tiết
-        element: <ItemRequestDetail />,
+        path: ITEM_REQUEST_DETAIL_ROUTE,
+        element: <ItemRequestDetailPage />,
+      },
+      {
+        path: ITEMS_MANAGEMENT_ROUTE,
+        element: <ItemManagementPage />,
+      },
+      {
+        path: ITEM_MANAGEMENT_DETAIL_ROUTE,
+        element: <ItemDetailPage />,
       },
     ],
   },

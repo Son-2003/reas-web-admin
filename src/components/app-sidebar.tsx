@@ -3,7 +3,7 @@
 import * as React from 'react';
 import {
   BookOpen,
-  Bot,
+  // Bot,
   Frame,
   GalleryVerticalEnd,
   Map,
@@ -25,6 +25,7 @@ import {
 } from '@/components/ui/sidebar';
 import { useTranslation } from 'react-i18next';
 import {
+  ITEM_REQUEST_ROUTE,
   STAFFS_MANAGEMENT_ROUTE,
   USERS_MANAGEMENT_ROUTE,
 } from '@/common/constants/router';
@@ -62,70 +63,22 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           },
         ],
       },
+    ],
+    navSingle: [
+      // {
+      //   title: 'Items',
+      //   url: ITEMS_MANAGEMENT_ROUTE,
+      //   icon: Bot,
+      // },
       {
-        title: 'Models',
-        url: '#',
-        icon: Bot,
-        items: [
-          {
-            title: 'Genesis',
-            url: '#',
-          },
-          {
-            title: 'Explorer',
-            url: '#',
-          },
-          {
-            title: 'Quantum',
-            url: '#',
-          },
-        ],
-      },
-      {
-        title: 'Documentation',
-        url: '#',
+        title: 'Requests',
+        url: ITEM_REQUEST_ROUTE,
         icon: BookOpen,
-        items: [
-          {
-            title: 'Introduction',
-            url: '#',
-          },
-          {
-            title: 'Get Started',
-            url: '#',
-          },
-          {
-            title: 'Tutorials',
-            url: '#',
-          },
-          {
-            title: 'Changelog',
-            url: '#',
-          },
-        ],
       },
       {
         title: 'Settings',
         url: '#',
         icon: Settings2,
-        items: [
-          {
-            title: 'General',
-            url: '#',
-          },
-          {
-            title: 'Team',
-            url: '#',
-          },
-          {
-            title: 'Billing',
-            url: '#',
-          },
-          {
-            title: 'Limits',
-            url: '#',
-          },
-        ],
       },
     ],
     projects: [
@@ -151,34 +104,19 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
-        {/* <div className={`flex items-center ${!isCollapsed ? "gap-2" : ""}`}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 256 256"
-              className={`transition-all ${
-                isCollapsed ? "h-7 w-7" : "h-8 w-8"
-              }`}
-            >
-              <rect width="256" height="256" fill="none"></rect>
-              <image
-                href="https://res.cloudinary.com/dnslrwedn/image/upload/v1727033068/SKEDEAT_logo-01_niakut.png"
-                width="256"
-                height="256"
-              />
-              <span className="sr-only">SkedEat</span>
-            </svg>
-            <div
-              className={`flex flex-col justify-end truncate ${
-                isCollapsed ? "invisible w-0" : "visible w-auto"
-              }`}
-            >
-              <span className="font-medium">SkedEat</span>
-
-            </div>
-          </div> */}
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
+        {data.navSingle.map((item) => (
+          <a
+            key={item.title}
+            href={item.url}
+            className="flex items-center gap-2 p-2 rounded transition-colors duration-200 hover:bg-gray-700 hover:text-white"
+          >
+            <item.icon className="w-5 h-5" />
+            <span>{item.title}</span>
+          </a>
+        ))}
         <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>

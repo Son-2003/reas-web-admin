@@ -2,45 +2,31 @@ import { DataTable } from '@/components/DataTable/data-table';
 import { DataTablePagination } from '@/components/DataTable/data-table-pagination';
 import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
-import { LoaderCircle, Plus } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { Plus } from 'lucide-react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 import { columns } from './components/columns';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { ReduxDispatch } from '@/lib/redux/store';
-import { fetchPendingItems } from './thunk';
-import { selectPendingItems } from './selector';
-
-export const ItemRequest = () => {
-  const { t } = useTranslation();
-  const dispatch = useDispatch<ReduxDispatch>();
-  const items = useSelector(selectPendingItems);
+export const FeedbackUser = () => {
+  //   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const [pageNo, setPageNo] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    setLoading(true);
-    dispatch(fetchPendingItems()).finally(() => setLoading(false));
-  }, [dispatch, pageNo, pageSize]);
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <LoaderCircle />
-      </div>
-    );
-  }
+  // Dữ liệu tĩnh thay vì lấy từ API
+  const items = [
+    { id: 1, itemName: 'Item A', status: 'Pending' },
+    { id: 2, itemName: 'Item B', status: 'Approved' },
+    { id: 3, itemName: 'Item C', status: 'Rejected' },
+  ];
 
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading title={t('itemRequest.title')} description="" />
+        <Heading title="Feedback" description="" />
         <Button onClick={() => navigate('/admin/newItemRequest')}>
           <Plus className="mr-2 h-4 w-4" />
           Add New
@@ -50,7 +36,7 @@ export const ItemRequest = () => {
       <div className="-mx-4 flex-1 overflow-auto px-4 py-4 lg:flex-row lg:space-x-12 lg:space-y-0">
         <DataTable
           columns={columns}
-          data={items || []}
+          data={items} // Sử dụng dữ liệu tĩnh
           searchKey="id"
           placeholder="Tìm kiếm yêu cầu vật phẩm tại đây..."
           dataType="itemRequests"
@@ -58,7 +44,7 @@ export const ItemRequest = () => {
       </div>
       <DataTablePagination
         currentPage={pageNo}
-        totalPages={5}
+        totalPages={1} // Do dữ liệu tĩnh ít, chỉ cần 1 trang
         pageSize={pageSize}
         setPageNo={setPageNo}
         setPageSize={setPageSize}

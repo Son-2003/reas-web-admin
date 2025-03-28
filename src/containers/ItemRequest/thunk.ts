@@ -5,7 +5,19 @@ const TypePrefix = 'Item';
 
 export const fetchPendingItems = createAppAsyncThunk(
   `${TypePrefix}/fetchPendingItems`,
-  async () => await callApi({ method: 'get', url: '/item/pending' }, true),
+  async () => {
+    try {
+      const response = await callApi(
+        { method: 'get', url: '/item/pending' },
+        true,
+      );
+
+      return response.content;
+    } catch (error) {
+      console.error('Error in fetchPendingItems:', error);
+      throw error;
+    }
+  },
 );
 
 export const fetchItemDetail = createAppAsyncThunk(

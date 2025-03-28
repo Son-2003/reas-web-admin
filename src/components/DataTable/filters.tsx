@@ -1,18 +1,20 @@
 import { Icons } from '../ui/icons';
 
-export const Milkstatuses = [
+export const UserStatuses = [
   { value: 'ACTIVE', label: 'Active', icon: Icons.check },
   { value: 'INACTIVE', label: 'Inactive', icon: Icons.cancel },
-  { value: 'PRE_ORDER', label: 'PreOrder', icon: Icons.pending },
-  {
-    value: 'NEAR_OUT_OF_STOCKS',
-    label: 'Near Out Of Stock',
-    icon: Icons.outStock,
-  },
+  { value: 'PENDING', label: 'Pending', icon: Icons.pending },
 ];
 
-export const VoucherStatuses = [
-  { value: 'ACTIVE', label: 'Active', icon: Icons.checked },
-  { value: 'INACTIVE', label: 'Inactive', icon: Icons.cancel },
-  { value: 'EXPIRE', label: 'Expire', icon: Icons.x },
+export const ItemRequestStatuses = [
+  { value: 'AVAILABLE', label: 'Available', icon: Icons.check },
+  { value: 'UNAVAILABLE', label: 'Unavailable', icon: Icons.cancel },
+  { value: 'EXPIRED', label: 'Expired', icon: Icons.x },
+  {
+    value: 'NO_LONGER_FOR_EXCHANGE',
+    label: 'No Longer for Exchange',
+    icon: Icons.outStock,
+  },
+  { value: 'PENDING', label: 'Pending', icon: Icons.pending },
+  { value: 'REJECTED', label: 'Rejected', icon: Icons.cancel },
 ];

@@ -96,5 +96,9 @@
   },
   "staffsManagement":{
     "title": "Staffs management"
+  },
+  "itemsManagement":{
+    "title": "Items management"
   }
+  
 }

@@ -12,7 +12,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MoreHorizontal } from 'lucide-react';
 import { Icons } from '@/components/ui/icons';
-import { ITEM_REQUEST_DETAIL_ROUTE } from '@/common/constants/router';
 
 interface CellActionProps {
   data: any;
@@ -23,11 +22,10 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const navigate = useNavigate();
 
   const handleViewDetailsClick = () => {
-    navigate(ITEM_REQUEST_DETAIL_ROUTE.replace(':id', data.id));
+    navigate(`/admin/item-request/${data.id}`);
   };
 
   const handleApproveRequestClick = () => {
-    // Logic xử lý khi duyệt yêu cầu
     console.log('Approve request:', data.id);
   };
 

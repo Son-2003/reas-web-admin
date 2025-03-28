@@ -54,6 +54,9 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const handleUpdateInfoStaff = () => {
     navigate(`/admin/edit-staff/${data.id}`);
   };
+  const handleViewItem = () => {
+    navigate(`/admin/items-management/${data.id}`);
+  };
 
   const handleDeactivateStaff = () => {
     // call api to deactivate staff here
@@ -87,6 +90,10 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             <DropdownMenuItem onClick={handleUpdateInfoStaff}>
               <Icons.edit className="mr-2 h-4 w-4" />
               {t('usersManagement.cell-action.edit')}
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleViewItem}>
+              <Icons.edit className="mr-2 h-4 w-4" />
+              View item
             </DropdownMenuItem>
             {/* <DropdownMenuItem
               onClick={handleViewPaymentBetweenLocationAndSystem}

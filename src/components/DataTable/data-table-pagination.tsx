@@ -52,8 +52,11 @@ export function DataTablePagination({
           </Select>
         </div>
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-          Trang {currentPage + 1} trong {totalPages}
+          {totalPages > 0
+            ? `Trang ${currentPage + 1} trong ${totalPages}`
+            : 'Không có dữ liệu'}
         </div>
+
         <div className="flex items-center space-x-2">
           <Button
             variant="outline"
