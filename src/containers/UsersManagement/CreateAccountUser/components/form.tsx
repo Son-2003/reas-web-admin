@@ -390,7 +390,9 @@ export default function CreateUpdateUserForm() {
         {/* Cancel and Create Account Buttons */}
         <div className="flex space-x-4">
           <Button type="submit">
-            {t('usersManagement.createAccountUser.createButton')}
+            {isEdittingStaff
+              ? t('usersManagement.createAccountUser.updateButton')
+              : t('usersManagement.createAccountUser.createButton')}
           </Button>
           <Button
             type="button"
