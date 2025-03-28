@@ -95,5 +95,9 @@
   },
   "staffsManagement":{
     "title": "Quản lý nhân viên"
+  },
+  "itemsManagement":{
+    "title": "Quản lý sản phẩm"
   }
+
 }

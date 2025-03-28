@@ -3,22 +3,22 @@ import { fetchPendingItems, fetchItemDetail } from './thunk';
 import { ApiStatus } from '@/common/enums/apiStatus';
 import { Item } from '@/common/models/item';
 
-export interface ItemSliceState {
+export interface PendingItemsState {
   pendingItems: Item[];
-  itemDetail: Item | null; // Thêm state cho itemDetail
+  itemDetail: Item | null; 
   status: ApiStatus;
-  itemDetailStatus: ApiStatus; // Trạng thái cho itemDetail
+  itemDetailStatus: ApiStatus; 
 }
 
-export const initialState: ItemSliceState = {
+export const initialState: PendingItemsState = {
   pendingItems: [],
-  itemDetail: null, // Giá trị mặc định là null
+  itemDetail: null, 
   status: ApiStatus.Idle,
-  itemDetailStatus: ApiStatus.Idle, // Trạng thái mặc định
+  itemDetailStatus: ApiStatus.Idle, 
 };
 
-const itemManagementSlice = createSlice({
-  name: 'itemManagement',
+const pendingItemsSlice = createSlice({
+  name: 'pendingItems',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -52,4 +52,4 @@ const itemManagementSlice = createSlice({
   },
 });
 
-export default itemManagementSlice.reducer;
+export default pendingItemsSlice.reducer;

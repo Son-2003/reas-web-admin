@@ -4,23 +4,36 @@ import { Item } from '@/common/models/item';
 
 const TypePrefix = 'Item';
 
-export const searchItems = createAppAsyncThunk(
-  `${TypePrefix}/searchItems`,
-  async (searchParams: { query: string }) => {
+export const fetchItems = createAppAsyncThunk(
+  `${TypePrefix}/fetchItems`,
+  async (params: { 
+    userId: string;
+    statusItem?: string;
+  }) => {
     try {
+
       const response = await callApi(
         {
           method: 'get',
-          url: 'item/search',
-          data: searchParams,
+          url: 'item/user',
+          params: {
+            userId: params.userId,
+            statusItem: params.statusItem,
+          },
         },
         true,
       );
-
-      return response.content as Item[];
+      return {
+        items: response.content as Item[], 
+        totalPages: response.totalPages,   
+        totalRecords: response.totalRecords, 
+        currentPage: response.pageNo,    
+      };
     } catch (error) {
-      console.error('Error in searchItems:', error);
+      console.error('Error in fetchItems:', error);
       throw error;
     }
   },
 );
+
+

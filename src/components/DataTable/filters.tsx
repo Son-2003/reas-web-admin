@@ -7,10 +7,10 @@ export const UserStatuses = [
 ];
 
 export const ItemRequestStatuses = [
-  { value: 'AVAI', label: 'Available', icon: Icons.check },
-  { value: 'UNAV', label: 'Unavailable', icon: Icons.cancel },
-  { value: 'EXPI', label: 'Expired', icon: Icons.x },
-  { value: 'NLFE', label: 'No Longer for Exchange', icon: Icons.outStock },
-  { value: 'PEND', label: 'Pending', icon: Icons.pending },
-  { value: 'REJE', label: 'Rejected', icon: Icons.cancel },
+  { value: 'AVAILABLE', label: 'Available', icon: Icons.check },
+  { value: 'UNAVAILABLE', label: 'Unavailable', icon: Icons.cancel },
+  { value: 'EXPIRED', label: 'Expired', icon: Icons.x },
+  { value: 'NO_LONGER_FOR_EXCHANGE', label: 'No Longer for Exchange', icon: Icons.outStock },
+  { value: 'PENDING', label: 'Pending', icon: Icons.pending },
+  { value: 'REJECTED', label: 'Rejected', icon: Icons.cancel },
 ];

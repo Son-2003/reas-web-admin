@@ -1,5 +1,5 @@
 import { ItemManagement } from '@/containers/ItemManagement';
 
-export default function ItemManagementPage() {
+export default function ItemPage() {
   return <ItemManagement />;
 }

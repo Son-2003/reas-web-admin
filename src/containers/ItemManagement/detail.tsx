@@ -5,21 +5,23 @@ import { ReduxDispatch } from '@/lib/redux/store';
 
 import { LoaderCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { selectItemDetail } from './selector';
-import { fetchItemDetail, reviewItemRequest } from './thunk';
-import { ITEM_REQUEST_ROUTE } from '@/common/constants/router';
+import { selectItemDetail } from '../ItemRequest/selector';
+import { fetchItemDetail } from '../ItemRequest/thunk';
+import { ITEMS_MANAGEMENT_ROUTE } from '@/common/constants/router';
 
-export const ItemRequestDetail = () => {
-  const { id } = useParams<{ id: string }>();
+
+
+export const ItemDetail = () => {
+  const { itemId, userId  } = useParams<{ itemId : string, userId: string }>();
   const dispatch = useDispatch<ReduxDispatch>();
   const item = useSelector(selectItemDetail);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchItemDetail(id));
+    if (itemId ) {
+      dispatch(fetchItemDetail(itemId ));
     }
-  }, [dispatch, id]);
+  }, [dispatch, itemId ]);
 
   if (!item) {
     return (
@@ -29,19 +31,7 @@ export const ItemRequestDetail = () => {
     );
   }
 
-  const handleReview = async (statusItem: 'AVAILABLE' | 'REJECTED') => {
-    if (!id) return;
-    try {
-      await dispatch(reviewItemRequest({ id, statusItem })).unwrap();
-      alert(
-        `Item request has been ${statusItem === 'AVAILABLE' ? 'approved' : 'rejected'} successfully!`,
-      );
-      navigate('/admin/item-request');
-    } catch (error) {
-      console.error('Error reviewing item request:', error);
-      alert('Failed to process the request.');
-    }
-  };
+
 
   return (
     <div className="container mx-auto p-4">
@@ -105,14 +95,14 @@ export const ItemRequestDetail = () => {
 
       {/* Buttons */}
       <div className="mt-6 flex flex-wrap gap-4">
-        <Button onClick={() => handleReview('AVAILABLE')} variant="default">
-          Approve
-        </Button>
-        <Button onClick={() => handleReview('REJECTED')} variant="destructive">
-          Discard
-        </Button>
         <Button
-          onClick={() => navigate(ITEM_REQUEST_ROUTE)}
+          onClick={() => {
+            if (userId) {
+              navigate(ITEMS_MANAGEMENT_ROUTE.replace(':id', userId));
+            } else {
+              console.error('User ID is undefined');
+            }
+          }}
           variant="outline"
         >
           Quay lại

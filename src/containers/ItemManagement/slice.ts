@@ -1,38 +1,67 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { searchItems } from './thunk';
+import { fetchItems } from './thunk';
 import { ApiStatus } from '@/common/enums/apiStatus';
 import { Item } from '@/common/models/item';
 
-export interface ItemSearchState {
-  searchResults: Item[];
-  searchStatus: ApiStatus;
+export interface ItemState {
+  items: Item[];
+  fetchStatus: ApiStatus;
+  totalPages: number;
+  totalRecords: number;
+  currentPage: number;
+  errorMessage?: string;
 }
 
-export const initialState: ItemSearchState = {
-  searchResults: [],
-  searchStatus: ApiStatus.Idle,
+export const initialState: ItemState = {
+  items: [],
+  fetchStatus: ApiStatus.Idle,
+  totalPages: 1,
+  totalRecords: 0,
+  currentPage: 0,
+  errorMessage: undefined,
 };
 
-const itemSearchSlice = createSlice({
-  name: 'itemSearch',
+const itemManagementSlice = createSlice({
+  name: 'itemManagement',
   initialState,
-  reducers: {},
+  reducers: {
+    resetItemState: (state) => {
+      state.items = [];
+      state.fetchStatus = ApiStatus.Idle;
+      state.totalPages = 1;
+      state.totalRecords = 0;
+      state.currentPage = 0;
+      state.errorMessage = undefined;
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(searchItems.pending, (state) => {
-        state.searchStatus = ApiStatus.Loading;
+      .addCase(fetchItems.pending, (state) => {
+        state.fetchStatus = ApiStatus.Loading;
+        state.errorMessage = undefined;
       })
       .addCase(
-        searchItems.fulfilled,
-        (state, action: PayloadAction<Item[]>) => {
-          state.searchStatus = ApiStatus.Fulfilled;
-          state.searchResults = action.payload;
+        fetchItems.fulfilled,
+        (state, action: PayloadAction<{ 
+          items: Item[]; 
+          totalPages: number; 
+          totalRecords: number; 
+          currentPage: number;
+        }>) => {
+          state.fetchStatus = ApiStatus.Fulfilled;
+          state.items = action.payload.items;
+          state.totalPages = action.payload.totalPages;
+          state.totalRecords = action.payload.totalRecords;
+          state.currentPage = action.payload.currentPage;
+          state.errorMessage = undefined;
         },
       )
-      .addCase(searchItems.rejected, (state) => {
-        state.searchStatus = ApiStatus.Failed;
+      .addCase(fetchItems.rejected, (state, action) => {
+        state.fetchStatus = ApiStatus.Failed;
+        state.errorMessage = action.error.message || 'Có lỗi xảy ra khi tải dữ liệu.';
       });
   },
 });
 
-export default itemSearchSlice.reducer;
+export const { resetItemState } = itemManagementSlice.actions;
+export default itemManagementSlice.reducer;

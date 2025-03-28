@@ -27,13 +27,6 @@ export const ItemRequest = () => {
   useEffect(() => {
     setLoading(true);
     dispatch(fetchPendingItems())
-      .unwrap() // Giúp lấy dữ liệu từ createAsyncThunk
-      .then((data) => {
-        console.log('Fetched Pending Items:', data); // Log dữ liệu từ API
-      })
-      .catch((error) => {
-        console.error('Error fetching pending items:', error);
-      })
       .finally(() => setLoading(false));
   }, [dispatch, pageNo, pageSize]);
 
@@ -45,7 +38,6 @@ export const ItemRequest = () => {
     );
   }
 
-  console.log('Redux Store - selectPendingItems:', items);
 
   return (
     <>
@@ -60,7 +52,7 @@ export const ItemRequest = () => {
       <div className="-mx-4 flex-1 overflow-auto px-4 py-4 lg:flex-row lg:space-x-12 lg:space-y-0">
         <DataTable
           columns={columns}
-          data={items || []} // Sử dụng dữ liệu từ Redux store
+          data={items || []} 
           searchKey="id"
           placeholder="Tìm kiếm yêu cầu vật phẩm tại đây..."
           dataType="itemRequests"
@@ -68,7 +60,7 @@ export const ItemRequest = () => {
       </div>
       <DataTablePagination
         currentPage={pageNo}
-        totalPages={5} // Bạn có thể thay bằng totalPages từ API nếu có
+        totalPages={5} 
         pageSize={pageSize}
         setPageNo={setPageNo}
         setPageSize={setPageSize}

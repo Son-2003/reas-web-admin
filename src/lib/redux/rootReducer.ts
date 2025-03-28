@@ -1,11 +1,11 @@
 import userReducer from '@/containers/Auth/slice';
 import userManagementReducer from '@/containers/UsersManagement/slice';
-import itemManagementReducer from '@/containers/ItemRequest/slice';
-import itemSearchReducer from '@/containers/ItemManagement/slice'; // Import reducer mới
+import pendingItemsReducer from '@/containers/ItemRequest/slice'; 
+import itemManagementReducer from '@/containers/ItemManagement/slice';
 
 export const reducer = {
   user: userReducer,
   userManagement: userManagementReducer,
+  pendingItems: pendingItemsReducer, 
   itemManagement: itemManagementReducer,
-  itemSearch: itemSearchReducer, // Thêm reducer cho tìm kiếm item
 };
