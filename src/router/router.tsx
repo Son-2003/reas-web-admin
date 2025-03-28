@@ -1,15 +1,17 @@
-import CreateAccountUserPage from '@/app/create-account-user/page';
 import DashboardPage from '@/app/dashboard/page';
 import LoginPage from '@/app/login/page';
 import {
-  CREATE_STAFF_ACCOUNT_ROUTE,
-  EDIT_STAFF_ACCOUNT_ROUTE,
   STAFFS_MANAGEMENT_ROUTE,
   USERS_MANAGEMENT_ROUTE,
 } from '@/common/constants/router';
 import AppShell from '@/components/app-shell';
-import { UsersManagement } from '@/containers/UsersManagement/SearchUser';
-import { createBrowserRouter /*, Navigate */ } from 'react-router-dom';
+
+import { createBrowserRouter } from 'react-router-dom';
+import ItemRequestPage from '@/app/itemrequest/page';
+import { ItemRequestDetail } from '@/containers/ItemRequest/detail';
+import UsersManagementPage from '@/app/search-users/page';
+
+// Import trang chi tiết
 
 const router = createBrowserRouter([
   {
@@ -26,19 +28,19 @@ const router = createBrowserRouter([
       },
       {
         path: USERS_MANAGEMENT_ROUTE,
-        element: <UsersManagement />,
+        element: <UsersManagementPage />,
       },
       {
         path: STAFFS_MANAGEMENT_ROUTE,
-        element: <UsersManagement />,
+        element: <UsersManagementPage />,
       },
       {
-        path: CREATE_STAFF_ACCOUNT_ROUTE,
-        element: <CreateAccountUserPage />,
+        path: '/admin/item-request',
+        element: <ItemRequestPage />,
       },
       {
-        path: EDIT_STAFF_ACCOUNT_ROUTE,
-        element: <CreateAccountUserPage />,
+        path: '/admin/item-request/:id', // Thêm route chi tiết
+        element: <ItemRequestDetail />,
       },
     ],
   },
