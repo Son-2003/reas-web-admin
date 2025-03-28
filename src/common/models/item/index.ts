@@ -38,7 +38,7 @@ export interface Owner {
   numOfExchangedItems: number;
   numOfFeedbacks: number;
   numOfRatings: number;
-  userLocations: UserLocations[];
+  userLocations: UserLocation[];
 }
 
 export interface Category {
@@ -46,10 +46,10 @@ export interface Category {
 }
 export interface Brand {
   brandName: string;
-  imgage: string;
+  image: string;
 }
 
-export interface UserLocations {
+export interface UserLocation {
   id: number;
   userId: number;
   specificAddress: string;

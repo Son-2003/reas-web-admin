@@ -26,7 +26,6 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   };
 
   const handleApproveRequestClick = () => {
-    // Logic xử lý khi duyệt yêu cầu
     console.log('Approve request:', data.id);
   };
 

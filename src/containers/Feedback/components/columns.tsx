@@ -4,7 +4,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Icons } from '@/components/ui/icons';
 import { CellAction } from './cell-action';
 
-// Định nghĩa kiểu dữ liệu đơn giản thay vì dùng model Item
 interface ItemData {
   id: number;
   itemName: string;
