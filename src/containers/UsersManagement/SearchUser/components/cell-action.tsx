@@ -55,6 +55,11 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     navigate(`/admin/edit-staff/${data.id}`);
   };
 
+  const handleDeactivateStaff = () => {
+    // call api to deactivate staff here
+
+  };
+
   return (
     <>
       <AlertModal
@@ -91,7 +96,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             </DropdownMenuItem>
             <DropdownMenuSeparator /> */}
             <DropdownMenuItem
-              onClick={() => setOpen(true)}
+              onClick={handleDeactivateStaff}
               className="text-red-600"
             >
               <Icons.delete className="mr-2 h-4 w-4" />

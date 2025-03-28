@@ -50,6 +50,7 @@
     "createAccountUser": {
       "title": "Tạo tài khoản",
       "createButton": "Tạo tài khoản",
+      "updateButton": "Cập nhật",
       "cancelButton": "Hủy",
       "fullName": {
         "label": "Họ và tên",

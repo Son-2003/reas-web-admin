@@ -50,6 +50,7 @@
     "createAccountUser": {
       "title": "Create account",
       "createButton": "Create account",
+      "updateButton": "Update account",
       "cancelButton": "Cancel",
       "fullName": {
         "label": "Full name",
