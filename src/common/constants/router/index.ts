@@ -9,7 +9,6 @@ const ITEM_REQUEST_DETAIL_ROUTE = '/admin/item-request/:id';
 const ITEMS_MANAGEMENT_ROUTE = '/admin/items-management/:id';
 const ITEM_MANAGEMENT_DETAIL_ROUTE = '/admin/items-management/:userId/:itemId';
 
-
 export {
   HOME_ROUTE,
   DASHBOARD_ROUTE,

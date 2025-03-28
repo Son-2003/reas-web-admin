@@ -26,8 +26,7 @@ export const ItemRequest = () => {
 
   useEffect(() => {
     setLoading(true);
-    dispatch(fetchPendingItems())
-      .finally(() => setLoading(false));
+    dispatch(fetchPendingItems()).finally(() => setLoading(false));
   }, [dispatch, pageNo, pageSize]);
 
   if (loading) {
@@ -37,7 +36,6 @@ export const ItemRequest = () => {
       </div>
     );
   }
-
 
   return (
     <>
@@ -52,7 +50,7 @@ export const ItemRequest = () => {
       <div className="-mx-4 flex-1 overflow-auto px-4 py-4 lg:flex-row lg:space-x-12 lg:space-y-0">
         <DataTable
           columns={columns}
-          data={items || []} 
+          data={items || []}
           searchKey="id"
           placeholder="Tìm kiếm yêu cầu vật phẩm tại đây..."
           dataType="itemRequests"
@@ -60,7 +58,7 @@ export const ItemRequest = () => {
       </div>
       <DataTablePagination
         currentPage={pageNo}
-        totalPages={5} 
+        totalPages={5}
         pageSize={pageSize}
         setPageNo={setPageNo}
         setPageSize={setPageSize}

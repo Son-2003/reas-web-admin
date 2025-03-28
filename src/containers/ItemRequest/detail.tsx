@@ -48,9 +48,7 @@ export const ItemRequestDetail = () => {
       {/* Header */}
       <div className="flex items-center space-x-4">
         <div className="w-6 h-6 bg-[url(/logo.svg)] bg-no-repeat bg-cover" />
-        <span className="text-white text-xl font-bold">
-          {item.itemName}
-        </span>
+        <span className="text-white text-xl font-bold">{item.itemName}</span>
       </div>
 
       {/* Main Content */}
@@ -59,16 +57,16 @@ export const ItemRequestDetail = () => {
         <div className="flex items-center space-x-4">
           <div className="w-12 h-12 bg-gray-500 rounded-full border border-gray-300" />
           <div>
-            <span className="text-white font-medium">{item.owner.userName}</span>
+            <span className="text-white font-medium">
+              {item.owner.userName}
+            </span>
             <p className="text-gray-400 text-xs">Hoạt động 2 giờ trước</p>
           </div>
         </div>
 
         {/* Description */}
-        <div>
-         
-        </div>
- 
+        <div></div>
+
         {/* Image */}
         <div>
           <span className="text-gray-400 text-sm">Image:</span>
@@ -90,12 +88,10 @@ export const ItemRequestDetail = () => {
             <p>Loại giao dịch: Giao dịch mở</p>
           </div>
         </div>
-        </div>
-
-        {/* Information */}
-        <div>
-      
       </div>
+
+      {/* Information */}
+      <div></div>
 
       {/* Price */}
       <div className="mt-6">
@@ -111,10 +107,7 @@ export const ItemRequestDetail = () => {
         <Button onClick={() => handleReview('REJECTED')} variant="destructive">
           Discard
         </Button>
-        <Button
-          onClick={() => navigate(ITEM_REQUEST_ROUTE)}
-          variant="outline"
-        >
+        <Button onClick={() => navigate(ITEM_REQUEST_ROUTE)} variant="outline">
           Quay lại
         </Button>
       </div>

@@ -12,7 +12,7 @@ export const fetchPendingItems = createAppAsyncThunk(
         true,
       );
 
-      return response.content; 
+      return response.content;
     } catch (error) {
       console.error('Error in fetchPendingItems:', error);
       throw error;

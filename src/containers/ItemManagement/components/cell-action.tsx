@@ -24,8 +24,6 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     navigate(`${data.id}`);
   };
 
- 
-
   return (
     <>
       <Dialog>

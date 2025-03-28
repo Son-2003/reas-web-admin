@@ -9,19 +9,17 @@ import { selectItemDetail } from '../ItemRequest/selector';
 import { fetchItemDetail } from '../ItemRequest/thunk';
 import { ITEMS_MANAGEMENT_ROUTE } from '@/common/constants/router';
 
-
-
 export const ItemDetail = () => {
-  const { itemId, userId  } = useParams<{ itemId : string, userId: string }>();
+  const { itemId, userId } = useParams<{ itemId: string; userId: string }>();
   const dispatch = useDispatch<ReduxDispatch>();
   const item = useSelector(selectItemDetail);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (itemId ) {
-      dispatch(fetchItemDetail(itemId ));
+    if (itemId) {
+      dispatch(fetchItemDetail(itemId));
     }
-  }, [dispatch, itemId ]);
+  }, [dispatch, itemId]);
 
   if (!item) {
     return (
@@ -31,16 +29,12 @@ export const ItemDetail = () => {
     );
   }
 
-
-
   return (
     <div className="container mx-auto p-4">
       {/* Header */}
       <div className="flex items-center space-x-4">
         <div className="w-6 h-6 bg-[url(/logo.svg)] bg-no-repeat bg-cover" />
-        <span className="text-white text-xl font-bold">
-          {item.itemName}
-        </span>
+        <span className="text-white text-xl font-bold">{item.itemName}</span>
       </div>
 
       {/* Main Content */}
@@ -49,16 +43,16 @@ export const ItemDetail = () => {
         <div className="flex items-center space-x-4">
           <div className="w-12 h-12 bg-gray-500 rounded-full border border-gray-300" />
           <div>
-            <span className="text-white font-medium">{item.owner.userName}</span>
+            <span className="text-white font-medium">
+              {item.owner.userName}
+            </span>
             <p className="text-gray-400 text-xs">Hoạt động 2 giờ trước</p>
           </div>
         </div>
 
         {/* Description */}
-        <div>
-         
-        </div>
- 
+        <div></div>
+
         {/* Image */}
         <div>
           <span className="text-gray-400 text-sm">Image:</span>
@@ -80,12 +74,10 @@ export const ItemDetail = () => {
             <p>Loại giao dịch: Giao dịch mở</p>
           </div>
         </div>
-        </div>
-
-        {/* Information */}
-        <div>
-      
       </div>
+
+      {/* Information */}
+      <div></div>
 
       {/* Price */}
       <div className="mt-6">

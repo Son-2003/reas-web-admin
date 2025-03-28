@@ -26,7 +26,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     navigate(ITEM_REQUEST_DETAIL_ROUTE.replace(':id', data.id));
   };
 
-  const handleApproveRequestClick = () => { 
+  const handleApproveRequestClick = () => {
     // Logic xử lý khi duyệt yêu cầu
     console.log('Approve request:', data.id);
   };

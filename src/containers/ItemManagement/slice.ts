@@ -42,12 +42,15 @@ const itemManagementSlice = createSlice({
       })
       .addCase(
         fetchItems.fulfilled,
-        (state, action: PayloadAction<{ 
-          items: Item[]; 
-          totalPages: number; 
-          totalRecords: number; 
-          currentPage: number;
-        }>) => {
+        (
+          state,
+          action: PayloadAction<{
+            items: Item[];
+            totalPages: number;
+            totalRecords: number;
+            currentPage: number;
+          }>,
+        ) => {
           state.fetchStatus = ApiStatus.Fulfilled;
           state.items = action.payload.items;
           state.totalPages = action.payload.totalPages;
@@ -58,7 +61,8 @@ const itemManagementSlice = createSlice({
       )
       .addCase(fetchItems.rejected, (state, action) => {
         state.fetchStatus = ApiStatus.Failed;
-        state.errorMessage = action.error.message || 'Có lỗi xảy ra khi tải dữ liệu.';
+        state.errorMessage =
+          action.error.message || 'Có lỗi xảy ra khi tải dữ liệu.';
       });
   },
 });

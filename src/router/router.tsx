@@ -1,7 +1,6 @@
 import DashboardPage from '@/app/dashboard/page';
 import LoginPage from '@/app/login/page';
 import {
-
   ITEM_MANAGEMENT_DETAIL_ROUTE,
   ITEM_REQUEST_DETAIL_ROUTE,
   ITEM_REQUEST_ROUTE,
@@ -17,7 +16,6 @@ import UsersManagementPage from '@/app/search-users/page';
 import ItemManagementPage from '@/app/item/page';
 import ItemRequestDetailPage from '@/app/item-request-detail/page';
 import ItemDetailPage from '@/app/item-detail/page';
-
 
 // Import trang chi tiết
 
@@ -55,9 +53,9 @@ const router = createBrowserRouter([
         element: <ItemManagementPage />,
       },
       {
-        path:ITEM_MANAGEMENT_DETAIL_ROUTE,
-        element:<ItemDetailPage/>
-      }
+        path: ITEM_MANAGEMENT_DETAIL_ROUTE,
+        element: <ItemDetailPage />,
+      },
     ],
   },
 ]);

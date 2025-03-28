@@ -108,7 +108,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <NavMain items={data.navMain} />
         {data.navSingle.map((item) => (
-          <a key={item.title} href={item.url} className="flex items-center gap-2 p-2 rounded transition-colors duration-200 hover:bg-gray-700 hover:text-white">
+          <a
+            key={item.title}
+            href={item.url}
+            className="flex items-center gap-2 p-2 rounded transition-colors duration-200 hover:bg-gray-700 hover:text-white"
+          >
             <item.icon className="w-5 h-5" />
             <span>{item.title}</span>
           </a>

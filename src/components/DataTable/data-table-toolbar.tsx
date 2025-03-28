@@ -15,7 +15,6 @@ interface DataTableToolbarProps<TData> {
   onFilterChange?: (filters: string[]) => void; // Nhận prop mới
 }
 
-
 // interface FilterOption {
 //   label: string;
 //   value: string;
@@ -54,13 +53,12 @@ export function DataTableToolbar<TData>({
         />
 
         {statusColumn && (
-       <DataTableFacetedFilter
-       column={statusColumn}
-       title="Status"
-       options={statusOptions}
-       onFilterChange={onFilterChange}
-     />
-     
+          <DataTableFacetedFilter
+            column={statusColumn}
+            title="Status"
+            options={statusOptions}
+            onFilterChange={onFilterChange}
+          />
         )}
 
         {isFiltered && (

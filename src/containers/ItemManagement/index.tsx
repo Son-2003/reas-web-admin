@@ -13,7 +13,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchItems } from './thunk';
 import { ReduxDispatch } from '@/lib/redux/store';
 import { ApiStatus } from '@/common/enums/apiStatus';
-import { selectCurrentPage, selectFetchStatus, selectItems, selectTotalPages } from './selector';
+import {
+  selectCurrentPage,
+  selectFetchStatus,
+  selectItems,
+  selectTotalPages,
+} from './selector';
 
 export const ItemManagement = () => {
   const { t } = useTranslation();
@@ -22,7 +27,9 @@ export const ItemManagement = () => {
   const { id: userId } = useParams<{ id: string }>();
   const [pageNo, setPageNo] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [selectedFilters, setSelectedFilters] = useState<string[]>(['AVAILABLE']);
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([
+    'AVAILABLE',
+  ]);
 
   const items = useSelector(selectItems);
   const fetchStatus = useSelector(selectFetchStatus);
@@ -34,7 +41,7 @@ export const ItemManagement = () => {
       dispatch(fetchItems({ userId, statusItem: selectedFilters[0] }));
     }
   }, [dispatch, userId, pageNo, pageSize, selectedFilters]);
-  
+
   return (
     <>
       <div className="flex items-center justify-between">

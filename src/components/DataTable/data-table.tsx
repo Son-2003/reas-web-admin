@@ -30,9 +30,8 @@ interface DataTableProps<TData, TValue> {
   searchKey: string;
   dataType?: string;
   placeholder?: string;
-  onFilterChange?: (filters: string[]) => void; 
+  onFilterChange?: (filters: string[]) => void;
 }
-
 
 export function DataTable<TData, TValue>({
   columns,
@@ -73,14 +72,14 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-     <DataTableToolbar
-  dataType={dataType}
-  table={table}
-  searchKey={searchKey}
-  placeholder={placeholder}
-  data={data}
-  onFilterChange={onFilterChange} // Truyền xuống
-/>
+      <DataTableToolbar
+        dataType={dataType}
+        table={table}
+        searchKey={searchKey}
+        placeholder={placeholder}
+        data={data}
+        onFilterChange={onFilterChange} // Truyền xuống
+      />
 
       <div className="rounded-md border">
         <Table>

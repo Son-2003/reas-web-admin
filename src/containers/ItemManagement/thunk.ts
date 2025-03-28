@@ -6,12 +6,8 @@ const TypePrefix = 'Item';
 
 export const fetchItems = createAppAsyncThunk(
   `${TypePrefix}/fetchItems`,
-  async (params: { 
-    userId: string;
-    statusItem?: string;
-  }) => {
+  async (params: { userId: string; statusItem?: string }) => {
     try {
-
       const response = await callApi(
         {
           method: 'get',
@@ -24,10 +20,10 @@ export const fetchItems = createAppAsyncThunk(
         true,
       );
       return {
-        items: response.content as Item[], 
-        totalPages: response.totalPages,   
-        totalRecords: response.totalRecords, 
-        currentPage: response.pageNo,    
+        items: response.content as Item[],
+        totalPages: response.totalPages,
+        totalRecords: response.totalRecords,
+        currentPage: response.pageNo,
       };
     } catch (error) {
       console.error('Error in fetchItems:', error);
@@ -35,5 +31,3 @@ export const fetchItems = createAppAsyncThunk(
     }
   },
 );
-
-

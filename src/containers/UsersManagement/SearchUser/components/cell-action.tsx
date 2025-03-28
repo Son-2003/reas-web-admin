@@ -56,7 +56,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   };
   const handleViewItem = () => {
     navigate(`/admin/items-management/${data.id}`);
-  }
+  };
 
   return (
     <>

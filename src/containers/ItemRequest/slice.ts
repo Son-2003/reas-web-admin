@@ -5,16 +5,16 @@ import { Item } from '@/common/models/item';
 
 export interface PendingItemsState {
   pendingItems: Item[];
-  itemDetail: Item | null; 
+  itemDetail: Item | null;
   status: ApiStatus;
-  itemDetailStatus: ApiStatus; 
+  itemDetailStatus: ApiStatus;
 }
 
 export const initialState: PendingItemsState = {
   pendingItems: [],
-  itemDetail: null, 
+  itemDetail: null,
   status: ApiStatus.Idle,
-  itemDetailStatus: ApiStatus.Idle, 
+  itemDetailStatus: ApiStatus.Idle,
 };
 
 const pendingItemsSlice = createSlice({
