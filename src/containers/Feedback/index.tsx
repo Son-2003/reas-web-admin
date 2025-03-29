@@ -1,27 +1,40 @@
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Plus } from 'lucide-react';
+
 import { DataTable } from '@/components/DataTable/data-table';
 import { DataTablePagination } from '@/components/DataTable/data-table-pagination';
 import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
-import { Plus } from 'lucide-react';
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
-// import { useTranslation } from 'react-i18next';
+
+import { getFeedback } from '@/containers/Feedback/thunk';
+
 import { columns } from './components/columns';
+import { selectFeedbackFetchStatus, selectFeedbacks, selectFeedbackTotalPages } from './selector';
+import { ApiStatus } from '@/common/enums/apiStatus';
+import { ReduxDispatch } from '@/lib/redux/store';
+import { useDispatch } from 'react-redux';
+
 
 export const FeedbackUser = () => {
-  //   const { t } = useTranslation();
+  const { userId: userId } = useParams<{ userId: string }>();
   const navigate = useNavigate();
+  const dispatch = useDispatch<ReduxDispatch>();
 
-  const [pageNo, setPageNo] = useState(1);
+  const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(10);
 
-  // Dữ liệu tĩnh thay vì lấy từ API
-  const items = [
-    { id: 1, itemName: 'Item A', status: 'Pending' },
-    { id: 2, itemName: 'Item B', status: 'Approved' },
-    { id: 3, itemName: 'Item C', status: 'Rejected' },
-  ];
+  const feedbacks = useSelector(selectFeedbacks);
+  const fetchStatus = useSelector(selectFeedbackFetchStatus);
+  const totalPages = useSelector(selectFeedbackTotalPages);
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(getFeedback({ userId }));
+    }
+  }, [dispatch, pageNo, pageSize]);
 
   return (
     <>
@@ -34,17 +47,21 @@ export const FeedbackUser = () => {
       </div>
       <Separator />
       <div className="-mx-4 flex-1 overflow-auto px-4 py-4 lg:flex-row lg:space-x-12 lg:space-y-0">
-        <DataTable
-          columns={columns}
-          data={items} // Sử dụng dữ liệu tĩnh
-          searchKey="id"
-          placeholder="Tìm kiếm yêu cầu vật phẩm tại đây..."
-          dataType="itemRequests"
-        />
+        {fetchStatus === ApiStatus.Loading ? (
+          <p>Loading feedbacks...</p>
+        ) : (
+          <DataTable
+            columns={columns}
+            data={feedbacks}
+            searchKey="id"
+            placeholder="Tìm kiếm phản hồi tại đây..."
+            dataType="feedbacks"
+          />
+        )}
       </div>
       <DataTablePagination
         currentPage={pageNo}
-        totalPages={1} // Do dữ liệu tĩnh ít, chỉ cần 1 trang
+        totalPages={totalPages}
         pageSize={pageSize}
         setPageNo={setPageNo}
         setPageSize={setPageSize}

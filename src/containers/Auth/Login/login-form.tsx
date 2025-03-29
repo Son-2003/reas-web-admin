@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { ReduxDispatch } from '@/lib/redux/store';
 import { signIn } from '@/containers/Auth/thunk';
 import { useTranslation } from 'react-i18next';
+import { DASHBOARD_ROUTE } from '@/common/constants/router';
 
 export function LoginForm({
   className,
@@ -32,7 +33,7 @@ export function LoginForm({
     const resultAction = await dispatch(signIn(accountSignIn));
 
     if (signIn.fulfilled.match(resultAction)) {
-      navigate('/admin/item-request');
+      navigate(DASHBOARD_ROUTE);
     }
   };
 

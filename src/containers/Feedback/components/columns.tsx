@@ -3,14 +3,11 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Icons } from '@/components/ui/icons';
 import { CellAction } from './cell-action';
+import { Feedback } from '@/common/models/feedback';
 
-interface ItemData {
-  id: number;
-  itemName: string;
-  status: string;
-}
 
-export const columns: ColumnDef<ItemData>[] = [
+
+export const columns: ColumnDef<Feedback>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -45,15 +42,15 @@ export const columns: ColumnDef<ItemData>[] = [
     ),
   },
   {
-    accessorKey: 'itemName',
-    header: 'Item Name',
-    cell: ({ row }) => <span>{row.original.itemName}</span>,
+    accessorKey: 'userName',
+    header: 'Username',
+    cell: ({ row }) => <span>{row.original.user.userName}</span>,
   },
 
   {
-    accessorKey: 'statusItem',
-    header: 'Status',
-    cell: ({ row }) => <span>{row.original.status}</span>,
+    accessorKey: 'comment',
+    header: 'Comment',
+    cell: ({ row }) => <span>{row.original.comment}</span>,
   },
   {
     id: 'actions',

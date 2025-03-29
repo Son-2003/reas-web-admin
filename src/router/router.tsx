@@ -1,6 +1,7 @@
 import DashboardPage from '@/app/dashboard/page';
 import LoginPage from '@/app/login/page';
 import {
+  FEEDBACK_USER_MANAGEMENT_ROUTE,
   ITEM_MANAGEMENT_DETAIL_ROUTE,
   ITEM_REQUEST_DETAIL_ROUTE,
   ITEM_REQUEST_ROUTE,
@@ -16,8 +17,7 @@ import UsersManagementPage from '@/app/search-users/page';
 import ItemManagementPage from '@/app/item/page';
 import ItemRequestDetailPage from '@/app/item-request-detail/page';
 import ItemDetailPage from '@/app/item-detail/page';
-
-// Import trang chi tiết
+import FeedbackUserPage from '@/app/feedback-user/page';
 
 const router = createBrowserRouter([
   {
@@ -56,6 +56,10 @@ const router = createBrowserRouter([
         path: ITEM_MANAGEMENT_DETAIL_ROUTE,
         element: <ItemDetailPage />,
       },
+      {
+        path: FEEDBACK_USER_MANAGEMENT_ROUTE,
+        element: <FeedbackUserPage />,
+      }
     ],
   },
 ]);

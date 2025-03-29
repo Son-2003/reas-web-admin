@@ -15,7 +15,7 @@ import {
 import { NavMain } from '@/components/nav-main';
 import { NavProjects } from '@/components/nav-projects';
 import { NavUser } from '@/components/nav-user';
-import { TeamSwitcher } from '@/components/team-switcher';
+
 import {
   Sidebar,
   SidebarContent,
@@ -25,10 +25,13 @@ import {
 } from '@/components/ui/sidebar';
 import { useTranslation } from 'react-i18next';
 import {
+  DASHBOARD_ROUTE,
   ITEM_REQUEST_ROUTE,
   STAFFS_MANAGEMENT_ROUTE,
   USERS_MANAGEMENT_ROUTE,
 } from '@/common/constants/router';
+import { Link } from 'react-router-dom';
+
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { t } = useTranslation();
@@ -42,10 +45,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     teams: [
       {
         name: 'REAS',
-        logo: GalleryVerticalEnd,
+        logo: 'https://res.cloudinary.com/dpysbryyk/image/upload/v1739892939/REAS/Logo/Logo.png',
         plan: 'Enterprise',
+        url: DASHBOARD_ROUTE,
       },
     ],
+
     navMain: [
       {
         title: t('sidebar.human'),
@@ -103,8 +108,22 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        {data.teams.map((team) => (
+          <Link
+            key={team.name}
+            to={team.url}
+            className="flex items-center gap-2 p-2 rounded transition-colors duration-200 hover:bg-gray-700 hover:text-white"
+          >
+            <img src={team.logo} alt={team.name} className="w-5 h-5" />
+            <div>
+              <p className="font-bold">{team.name}</p>
+              <p className="text-sm text-gray-500">{team.plan}</p>
+            </div>
+          </Link>
+        ))}
       </SidebarHeader>
+
+
       <SidebarContent>
         <NavMain items={data.navMain} />
         {data.navSingle.map((item) => (
