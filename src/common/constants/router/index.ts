@@ -8,7 +8,8 @@ const ITEM_REQUEST_ROUTE = '/admin/item-request';
 const ITEM_REQUEST_DETAIL_ROUTE = '/admin/item-request/:id';
 const ITEMS_MANAGEMENT_ROUTE = '/admin/items-management/:id';
 const ITEM_MANAGEMENT_DETAIL_ROUTE = '/admin/items-management/:userId/:itemId';
-const FEEDBACK_USER_MANAGEMENT_ROUTE = '/admin/feedback-user-management/:userId';
+const FEEDBACK_USER_MANAGEMENT_ROUTE =
+  '/admin/feedback-user-management/:userId';
 
 export {
   HOME_ROUTE,
@@ -22,5 +23,4 @@ export {
   ITEMS_MANAGEMENT_ROUTE,
   ITEM_MANAGEMENT_DETAIL_ROUTE,
   FEEDBACK_USER_MANAGEMENT_ROUTE,
-
 };

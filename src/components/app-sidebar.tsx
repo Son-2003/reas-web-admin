@@ -5,7 +5,6 @@ import {
   BookOpen,
   // Bot,
   Frame,
-  GalleryVerticalEnd,
   Map,
   PieChart,
   Settings2,
@@ -31,7 +30,6 @@ import {
   USERS_MANAGEMENT_ROUTE,
 } from '@/common/constants/router';
 import { Link } from 'react-router-dom';
-
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { t } = useTranslation();
@@ -122,7 +120,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </Link>
         ))}
       </SidebarHeader>
-
 
       <SidebarContent>
         <NavMain items={data.navMain} />

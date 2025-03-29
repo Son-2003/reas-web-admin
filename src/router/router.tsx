@@ -59,7 +59,7 @@ const router = createBrowserRouter([
       {
         path: FEEDBACK_USER_MANAGEMENT_ROUTE,
         element: <FeedbackUserPage />,
-      }
+      },
     ],
   },
 ]);

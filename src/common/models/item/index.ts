@@ -1,9 +1,9 @@
-import { ConditionItem } from "@/common/enums/conditionItem";
-import { Gender } from "@/common/enums/gender";
-import { MethodExchange } from "@/common/enums/methodExchange";
-import { Role } from "@/common/enums/role";
-import { StatusItem } from "@/common/enums/statusItem";
-import { TypeExchange } from "@/common/enums/typeExchange";
+import { ConditionItem } from '@/common/enums/conditionItem';
+import { Gender } from '@/common/enums/gender';
+import { MethodExchange } from '@/common/enums/methodExchange';
+import { Role } from '@/common/enums/role';
+import { StatusItem } from '@/common/enums/statusItem';
+import { TypeExchange } from '@/common/enums/typeExchange';
 
 export interface Item {
   id: string;
@@ -73,6 +73,3 @@ export interface Location {
   ward: string;
   cluster: string;
 }
-
-
-

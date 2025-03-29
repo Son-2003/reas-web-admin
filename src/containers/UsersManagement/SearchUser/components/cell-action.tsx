@@ -59,12 +59,13 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     navigate(`/admin/items-management/${data.id}`);
   };
   const handleViewFeedback = () => {
-    navigate(FEEDBACK_USER_MANAGEMENT_ROUTE.replace(':userId', String(data.id)));
+    navigate(
+      FEEDBACK_USER_MANAGEMENT_ROUTE.replace(':userId', String(data.id)),
+    );
   };
 
   const handleDeactivateStaff = () => {
     // call api to deactivate staff here
-
   };
 
   return (

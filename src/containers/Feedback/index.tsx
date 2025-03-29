@@ -12,11 +12,14 @@ import { Button } from '@/components/ui/button';
 import { getFeedback } from '@/containers/Feedback/thunk';
 
 import { columns } from './components/columns';
-import { selectFeedbackFetchStatus, selectFeedbacks, selectFeedbackTotalPages } from './selector';
+import {
+  selectFeedbackFetchStatus,
+  selectFeedbacks,
+  selectFeedbackTotalPages,
+} from './selector';
 import { ApiStatus } from '@/common/enums/apiStatus';
 import { ReduxDispatch } from '@/lib/redux/store';
 import { useDispatch } from 'react-redux';
-
 
 export const FeedbackUser = () => {
   const { userId: userId } = useParams<{ userId: string }>();

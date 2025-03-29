@@ -5,8 +5,6 @@ import { Icons } from '@/components/ui/icons';
 import { CellAction } from './cell-action';
 import { Feedback } from '@/common/models/feedback';
 
-
-
 export const columns: ColumnDef<Feedback>[] = [
   {
     id: 'select',
