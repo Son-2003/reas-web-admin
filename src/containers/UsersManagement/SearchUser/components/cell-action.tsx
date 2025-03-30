@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { MoreHorizontal } from 'lucide-react';
 import { Icons } from '@/components/ui/icons';
 import { useTranslation } from 'react-i18next';
+import { FEEDBACK_USER_MANAGEMENT_ROUTE } from '@/common/constants/router';
 
 interface CellActionProps {
   data: UserDto;
@@ -57,10 +58,14 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const handleViewItem = () => {
     navigate(`/admin/items-management/${data.id}`);
   };
+  const handleViewFeedback = () => {
+    navigate(
+      FEEDBACK_USER_MANAGEMENT_ROUTE.replace(':userId', String(data.id)),
+    );
+  };
 
   const handleDeactivateStaff = () => {
     // call api to deactivate staff here
-
   };
 
   return (
@@ -94,6 +99,10 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             <DropdownMenuItem onClick={handleViewItem}>
               <Icons.edit className="mr-2 h-4 w-4" />
               View item
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleViewFeedback}>
+              <Icons.edit className="mr-2 h-4 w-4" />
+              View feedback
             </DropdownMenuItem>
             {/* <DropdownMenuItem
               onClick={handleViewPaymentBetweenLocationAndSystem}

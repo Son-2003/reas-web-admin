@@ -1,15 +1,22 @@
+import { ConditionItem } from '@/common/enums/conditionItem';
+import { Gender } from '@/common/enums/gender';
+import { MethodExchange } from '@/common/enums/methodExchange';
+import { Role } from '@/common/enums/role';
+import { StatusItem } from '@/common/enums/statusItem';
+import { TypeExchange } from '@/common/enums/typeExchange';
+
 export interface Item {
   id: string;
   itemName: string;
   description: string;
   price: number;
-  conditionItem: string;
+  conditionItem: ConditionItem;
   imageUrl: string;
-  methodExchanges: string[];
+  methodExchanges: MethodExchange[];
   isMoneyAccepted: boolean;
-  statusItem: string;
-  typeExchange: string;
-  typeItem: string;
+  statusItem: StatusItem;
+  typeExchange: TypeExchange;
+  typeItem: TypeExchange;
   termsAndConditionsExchange: string;
   category: Category;
   brand: Brand;
@@ -18,10 +25,10 @@ export interface Item {
 }
 
 export interface DesiredItem {
-  typeItem: string;
+  typeItem: TypeExchange;
   categoryId: number;
   brandId: number;
-  conditionItem: string;
+  conditionItem: ConditionItem;
   minPrice: number;
   maxPrice: number;
 }
@@ -31,10 +38,10 @@ export interface Owner {
   userName: string;
   email: string;
   phone: number;
-  gender: string;
+  gender: Gender;
   statusEntity: string;
   image: string;
-  roleName: string;
+  roleName: Role;
   numOfExchangedItems: number;
   numOfFeedbacks: number;
   numOfRatings: number;

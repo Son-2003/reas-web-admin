@@ -99,6 +99,10 @@
   },
   "itemsManagement":{
     "title": "Items management"
+  },
+  "itemRequest":{
+    "title": "Item request management"
   }
+  
   
 }

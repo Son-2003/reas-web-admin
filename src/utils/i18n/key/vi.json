@@ -99,6 +99,9 @@
   },
   "itemsManagement":{
     "title": "Quản lý sản phẩm"
+  },
+  "itemRequest" :{
+    "title": "Yêu cầu sản phẩm"
   }
 
 }
