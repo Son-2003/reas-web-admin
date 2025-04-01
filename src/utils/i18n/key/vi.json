@@ -187,8 +187,27 @@
     "exchangeStatus": "Trạng thái",
     "buyerConfirmation": "Xác nhận người mua",
     "sellerConfirmation": "Xác nhận người bán",
-    "confirmed": "✅ Đã xác nhận",
-    "notConfirmed": "❌ Chưa xác nhận"
+    "confirmed": "Đã xác nhận",
+    "notConfirmed": "Chưa xác nhận"
+  },
+  "exchangeHistory": {
+    "loading": "Đang tải lịch sử trao đổi...",
+    "error": "Không thể tải lịch sử trao đổi.",
+    "sellerItem": "Món hàng của người bán",
+    "buyerItem": "Món hàng của người mua",
+    "itemName": "Tên món hàng",
+    "description": "Mô tả",
+    "price": "Giá",
+    "paidBy": "Thanh toán bởi",
+    "userName": "Tên người dùng",
+    "fullName": "Họ và tên",
+    "exchangeDetails": "Chi tiết trao đổi",
+    "exchangeDate": "Ngày trao đổi",
+    "exchangeLocation": "Địa điểm trao đổi",
+    "confirmationAndNotes": "Xác nhận & Ghi chú",
+    "buyerConfirmation": "Xác nhận của người mua",
+    "confirmed": "Đã xác nhận",
+    "notConfirmed": "Chưa xác nhận"
   }
   
   

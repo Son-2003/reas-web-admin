@@ -23,7 +23,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const handleViewDetailsClick = () => {
-    navigate(`/admin/item-request/${data.id}`);
+    navigate(`${data.id}`);
   };
 
   return (

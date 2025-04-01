@@ -1,6 +1,7 @@
 import DashboardPage from '@/app/dashboard/page';
 import LoginPage from '@/app/login/page';
 import {
+  EXCHANGE_HISTORY_MANAGEMENT_DETAIL_ROUTE,
   EXCHANGE_HISTORY_MANAGEMENT_ROUTE,
   FEEDBACK_USER_MANAGEMENT_DETAIL_ROUTE,
   FEEDBACK_USER_MANAGEMENT_ROUTE,
@@ -22,6 +23,7 @@ import ItemDetailPage from '@/app/item-detail/page';
 import FeedbackUserPage from '@/app/feedback-user/page';
 import ExchangeHistoryPage from '@/app/exchange-history/page';
 import FeedbackUserDetailPage from '@/app/feedback-user-detail/page';
+import ExchangeHistoryDetailPage from '@/app/exchange-history-detail/page';
 
 const router = createBrowserRouter([
   {
@@ -72,6 +74,10 @@ const router = createBrowserRouter([
         path: EXCHANGE_HISTORY_MANAGEMENT_ROUTE,
         element: <ExchangeHistoryPage />,
       },
+      {
+        path: EXCHANGE_HISTORY_MANAGEMENT_DETAIL_ROUTE,
+        element: <ExchangeHistoryDetailPage />,
+      }
     ],
   },
 ]);

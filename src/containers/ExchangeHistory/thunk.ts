@@ -32,3 +32,22 @@ export const getExchangeHistory = createAppAsyncThunk(
     }
   },
 );
+
+export const getExchangeHistoryDetail = createAppAsyncThunk(
+  `${TypePrefix}/getExchangeHistoryDetail`,
+  async (id: string) => {
+    try {
+      const response = await callApi(
+        {
+          method: 'get',
+          url: `exchange/${id}`,
+        },
+        true,
+      );
+      return response as ExchangeHistoryByUserId;
+    } catch (error) {
+      console.error('Error in getExchangeHistoryDetail:', error);
+      throw error;
+    }
+  },
+);

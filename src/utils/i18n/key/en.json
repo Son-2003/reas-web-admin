@@ -185,8 +185,27 @@
     "exchangeStatus": "Status",
     "buyerConfirmation": "Buyer Confirmation",
     "sellerConfirmation": "Seller Confirmation",
-    "confirmed": "✅ Confirmed",
-    "notConfirmed": "❌ Not Confirmed"
+    "confirmed": "Confirmed",
+    "notConfirmed": "Not Confirmed"
+  },
+  "exchangeHistory": {
+    "loading": "Loading exchange history...",
+    "error": "Failed to load exchange history.",
+    "sellerItem": "Seller's Item",
+    "buyerItem": "Buyer's Item",
+    "itemName": "Item Name",
+    "description": "Description",
+    "price": "Price",
+    "paidBy": "Paid By",
+    "userName": "User Name",
+    "fullName": "Full Name",
+    "exchangeDetails": "Exchange Details",
+    "exchangeDate": "Exchange Date",
+    "exchangeLocation": "Exchange Location",
+    "confirmationAndNotes": "Confirmation & Notes",
+    "buyerConfirmation": "Buyer Confirmation",
+    "confirmed": "Confirmed",
+    "notConfirmed": "Not Confirmed"
   }
 
   

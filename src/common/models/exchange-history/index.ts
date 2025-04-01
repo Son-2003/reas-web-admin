@@ -17,8 +17,8 @@ export interface ExchangeHistoryByUserId {
   sellerConfirmation: boolean;
   additionalNotes: string;
   creationDate: string;
-  exchangeHistory: ExchangeHistory[];
-  feebackId: number | null;
+  exchangeHistory: ExchangeHistory;
+  feedbackId: number | null;
 }
 
 export interface ExchangeHistory {
