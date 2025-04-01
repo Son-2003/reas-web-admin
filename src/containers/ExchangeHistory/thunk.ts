@@ -1,18 +1,17 @@
+import { ExchangeHistoryByUserId } from '@/common/models/exchange-history';
 import { createAppAsyncThunk } from '@/lib/redux/createAppAsyncThunk';
 import callApi from '@/utils/api';
-import { Feedback } from '@/common/models/feedback';
 
-const TypePrefix = 'Feedback';
+const TypePrefix = 'ExchangeHistory';
 
-// Thunk để lấy danh sách feedback
-export const getFeedback = createAppAsyncThunk(
-  `${TypePrefix}/getFeedback`,
+export const getExchangeHistory = createAppAsyncThunk(
+  `${TypePrefix}/getExchangeHistory`,
   async (params: { userId: string }) => {
     try {
       const response = await callApi(
         {
           method: 'get',
-          url: 'feedback',
+          url: 'exchange/history',
           params: {
             userId: params.userId,
           },
@@ -20,7 +19,7 @@ export const getFeedback = createAppAsyncThunk(
         true,
       );
       return {
-        feedbacks: response.content as Feedback[],
+        history: response.content as ExchangeHistoryByUserId[],
         pageNo: response.pageNo,
         pageSize: response.pageSize,
         totalPages: response.totalPages,
@@ -28,26 +27,26 @@ export const getFeedback = createAppAsyncThunk(
         last: response.last,
       };
     } catch (error) {
-      console.error('Error in getFeedback:', error);
+      console.error('Error in getExchangeHistory:', error);
       throw error;
     }
   },
 );
 
-export const getFeedbackDetail = createAppAsyncThunk(
-  `${TypePrefix}/getFeedbackDetail`,
-  async (feedbackId: string) => {
+export const getExchangeHistoryDetail = createAppAsyncThunk(
+  `${TypePrefix}/getExchangeHistoryDetail`,
+  async (id: string) => {
     try {
       const response = await callApi(
         {
           method: 'get',
-          url: `feedback/${feedbackId}`,
+          url: `exchange/${id}`,
         },
         true,
       );
-      return response as Feedback;
+      return response as ExchangeHistoryByUserId;
     } catch (error) {
-      console.error('Error in getFeedbackDetail:', error);
+      console.error('Error in getExchangeHistoryDetail:', error);
       throw error;
     }
   },

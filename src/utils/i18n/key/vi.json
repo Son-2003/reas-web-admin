@@ -91,7 +91,10 @@
       "title": "Hành động",
       "edit": "Chỉnh sửa thông tin nhân viên",
       "delete": "Vô hiệu hóa nhân viên",
-      "view": "Xem thông tin nhân viên"
+      "view": "Xem thông tin nhân viên",
+      "viewFeedback": "Xem phản hồi",
+      "viewItem": "Xem sản phẩm",
+      "viewHistoryExchange": "Xem lịch sử trao đổi"
     }
   },
   "staffsManagement":{
@@ -101,7 +104,113 @@
     "title": "Quản lý sản phẩm"
   },
   "itemRequest" :{
-    "title": "Yêu cầu sản phẩm"
+    "title": "Yêu cầu sản phẩm",
+    "itemName": "Tên sản phẩm",
+    "owner": "Người sỡ hữu",
+    "status": "Trạng thái",
+    "action": "Hành động",
+    "searchPlaceholder": "Tìm kiếm yêu cầu sản phẩm tại đây...",
+    "detail": "Chi tiết",
+    "itemRequestDetail":{
+      "brandNew": "Mới",
+      "likeNew": "Như mới",
+      "good": "Tốt",
+      "excellent": "Xuất sắc",
+      "fair": "Trung bình",
+      "poor": "Kém",
+      "noCondition": "Không có điều kiện",
+      "notWorking": "Không hoạt động",
+      "pickUpInPerson": "Nhận trực tiếp",
+      "delivery": "Giao hàng",
+      "meetAtGivenLocation": "Gặp tại địa điểm hẹn",
+      "noMethod": "Không có phương thức",
+      "dialog" : {
+        "title": "Xác nhận",
+        "content1": "Bạn có chắc chắn muốn",
+        "content2": "yêu cầu này không?",
+        "approve1": "phê duyệt",
+        "approve2": "Duyệt",
+        "discard1": "từ chối",
+        "discard2": "Từ chối"
+      },
+      "description": "Mô tả:",
+      "minPrice": "Giá tối thiểu:",
+      "maxPrice": "Giá tối đa:",
+      "desiredItem": "Món đồ mong muốn:"
+
+    },
+    "description": "Mô tả:",
+    "information": "Thông tin",
+    "condition": "Tình trạng:",
+    "category": "Danh mục:",
+    "brand": "Thương hiệu:",
+    "methodExchange": "Phương thức trao đổi:",
+    "userLocation": "Vị trí người dùng:",
+    "address": "Địa chỉ:",
+    "area": "Khu vực:",
+    "district": "Quận:",
+    "ward": "Phường:",
+    "cluster": "Cụm:",
+    "desiredItem": "Món đồ mong muốn:",
+    "desiredItemDescription": "Mô tả:",
+    "minPrice": "Giá tối thiểu:",
+    "maxPrice": "Giá tối đa:",
+    "price": "Giá:"
+
+
+  },
+  "button":{
+    "back" : "Quay lại",
+    "approve" : "Duyệt",
+    "discard" : "Hủy"
+  },
+  "feedback": {
+    "title": "Chi tiết Feedback",
+    "loading": "Đang tải...",
+    "error": "Không thể tải dữ liệu feedback.",
+    "feedbackInfo": "Thông tin phản hồi",
+    "rating": "Đánh giá",
+    "comment": "Bình luận",
+    "createdAt": "Ngày tạo",
+    "senderInfo": "Người gửi",
+    "name": "Tên",
+    "email": "Email",
+    "phone": "Số điện thoại",
+    "primaryAddress": "Địa chỉ chính",
+    "productInfo": "Sản phẩm được phản hồi",
+    "productName": "Tên sản phẩm",
+    "description": "Mô tả",
+    "price": "Giá",
+    "status": "Trạng thái",
+    "brand": "Hãng",
+    "transactionHistory": "Lịch sử giao dịch",
+    "exchangeStatus": "Trạng thái",
+    "buyerConfirmation": "Xác nhận người mua",
+    "sellerConfirmation": "Xác nhận người bán",
+    "confirmed": "Đã xác nhận",
+    "notConfirmed": "Chưa xác nhận"
+  },
+  "exchangeHistory": {
+    "loading": "Đang tải lịch sử trao đổi...",
+    "error": "Không thể tải lịch sử trao đổi.",
+    "sellerItem": "Món hàng của người bán",
+    "buyerItem": "Món hàng của người mua",
+    "itemName": "Tên món hàng",
+    "description": "Mô tả",
+    "price": "Giá",
+    "paidBy": "Thanh toán bởi",
+    "userName": "Tên người dùng",
+    "fullName": "Họ và tên",
+    "exchangeDetails": "Chi tiết trao đổi",
+    "exchangeDate": "Ngày trao đổi",
+    "exchangeLocation": "Địa điểm trao đổi",
+    "confirmationAndNotes": "Xác nhận & Ghi chú",
+    "buyerConfirmation": "Xác nhận của người mua",
+    "confirmed": "Đã xác nhận",
+    "notConfirmed": "Chưa xác nhận"
   }
+  
+  
+  
 
 }

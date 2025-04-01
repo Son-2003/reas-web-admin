@@ -10,6 +10,12 @@ const ITEMS_MANAGEMENT_ROUTE = '/admin/items-management/:id';
 const ITEM_MANAGEMENT_DETAIL_ROUTE = '/admin/items-management/:userId/:itemId';
 const FEEDBACK_USER_MANAGEMENT_ROUTE =
   '/admin/feedback-user-management/:userId';
+const FEEDBACK_USER_MANAGEMENT_DETAIL_ROUTE =
+  '/admin/feedback-user-management/:userId/:feedbackId';
+const EXCHANGE_HISTORY_MANAGEMENT_ROUTE =
+  '/admin/exchange-history-management/:userId';
+const EXCHANGE_HISTORY_MANAGEMENT_DETAIL_ROUTE =
+  '/admin/exchange-history-management/:userId/:exchangeHistoryId';
 
 export {
   HOME_ROUTE,
@@ -23,4 +29,7 @@ export {
   ITEMS_MANAGEMENT_ROUTE,
   ITEM_MANAGEMENT_DETAIL_ROUTE,
   FEEDBACK_USER_MANAGEMENT_ROUTE,
+  FEEDBACK_USER_MANAGEMENT_DETAIL_ROUTE,
+  EXCHANGE_HISTORY_MANAGEMENT_ROUTE,
+  EXCHANGE_HISTORY_MANAGEMENT_DETAIL_ROUTE,
 };

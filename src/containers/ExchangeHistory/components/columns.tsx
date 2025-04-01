@@ -3,9 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Icons } from '@/components/ui/icons';
 import { CellAction } from './cell-action';
-import { Feedback } from '@/common/models/feedback';
+import { ExchangeHistoryByUserId } from '@/common/models/exchange-history';
 
-export const columns: ColumnDef<Feedback>[] = [
+export const columns: ColumnDef<ExchangeHistoryByUserId>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -40,15 +40,19 @@ export const columns: ColumnDef<Feedback>[] = [
     ),
   },
   {
-    accessorKey: 'userName',
-    header: 'Username',
-    cell: ({ row }) => <span>{row.original.user.userName}</span>,
+    accessorKey: 'buyer',
+    header: 'Buyer',
+    cell: ({ row }) => <span>{row.original.buyerItem.itemName}</span>,
   },
-
   {
-    accessorKey: 'rating',
-    header: 'Rating',
-    cell: ({ row }) => <span>{row.original.rating}</span>,
+    accessorKey: 'seller',
+    header: 'Seller',
+    cell: ({ row }) => <span>{row.original.sellerItem.itemName}</span>,
+  },
+  {
+    accessorKey: 'date',
+    header: 'Date',
+    cell: ({ row }) => <span>{row.original.exchangeDate}</span>,
   },
   {
     id: 'actions',
