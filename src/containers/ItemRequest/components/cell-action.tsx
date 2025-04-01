@@ -17,6 +17,7 @@ import { ITEM_REQUEST_DETAIL_ROUTE } from '@/common/constants/router';
 interface CellActionProps {
   data: any;
 }
+import { useTranslation } from 'react-i18next';
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const [dialogContent] = useState<React.ReactNode | null>(null);
@@ -26,10 +27,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     navigate(ITEM_REQUEST_DETAIL_ROUTE.replace(':id', data.id));
   };
 
-  const handleApproveRequestClick = () => {
-    // Logic xử lý khi duyệt yêu cầu
-    console.log('Approve request:', data.id);
-  };
+  const { t } = useTranslation();
 
   return (
     <>
@@ -45,12 +43,9 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem onClick={handleViewDetailsClick}>
               <Icons.info className="mr-2 h-4 w-4" />
-              View Details
+              {t('itemRequest.detail')}
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleApproveRequestClick}>
-              <Icons.check className="mr-2 h-4 w-4" />
-              Approve Request
-            </DropdownMenuItem>
+
             <DropdownMenuSeparator />
           </DropdownMenuContent>
         </DropdownMenu>

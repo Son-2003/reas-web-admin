@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getFeedback } from './thunk';
+import { getFeedback, getFeedbackDetail } from './thunk';
 import { ApiStatus } from '@/common/enums/apiStatus';
 import { Feedback } from '@/common/models/feedback';
 
 export interface FeedbackState {
   feedbacks: Feedback[];
+  feedbackDetail: Feedback | null;
   fetchStatus: ApiStatus;
-
   totalPages: number;
   totalRecords: number;
   last: boolean;
@@ -15,6 +15,7 @@ export interface FeedbackState {
 
 export const initialState: FeedbackState = {
   feedbacks: [],
+  feedbackDetail: null,
   fetchStatus: ApiStatus.Idle,
   totalPages: 1,
   totalRecords: 0,
@@ -28,6 +29,7 @@ const feedbackManagementSlice = createSlice({
   reducers: {
     resetFeedbackState: (state) => {
       state.feedbacks = [];
+      state.feedbackDetail = null;
       state.fetchStatus = ApiStatus.Idle;
       state.totalPages = 1;
       state.totalRecords = 0;
@@ -37,6 +39,7 @@ const feedbackManagementSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // Xử lý khi gọi getFeedback
       .addCase(getFeedback.pending, (state) => {
         state.fetchStatus = ApiStatus.Loading;
         state.errorMessage = undefined;
@@ -66,6 +69,24 @@ const feedbackManagementSlice = createSlice({
         state.fetchStatus = ApiStatus.Failed;
         state.errorMessage =
           action.error.message || 'Có lỗi xảy ra khi tải dữ liệu feedback.';
+      })
+
+      .addCase(getFeedbackDetail.pending, (state) => {
+        state.fetchStatus = ApiStatus.Loading;
+        state.errorMessage = undefined;
+      })
+      .addCase(
+        getFeedbackDetail.fulfilled,
+        (state, action: PayloadAction<Feedback>) => {
+          state.fetchStatus = ApiStatus.Fulfilled;
+          state.feedbackDetail = action.payload;
+          state.errorMessage = undefined;
+        },
+      )
+      .addCase(getFeedbackDetail.rejected, (state, action) => {
+        state.fetchStatus = ApiStatus.Failed;
+        state.errorMessage =
+          action.error.message || 'Có lỗi xảy ra khi tải chi tiết feedback.';
       });
   },
 });

@@ -91,7 +91,10 @@
       "title": "Action",
       "edit": "Edit info staff",
       "delete": "Deactivate staff",
-      "view": "View detail staff"
+      "view": "View detail staff",
+      "viewItem": "View item",
+      "viewFeedback": "View feedback",
+      "viewHistoryExchange": "View history exchange"
     }
   },
   "staffsManagement":{
@@ -101,8 +104,69 @@
     "title": "Items management"
   },
   "itemRequest":{
-    "title": "Item request management"
+    "title": "Item request management",
+    "itemName": "Item name",
+    "owner": "Owner",
+    "status": "Status",
+    "action": "Action",
+    "searchPlaceholder": "Search item request heare...",
+    "detail": "Detail",
+    "itemRequestDetail":{
+      "brandNew": "Brand new",
+      "likeNew": "Like new",
+      "good": "Good",
+      "exellent": "Excellent",
+      "fair": "Fair",
+      "poor": "Poor",
+      "notWorking": "Not working",
+      "noCondition": "No condition",
+      "pickUpInPerson": "Pick up in person",
+      "delivery": "Delivery",
+      "meetAtGivenLocation": "Meet at given location",
+      "noMethod": "No method",
+      "dialog" : {
+        "title": "Confirm",
+        "content1": "Are you sure you want to",
+        "content2": "this request?",
+        "approve1": "approve",
+        "approve2": "Approve",
+        "discard1": "discard",
+        "discard2": "Discard"
+      }
+    }
+  },
+  "button" : {
+    "back": "Back",
+    "approve": "Approve",
+    "discard": "Discard"
+  },
+  "feedback": {
+    "title": "Feedback Detail",
+    "loading": "Loading...",
+    "error": "Unable to load feedback data.",
+    "feedbackInfo": "Feedback Information",
+    "rating": "Rating",
+    "comment": "Comment",
+    "createdAt": "Created At",
+    "senderInfo": "Sender Information",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "primaryAddress": "Primary Address",
+    "productInfo": "Reviewed Product",
+    "productName": "Product Name",
+    "description": "Description",
+    "price": "Price",
+    "status": "Status",
+    "brand": "Brand",
+    "transactionHistory": "Transaction History",
+    "exchangeStatus": "Status",
+    "buyerConfirmation": "Buyer Confirmation",
+    "sellerConfirmation": "Seller Confirmation",
+    "confirmed": "✅ Confirmed",
+    "notConfirmed": "❌ Not Confirmed"
   }
+
   
   
 }

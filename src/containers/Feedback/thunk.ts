@@ -4,6 +4,7 @@ import { Feedback } from '@/common/models/feedback';
 
 const TypePrefix = 'Feedback';
 
+// Thunk để lấy danh sách feedback
 export const getFeedback = createAppAsyncThunk(
   `${TypePrefix}/getFeedback`,
   async (params: { userId: string }) => {
@@ -28,6 +29,25 @@ export const getFeedback = createAppAsyncThunk(
       };
     } catch (error) {
       console.error('Error in getFeedback:', error);
+      throw error;
+    }
+  },
+);
+
+export const getFeedbackDetail = createAppAsyncThunk(
+  `${TypePrefix}/getFeedbackDetail`,
+  async (feedbackId: string) => {
+    try {
+      const response = await callApi(
+        {
+          method: 'get',
+          url: `feedback/${feedbackId}`,
+        },
+        true,
+      );
+      return response as Feedback;
+    } catch (error) {
+      console.error('Error in getFeedbackDetail:', error);
       throw error;
     }
   },

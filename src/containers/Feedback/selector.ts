@@ -14,3 +14,6 @@ export const selectFeedbackTotalRecords = (state: ReduxState) =>
 
 export const selectFeedbackLastPage = (state: ReduxState) =>
   state.feedbackManagement.last;
+
+export const selectFeedbackDetail = (state: ReduxState) =>
+  state.feedbackManagement.feedbackDetail;

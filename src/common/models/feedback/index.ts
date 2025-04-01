@@ -8,6 +8,8 @@ export interface Feedback {
   rating: number;
   comment: string;
   imageUrl: string;
+  creationDate: string;
+  updated: boolean;
 }
 
 export interface ExchangeHistory {

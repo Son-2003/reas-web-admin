@@ -31,6 +31,7 @@ export interface DesiredItem {
   conditionItem: ConditionItem;
   minPrice: number;
   maxPrice: number;
+  description: string;
 }
 
 export interface Owner {

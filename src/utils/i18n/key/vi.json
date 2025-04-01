@@ -91,7 +91,10 @@
       "title": "Hành động",
       "edit": "Chỉnh sửa thông tin nhân viên",
       "delete": "Vô hiệu hóa nhân viên",
-      "view": "Xem thông tin nhân viên"
+      "view": "Xem thông tin nhân viên",
+      "viewFeedback": "Xem phản hồi",
+      "viewItem": "Xem sản phẩm",
+      "viewHistoryExchange": "Xem lịch sử trao đổi"
     }
   },
   "staffsManagement":{
@@ -101,7 +104,72 @@
     "title": "Quản lý sản phẩm"
   },
   "itemRequest" :{
-    "title": "Yêu cầu sản phẩm"
+    "title": "Yêu cầu sản phẩm",
+    "itemName": "Tên sản phẩm",
+    "owner": "Người sỡ hữu",
+    "status": "Trạng thái",
+    "action": "Hành động",
+    "searchPlaceholder": "Tìm kiếm yêu cầu sản phẩm tại đây...",
+    "detail": "Chi tiết",
+    "itemRequestDetail":{
+      "brandNew": "Mới",
+      "likeNew": "Như mới",
+      "good": "Tốt",
+      "exellent": "Xuất sắc",
+      "fair": "Trung bình",
+      "poor": "Kém",
+      "noCondition": "Không có điều kiện",
+      "notWorking": "Không hoạt động",
+      "pickUpInPerson": "Nhận trực tiếp",
+      "delivery": "Giao hàng",
+      "meetAtGivenLocation": "Gặp tại địa điểm hẹn",
+      "noMethod": "Không có phương thức",
+      "dialog" : {
+        "title": "Xác nhận",
+        "content1": "Bạn có chắc chắn muốn",
+        "content2": "yêu cầu này không?",
+        "approve1": "phê duyệt",
+        "approve2": "Duyệt",
+        "discard1": "từ chối",
+        "discard2": "Từ chối"
+      }
+    }
+
+
+  },
+  "button":{
+    "back" : "Quay lại",
+    "approve" : "Duyệt",
+    "discard" : "Hủy"
+  },
+  "feedback": {
+    "title": "Chi tiết Feedback",
+    "loading": "Đang tải...",
+    "error": "Không thể tải dữ liệu feedback.",
+    "feedbackInfo": "Thông tin phản hồi",
+    "rating": "Đánh giá",
+    "comment": "Bình luận",
+    "createdAt": "Ngày tạo",
+    "senderInfo": "Người gửi",
+    "name": "Tên",
+    "email": "Email",
+    "phone": "Số điện thoại",
+    "primaryAddress": "Địa chỉ chính",
+    "productInfo": "Sản phẩm được phản hồi",
+    "productName": "Tên sản phẩm",
+    "description": "Mô tả",
+    "price": "Giá",
+    "status": "Trạng thái",
+    "brand": "Hãng",
+    "transactionHistory": "Lịch sử giao dịch",
+    "exchangeStatus": "Trạng thái",
+    "buyerConfirmation": "Xác nhận người mua",
+    "sellerConfirmation": "Xác nhận người bán",
+    "confirmed": "✅ Đã xác nhận",
+    "notConfirmed": "❌ Chưa xác nhận"
   }
+  
+  
+  
 
 }

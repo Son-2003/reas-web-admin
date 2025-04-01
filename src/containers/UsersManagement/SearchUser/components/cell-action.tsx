@@ -15,7 +15,11 @@ import { useNavigate } from 'react-router-dom';
 import { MoreHorizontal } from 'lucide-react';
 import { Icons } from '@/components/ui/icons';
 import { useTranslation } from 'react-i18next';
-import { FEEDBACK_USER_MANAGEMENT_ROUTE } from '@/common/constants/router';
+import {
+  EXCHANGE_HISTORY_MANAGEMENT_ROUTE,
+  FEEDBACK_USER_MANAGEMENT_ROUTE,
+} from '@/common/constants/router';
+import { Package, MessageCircle, History } from 'lucide-react';
 
 interface CellActionProps {
   data: UserDto;
@@ -63,6 +67,11 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       FEEDBACK_USER_MANAGEMENT_ROUTE.replace(':userId', String(data.id)),
     );
   };
+  const handleViewHistoryExchange = () => {
+    navigate(
+      EXCHANGE_HISTORY_MANAGEMENT_ROUTE.replace(':userId', String(data.id)),
+    );
+  };
 
   const handleDeactivateStaff = () => {
     // call api to deactivate staff here
@@ -97,12 +106,16 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
               {t('usersManagement.cell-action.edit')}
             </DropdownMenuItem>
             <DropdownMenuItem onClick={handleViewItem}>
-              <Icons.edit className="mr-2 h-4 w-4" />
-              View item
+              <Package className="mr-2 h-4 w-4" />
+              {t('usersManagement.cell-action.viewItem')}
             </DropdownMenuItem>
             <DropdownMenuItem onClick={handleViewFeedback}>
-              <Icons.edit className="mr-2 h-4 w-4" />
-              View feedback
+              <MessageCircle className="mr-2 h-4 w-4" />
+              {t('usersManagement.cell-action.viewFeedback')}
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleViewHistoryExchange}>
+              <History className="mr-2 h-4 w-4" />
+              {t('usersManagement.cell-action.viewHistoryExchange')}
             </DropdownMenuItem>
             {/* <DropdownMenuItem
               onClick={handleViewPaymentBetweenLocationAndSystem}

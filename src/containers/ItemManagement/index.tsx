@@ -2,7 +2,7 @@ import { DataTable } from '@/components/DataTable/data-table';
 import { DataTablePagination } from '@/components/DataTable/data-table-pagination';
 import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
-import { LoaderCircle, Plus } from 'lucide-react';
+import { LoaderCircle } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -19,6 +19,7 @@ import {
   selectItems,
   selectTotalPages,
 } from './selector';
+import { USERS_MANAGEMENT_ROUTE } from '@/common/constants/router';
 
 export const ItemManagement = () => {
   const { t } = useTranslation();
@@ -46,9 +47,11 @@ export const ItemManagement = () => {
     <>
       <div className="flex items-center justify-between">
         <Heading title={t('itemsManagement.title')} description="" />
-        <Button onClick={() => navigate('/admin/newItemRequest')}>
-          <Plus className="mr-2 h-4 w-4" />
-          Add New
+        <Button
+          onClick={() => navigate(USERS_MANAGEMENT_ROUTE)}
+          variant="outline"
+        >
+          Back
         </Button>
       </div>
       <Separator />

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { DataTable } from '@/components/DataTable/data-table';
@@ -8,20 +8,19 @@ import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 
-import { getFeedback } from '@/containers/Feedback/thunk';
-
 import { columns } from './components/columns';
-import {
-  selectFeedbackFetchStatus,
-  selectFeedbacks,
-  selectFeedbackTotalPages,
-} from './selector';
+
 import { ApiStatus } from '@/common/enums/apiStatus';
+import {
+  selectExchangeHistory,
+  selectExchangeHistoryFetchStatus,
+  selectExchangeHistoryTotalPages,
+} from './selector';
+import { getExchangeHistory } from './thunk';
 import { ReduxDispatch } from '@/lib/redux/store';
-import { useDispatch } from 'react-redux';
 import { USERS_MANAGEMENT_ROUTE } from '@/common/constants/router';
 
-export const FeedbackUser = () => {
+export const ExchangeHistory = () => {
   const { userId: userId } = useParams<{ userId: string }>();
   const navigate = useNavigate();
   const dispatch = useDispatch<ReduxDispatch>();
@@ -29,38 +28,41 @@ export const FeedbackUser = () => {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(10);
 
-  const feedbacks = useSelector(selectFeedbacks);
-  const fetchStatus = useSelector(selectFeedbackFetchStatus);
-  const totalPages = useSelector(selectFeedbackTotalPages);
+  const exchangeHistory = useSelector(selectExchangeHistory);
+  const fetchStatus = useSelector(selectExchangeHistoryFetchStatus);
+  const totalPages = useSelector(selectExchangeHistoryTotalPages);
 
   useEffect(() => {
     if (userId) {
-      dispatch(getFeedback({ userId }));
+      dispatch(getExchangeHistory({ userId }));
     }
   }, [dispatch, pageNo, pageSize]);
 
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading title="Feedback" description="" />
-        <Button
-          onClick={() => navigate(USERS_MANAGEMENT_ROUTE)}
-          variant="outline"
-        >
-          Back
-        </Button>
+        <Heading title="Exchange History" description="" />
+
+        <div className="flex flex-wrap gap-4 mb-6">
+          <Button
+            onClick={() => navigate(USERS_MANAGEMENT_ROUTE)}
+            variant="outline"
+          >
+            Back
+          </Button>
+        </div>
       </div>
       <Separator />
       <div className="-mx-4 flex-1 overflow-auto px-4 py-4 lg:flex-row lg:space-x-12 lg:space-y-0">
         {fetchStatus === ApiStatus.Loading ? (
-          <p>Loading feedbacks...</p>
+          <p>Loading...</p>
         ) : (
           <DataTable
             columns={columns}
-            data={feedbacks}
+            data={exchangeHistory}
             searchKey="id"
-            placeholder="Tìm kiếm phản hồi tại đây..."
-            dataType="feedbacks"
+            placeholder="Tìm kiếm lịch sử trao đổi tại đây..."
+            dataType="exchangeHistory"
           />
         )}
       </div>
