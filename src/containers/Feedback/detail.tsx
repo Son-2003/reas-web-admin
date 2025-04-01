@@ -140,9 +140,11 @@ const FeedbackDetail: React.FC = () => {
                         {t('feedback.primaryAddress')}
                       </strong>
                       <span className="text-gray-800 dark:text-gray-200">
-                        {feedback.user.userLocations[0]?.specificAddress.split(
-                          '//',
-                        )[1]}
+                        {
+                          feedback.user.userLocations[0]?.specificAddress.split(
+                            '//',
+                          )[1]
+                        }
                       </span>
                     </div>
                   </div>
