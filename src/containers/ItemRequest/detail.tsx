@@ -181,21 +181,21 @@ export const ItemRequestDetail = () => {
 
         <div className="border border-gray-300 dark:border-gray-700 p-4 rounded-lg">
           <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
-            Description:
+          {t('itemRequest.description')}
           </span>
           <p className="text-black dark:text-white text-sm mt-2 mb-4">
             {item.description}
           </p>
 
           <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
-            Information
+          {t('itemRequest.information')}
           </span>
           <div className="overflow-x-auto mt-2">
             <table className="min-w-full border border-gray-300 dark:border-gray-700 text-black dark:text-white text-sm">
               <tbody>
                 <tr className="border-b border-gray-300 dark:border-gray-700">
                   <td className="p-2 text-gray-600 dark:text-gray-400">
-                    Condition:
+                  {t('itemRequest.condition')}
                   </td>
                   <td className="p-2 text-green-600 dark:text-green-500 font-bold">
                     {ConditionItemsLabels[item.conditionItem] ||
@@ -204,19 +204,19 @@ export const ItemRequestDetail = () => {
                 </tr>
                 <tr className="border-b border-gray-300 dark:border-gray-700">
                   <td className="p-2 text-gray-600 dark:text-gray-400">
-                    Category:
+                  {t('itemRequest.category')}
                   </td>
                   <td className="p-2">{item.category.categoryName}</td>
                 </tr>
                 <tr className="border-b border-gray-300 dark:border-gray-700">
                   <td className="p-2 text-gray-600 dark:text-gray-400">
-                    Brand:
+                  {t('itemRequest.brand')}
                   </td>
                   <td className="p-2">{item.brand.brandName}</td>
                 </tr>
                 <tr className="border-b border-gray-300 dark:border-gray-700">
                   <td className="p-2 text-gray-600 dark:text-gray-400">
-                    Method Exchange:
+                  {t('itemRequest.methodExchange')}
                   </td>
                   <td className="p-2">
                     {item.methodExchanges
@@ -231,26 +231,26 @@ export const ItemRequestDetail = () => {
           <div className="grid grid-cols-[41%_59%] gap-6 mt-6">
             <div>
               <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
-                User Location:
+              {t('itemRequest.userLocation')}
               </span>
               {primaryLocation ? (
                 <div className="text-black dark:text-white text-sm mt-2 space-y-3">
                   <p>
-                    <strong>Address:</strong>{' '}
+                    <strong> {t('itemRequest.address')}</strong>{' '}
                     {primaryLocation.specificAddress.split('//')[1]}
                   </p>
                   <p>
-                    <strong>Area:</strong> {primaryLocation.location.area}
+                    <strong> {t('itemRequest.area')}</strong> {primaryLocation.location.area}
                   </p>
                   <p>
-                    <strong>District:</strong>{' '}
+                    <strong> {t('itemRequest.district')}</strong>{' '}
                     {primaryLocation.location.district}
                   </p>
                   <p>
-                    <strong>Ward:</strong> {primaryLocation.location.ward}
+                    <strong> {t('itemRequest.ward')}</strong> {primaryLocation.location.ward}
                   </p>
                   <p>
-                    <strong>Cluster:</strong> {primaryLocation.location.cluster}
+                    <strong> {t('itemRequest.cluster')}</strong> {primaryLocation.location.cluster}
                   </p>
                 </div>
               ) : (
@@ -263,18 +263,18 @@ export const ItemRequestDetail = () => {
             {item.desiredItem && (
               <div>
                 <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
-                  Desired Item:
+                {t('itemRequest.itemRequestDetail.desiredItem')}
                 </span>
                 <div className="text-black dark:text-white text-sm mt-2 space-y-3">
                   <p>
-                    <strong>Description:</strong> {item.desiredItem.description}
+                    <strong>{t('itemRequest.itemRequestDetail.description')}</strong> {item.desiredItem.description}
                   </p>
                   <p>
-                    <strong>Min price:</strong>{' '}
+                    <strong>{t('itemRequest.itemRequestDetail.minPrice')}</strong>{' '}
                     {item.desiredItem.minPrice?.toLocaleString()} VND
                   </p>
                   <p>
-                    <strong>Max price:</strong>{' '}
+                    <strong>{t('itemRequest.itemRequestDetail.maxPrice')}</strong>{' '}
                     {item.desiredItem.maxPrice?.toLocaleString()} VND
                   </p>
                 </div>
@@ -284,7 +284,7 @@ export const ItemRequestDetail = () => {
 
           <div className="mt-6">
             <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
-              Price:
+            {t('itemRequest.price')}
             </span>
             <span className="text-black dark:text-white text-xl font-bold ml-2">
               {item.price.toLocaleString()} VND

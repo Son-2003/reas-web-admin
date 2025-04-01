@@ -115,7 +115,7 @@
       "brandNew": "Brand new",
       "likeNew": "Like new",
       "good": "Good",
-      "exellent": "Excellent",
+      "excellent": "Excellent",
       "fair": "Fair",
       "poor": "Poor",
       "notWorking": "Not working",
@@ -132,8 +132,30 @@
         "approve2": "Approve",
         "discard1": "discard",
         "discard2": "Discard"
-      }
-    }
+      },
+      "description": "Description:",
+      "minPrice": "Min price:",
+      "maxPrice": "Max price:",
+      "desiredItem": "Desired item:"
+      
+    },
+    "description": "Description:",
+    "information": "Information",
+    "condition": "Condition:",
+    "category": "Category:",
+    "brand": "Brand:",
+    "methodExchange": "Method Exchange:",
+    "userLocation": "User Location:",
+    "address": "Address:",
+    "area": "Area:",
+    "district": "District:",
+    "ward": "Ward:",
+    "cluster": "Cluster:",
+    "desiredItem": "Desired Item:",
+    "desiredItemDescription": "Description:",
+    "minPrice": "Min price:",
+    "maxPrice": "Max price:",
+    "price": "Price:"
   },
   "button" : {
     "back": "Back",

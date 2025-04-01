@@ -10,12 +10,14 @@ import { fetchItemDetail } from '../ItemRequest/thunk';
 import { ITEMS_MANAGEMENT_ROUTE } from '@/common/constants/router';
 import { MethodExchange } from '@/common/enums/methodExchange';
 import { ConditionItem } from '@/common/enums/conditionItem';
+import { useTranslation } from 'react-i18next';
 
 export const ItemDetail = () => {
   const { itemId, userId } = useParams<{ itemId: string; userId: string }>();
   const dispatch = useDispatch<ReduxDispatch>();
   const item = useSelector(selectItemDetail);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (itemId) {
@@ -31,23 +33,60 @@ export const ItemDetail = () => {
     );
   }
 
-  const MethodExchangeLabels = {
-    [MethodExchange.PICK_UP_IN_PERSON]: 'Nhận trực tiếp',
-    [MethodExchange.DELIVERY]: 'Giao hàng',
-    [MethodExchange.MEET_AT_GIVEN_LOCATION]: 'Gặp tại địa điểm hẹn',
-    [MethodExchange.NO_METHOD]: 'Không có phương thức',
-  };
+  const MethodExchangeLabels = [
+    {
+      label: t('itemRequest.itemRequestDetail.pickUpInPerson'),
+      value: MethodExchange.PICK_UP_IN_PERSON,
+    },
+    {
+      label: t('itemRequest.itemRequestDetail.delivery'),
+      value: MethodExchange.DELIVERY,
+    },
+    {
+      label: t('itemRequest.itemRequestDetail.meetAtGivenLocation'),
+      value: MethodExchange.MEET_AT_GIVEN_LOCATION,
+    },
+    {
+      label: t('itemRequest.itemRequestDetail.noMethod'),
+      value: MethodExchange.NO_METHOD,
+    },
+  ];
 
-  const ConditionItemsLabels = {
-    [ConditionItem.BRAND_NEW]: 'Brand new',
-    [ConditionItem.LIKE_NEW]: 'Like new',
-    [ConditionItem.EXCELLENT]: 'Excellent',
-    [ConditionItem.GOOD]: 'Good',
-    [ConditionItem.FAIR]: 'Fair',
-    [ConditionItem.POOR]: 'Poor',
-    [ConditionItem.NOT_WORKING]: 'Not working',
-    [ConditionItem.NO_CONDITION]: 'No condition',
-  };
+
+  const ConditionItemsLabels = [
+    {
+      label: t('itemRequest.itemRequestDetail.brandNew'),
+      value: ConditionItem.BRAND_NEW,
+    },
+    {
+      label: t('itemRequest.itemRequestDetail.likeNew'),
+      value: ConditionItem.LIKE_NEW,
+    },
+    {
+      label: t('itemRequest.itemRequestDetail.excellent'),
+      value: ConditionItem.EXCELLENT,
+    },
+    {
+      label: t('itemRequest.itemRequestDetail.good'),
+      value: ConditionItem.GOOD,
+    },
+    {
+      label: t('itemRequest.itemRequestDetail.fair'),
+      value: ConditionItem.FAIR,
+    },
+    {
+      label: t('itemRequest.itemRequestDetail.poor'),
+      value: ConditionItem.POOR,
+    },
+    {
+      label: t('itemRequest.itemRequestDetail.notWorking'),
+      value: ConditionItem.NOT_WORKING,
+    },
+    {
+      label: t('itemRequest.itemRequestDetail.noCondition'),
+      value: ConditionItem.NO_CONDITION,
+    },
+  ];
 
   const handleBackClick = () => {
     navigate(ITEMS_MANAGEMENT_ROUTE.replace(':id', userId || ''));
@@ -96,46 +135,46 @@ export const ItemDetail = () => {
 
         <div className="border border-gray-300 dark:border-gray-700 p-4 rounded-lg">
           <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
-            Description:
+          {t('itemRequest.description')}
           </span>
           <p className="text-black dark:text-white text-sm mt-2 mb-4">
             {item.description}
           </p>
 
           <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
-            Information
+          {t('itemRequest.information')}
           </span>
           <div className="overflow-x-auto mt-2">
             <table className="min-w-full border border-gray-300 dark:border-gray-700 text-black dark:text-white text-sm">
               <tbody>
                 <tr className="border-b border-gray-300 dark:border-gray-700">
                   <td className="p-2 text-gray-600 dark:text-gray-400">
-                    Condition:
+                  {t('itemRequest.condition')}
                   </td>
                   <td className="p-2 text-green-600 dark:text-green-500 font-bold">
-                    {ConditionItemsLabels[item.conditionItem] ||
+                    {ConditionItemsLabels.find(label => label.value === item.conditionItem)?.label ||
                       item.conditionItem}
                   </td>
                 </tr>
                 <tr className="border-b border-gray-300 dark:border-gray-700">
                   <td className="p-2 text-gray-600 dark:text-gray-400">
-                    Category:
+                  {t('itemRequest.category')}
                   </td>
                   <td className="p-2">{item.category.categoryName}</td>
                 </tr>
                 <tr className="border-b border-gray-300 dark:border-gray-700">
                   <td className="p-2 text-gray-600 dark:text-gray-400">
-                    Brand:
+                  {t('itemRequest.brand')}
                   </td>
                   <td className="p-2">{item.brand.brandName}</td>
                 </tr>
                 <tr className="border-b border-gray-300 dark:border-gray-700">
                   <td className="p-2 text-gray-600 dark:text-gray-400">
-                    Method Exchange:
+                  {t('itemRequest.methodExchange')}
                   </td>
                   <td className="p-2">
                     {item.methodExchanges
-                      .map((method) => MethodExchangeLabels[method])
+                      .map((method) => MethodExchangeLabels.find(label => label.value === method)?.label)
                       .join(', ')}
                   </td>
                 </tr>
@@ -146,26 +185,26 @@ export const ItemDetail = () => {
           <div className="grid grid-cols-[41%_59%] gap-6 mt-6">
             <div>
               <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
-                User Location:
+              {t('itemRequest.userLocation')}
               </span>
               {primaryLocation ? (
                 <div className="text-black dark:text-white text-sm mt-2 space-y-3">
                   <p>
-                    <strong>Address:</strong>{' '}
+                    <strong>{t('itemRequest.address')}</strong>{' '}
                     {primaryLocation.specificAddress.split('//')[1]}
                   </p>
                   <p>
-                    <strong>Area:</strong> {primaryLocation.location.area}
+                    <strong>{t('itemRequest.area')}</strong> {primaryLocation.location.area}
                   </p>
                   <p>
-                    <strong>District:</strong>{' '}
+                    <strong>{t('itemRequest.district')}</strong>{' '}
                     {primaryLocation.location.district}
                   </p>
                   <p>
-                    <strong>Ward:</strong> {primaryLocation.location.ward}
+                    <strong>{t('itemRequest.ward')}</strong> {primaryLocation.location.ward}
                   </p>
                   <p>
-                    <strong>Cluster:</strong> {primaryLocation.location.cluster}
+                    <strong>{t('itemRequest.cluster')}</strong> {primaryLocation.location.cluster}
                   </p>
                 </div>
               ) : (
@@ -199,7 +238,7 @@ export const ItemDetail = () => {
 
           <div className="mt-6">
             <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
-              Price:
+            {t('itemRequest.price')}
             </span>
             <span className="text-black dark:text-white text-xl font-bold ml-2">
               {item.price.toLocaleString()} VND

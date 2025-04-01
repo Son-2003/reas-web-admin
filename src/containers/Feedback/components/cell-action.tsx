@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MoreHorizontal } from 'lucide-react';
 import { Icons } from '@/components/ui/icons';
+import { useTranslation } from 'react-i18next';
 
 interface CellActionProps {
   data: any;
@@ -20,14 +21,12 @@ interface CellActionProps {
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const [dialogContent] = useState<React.ReactNode | null>(null);
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   const handleViewDetailsClick = () => {
     navigate(`${data.id}`);
   };
 
-  const handleApproveRequestClick = () => {
-    console.log('Approve request:', data.id);
-  };
+
 
   return (
     <>
@@ -43,12 +42,9 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem onClick={handleViewDetailsClick}>
               <Icons.info className="mr-2 h-4 w-4" />
-              View Details
+              {t('itemRequest.detail')}
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleApproveRequestClick}>
-              <Icons.check className="mr-2 h-4 w-4" />
-              Approve Request
-            </DropdownMenuItem>
+        
             <DropdownMenuSeparator />
           </DropdownMenuContent>
         </DropdownMenu>

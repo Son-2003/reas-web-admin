@@ -115,7 +115,7 @@
       "brandNew": "Mới",
       "likeNew": "Như mới",
       "good": "Tốt",
-      "exellent": "Xuất sắc",
+      "excellent": "Xuất sắc",
       "fair": "Trung bình",
       "poor": "Kém",
       "noCondition": "Không có điều kiện",
@@ -132,8 +132,30 @@
         "approve2": "Duyệt",
         "discard1": "từ chối",
         "discard2": "Từ chối"
-      }
-    }
+      },
+      "description": "Mô tả:",
+      "minPrice": "Giá tối thiểu:",
+      "maxPrice": "Giá tối đa:",
+      "desiredItem": "Món đồ mong muốn:"
+
+    },
+    "description": "Mô tả:",
+    "information": "Thông tin",
+    "condition": "Tình trạng:",
+    "category": "Danh mục:",
+    "brand": "Thương hiệu:",
+    "methodExchange": "Phương thức trao đổi:",
+    "userLocation": "Vị trí người dùng:",
+    "address": "Địa chỉ:",
+    "area": "Khu vực:",
+    "district": "Quận:",
+    "ward": "Phường:",
+    "cluster": "Cụm:",
+    "desiredItem": "Món đồ mong muốn:",
+    "desiredItemDescription": "Mô tả:",
+    "minPrice": "Giá tối thiểu:",
+    "maxPrice": "Giá tối đa:",
+    "price": "Giá:"
 
 
   },
