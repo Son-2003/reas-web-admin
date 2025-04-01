@@ -77,7 +77,7 @@ const router = createBrowserRouter([
       {
         path: EXCHANGE_HISTORY_MANAGEMENT_DETAIL_ROUTE,
         element: <ExchangeHistoryDetailPage />,
-      }
+      },
     ],
   },
 ]);

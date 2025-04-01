@@ -77,7 +77,7 @@ const exchangeHistoryManagementSlice = createSlice({
         state.errorMessage =
           action.error.message || 'Có lỗi xảy ra khi tải lịch sử trao đổi.';
       })
-      
+
       .addCase(getExchangeHistoryDetail.pending, (state) => {
         state.fetchDetailStatus = ApiStatus.Loading;
         state.errorDetailMessage = undefined;
@@ -93,10 +93,12 @@ const exchangeHistoryManagementSlice = createSlice({
       .addCase(getExchangeHistoryDetail.rejected, (state, action) => {
         state.fetchDetailStatus = ApiStatus.Failed;
         state.errorDetailMessage =
-          action.error.message || 'Có lỗi xảy ra khi tải chi tiết lịch sử trao đổi.';
+          action.error.message ||
+          'Có lỗi xảy ra khi tải chi tiết lịch sử trao đổi.';
       });
   },
 });
 
-export const { resetExchangeHistoryState } = exchangeHistoryManagementSlice.actions;
+export const { resetExchangeHistoryState } =
+  exchangeHistoryManagementSlice.actions;
 export default exchangeHistoryManagementSlice.reducer;
