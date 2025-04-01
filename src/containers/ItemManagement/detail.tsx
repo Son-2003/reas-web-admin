@@ -52,7 +52,6 @@ export const ItemDetail = () => {
     },
   ];
 
-
   const ConditionItemsLabels = [
     {
       label: t('itemRequest.itemRequestDetail.brandNew'),
@@ -135,46 +134,52 @@ export const ItemDetail = () => {
 
         <div className="border border-gray-300 dark:border-gray-700 p-4 rounded-lg">
           <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
-          {t('itemRequest.description')}
+            {t('itemRequest.description')}
           </span>
           <p className="text-black dark:text-white text-sm mt-2 mb-4">
             {item.description}
           </p>
 
           <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
-          {t('itemRequest.information')}
+            {t('itemRequest.information')}
           </span>
           <div className="overflow-x-auto mt-2">
             <table className="min-w-full border border-gray-300 dark:border-gray-700 text-black dark:text-white text-sm">
               <tbody>
                 <tr className="border-b border-gray-300 dark:border-gray-700">
                   <td className="p-2 text-gray-600 dark:text-gray-400">
-                  {t('itemRequest.condition')}
+                    {t('itemRequest.condition')}
                   </td>
                   <td className="p-2 text-green-600 dark:text-green-500 font-bold">
-                    {ConditionItemsLabels.find(label => label.value === item.conditionItem)?.label ||
-                      item.conditionItem}
+                    {ConditionItemsLabels.find(
+                      (label) => label.value === item.conditionItem,
+                    )?.label || item.conditionItem}
                   </td>
                 </tr>
                 <tr className="border-b border-gray-300 dark:border-gray-700">
                   <td className="p-2 text-gray-600 dark:text-gray-400">
-                  {t('itemRequest.category')}
+                    {t('itemRequest.category')}
                   </td>
                   <td className="p-2">{item.category.categoryName}</td>
                 </tr>
                 <tr className="border-b border-gray-300 dark:border-gray-700">
                   <td className="p-2 text-gray-600 dark:text-gray-400">
-                  {t('itemRequest.brand')}
+                    {t('itemRequest.brand')}
                   </td>
                   <td className="p-2">{item.brand.brandName}</td>
                 </tr>
                 <tr className="border-b border-gray-300 dark:border-gray-700">
                   <td className="p-2 text-gray-600 dark:text-gray-400">
-                  {t('itemRequest.methodExchange')}
+                    {t('itemRequest.methodExchange')}
                   </td>
                   <td className="p-2">
                     {item.methodExchanges
-                      .map((method) => MethodExchangeLabels.find(label => label.value === method)?.label)
+                      .map(
+                        (method) =>
+                          MethodExchangeLabels.find(
+                            (label) => label.value === method,
+                          )?.label,
+                      )
                       .join(', ')}
                   </td>
                 </tr>
@@ -185,7 +190,7 @@ export const ItemDetail = () => {
           <div className="grid grid-cols-[41%_59%] gap-6 mt-6">
             <div>
               <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
-              {t('itemRequest.userLocation')}
+                {t('itemRequest.userLocation')}
               </span>
               {primaryLocation ? (
                 <div className="text-black dark:text-white text-sm mt-2 space-y-3">
@@ -194,17 +199,20 @@ export const ItemDetail = () => {
                     {primaryLocation.specificAddress.split('//')[1]}
                   </p>
                   <p>
-                    <strong>{t('itemRequest.area')}</strong> {primaryLocation.location.area}
+                    <strong>{t('itemRequest.area')}</strong>{' '}
+                    {primaryLocation.location.area}
                   </p>
                   <p>
                     <strong>{t('itemRequest.district')}</strong>{' '}
                     {primaryLocation.location.district}
                   </p>
                   <p>
-                    <strong>{t('itemRequest.ward')}</strong> {primaryLocation.location.ward}
+                    <strong>{t('itemRequest.ward')}</strong>{' '}
+                    {primaryLocation.location.ward}
                   </p>
                   <p>
-                    <strong>{t('itemRequest.cluster')}</strong> {primaryLocation.location.cluster}
+                    <strong>{t('itemRequest.cluster')}</strong>{' '}
+                    {primaryLocation.location.cluster}
                   </p>
                 </div>
               ) : (
@@ -238,7 +246,7 @@ export const ItemDetail = () => {
 
           <div className="mt-6">
             <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
-            {t('itemRequest.price')}
+              {t('itemRequest.price')}
             </span>
             <span className="text-black dark:text-white text-xl font-bold ml-2">
               {item.price.toLocaleString()} VND

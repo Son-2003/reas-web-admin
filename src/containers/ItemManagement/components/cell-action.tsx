@@ -21,7 +21,7 @@ interface CellActionProps {
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const [dialogContent] = useState<React.ReactNode | null>(null);
   const navigate = useNavigate();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const handleViewDetailsClick = () => {
     navigate(`${data.id}`);
   };

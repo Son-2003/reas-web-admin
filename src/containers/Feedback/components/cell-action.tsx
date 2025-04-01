@@ -26,8 +26,6 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     navigate(`${data.id}`);
   };
 
-
-
   return (
     <>
       <Dialog>
@@ -44,7 +42,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
               <Icons.info className="mr-2 h-4 w-4" />
               {t('itemRequest.detail')}
             </DropdownMenuItem>
-        
+
             <DropdownMenuSeparator />
           </DropdownMenuContent>
         </DropdownMenu>
