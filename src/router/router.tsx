@@ -12,7 +12,6 @@ import ExchangeHistoryPage from '@/app/exchange-history/page';
 import FeedbackUserDetailPage from '@/app/feedback-user-detail/page';
 import ExchangeHistoryDetailPage from '@/app/exchange-history-detail/page';
 
-
 import {
   USERS_MANAGEMENT_ROUTE,
   STAFFS_MANAGEMENT_ROUTE,
@@ -34,7 +33,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin',
-    element: <ProtectedRoute />, 
+    element: <ProtectedRoute />,
     children: [
       {
         element: <AppShell />,

@@ -19,7 +19,6 @@ import Cookies from 'js-cookie';
 import { HOME_ROUTE } from '@/common/constants/router';
 import { useNavigate } from 'react-router-dom';
 
-
 export function UserNav() {
   const dispatch = useDispatch<ReduxDispatch>();
   const userInfo = useSelector(selectUserInfo);
@@ -58,7 +57,9 @@ export function UserNav() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{userInfo?.fullName}</p>
+            <p className="text-sm font-medium leading-none">
+              {userInfo?.fullName}
+            </p>
             <p className="text-xs leading-none text-muted-foreground">
               {userInfo?.email}
             </p>

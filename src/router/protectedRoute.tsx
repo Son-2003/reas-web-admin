@@ -3,13 +3,13 @@ import { Navigate, Outlet } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 const ProtectedRoute: React.FC = () => {
-  const token = Cookies.get('access-token'); 
+  const token = Cookies.get('access-token');
 
   if (!token) {
-    return <Navigate to="/" />; 
+    return <Navigate to="/" />;
   }
 
-  return <Outlet />; 
+  return <Outlet />;
 };
 
 export default ProtectedRoute;
