@@ -160,7 +160,8 @@
   "button" : {
     "back": "Back",
     "approve": "Approve",
-    "discard": "Discard"
+    "discard": "Discard",
+    "cancel": "Cancel"
   },
   "feedback": {
     "title": "Feedback Detail",
@@ -208,6 +209,4 @@
     "notConfirmed": "Not Confirmed"
   }
 
-  
-  
 }

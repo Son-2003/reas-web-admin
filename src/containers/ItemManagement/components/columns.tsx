@@ -46,12 +46,24 @@ export const columns: ColumnDef<Item>[] = [
     header: 'Item Name',
     cell: ({ row }) => <span>{row.original.itemName}</span>,
   },
+  {
+    accessorKey: 'owner',
+    header: 'Owner',
+    cell: ({ row }) => <span>{row.original.owner.userName}</span>,
+  },
+
+  {
+    accessorKey: 'price',
+    header: 'Price',
+    cell: ({ row }) => <span>{row.original.price}</span>,
+  },
 
   {
     accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) => <span>{row.original.statusItem}</span>,
   },
+
   {
     id: 'actions',
     header: 'Actions',

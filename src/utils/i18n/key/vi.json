@@ -162,7 +162,9 @@
   "button":{
     "back" : "Quay lại",
     "approve" : "Duyệt",
-    "discard" : "Hủy"
+    "discard" : "Hủy",
+    "cancel" : "Hủy"
+    
   },
   "feedback": {
     "title": "Chi tiết Feedback",
