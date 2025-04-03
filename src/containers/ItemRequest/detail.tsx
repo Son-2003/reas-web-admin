@@ -337,7 +337,7 @@ export const ItemRequestDetail = () => {
             </p>
             <DialogFooter>
               <Button variant="outline" onClick={() => setOpenDialog(false)}>
-                Hủy
+                {t('button.cancel')}
               </Button>
               <Button
                 variant={
