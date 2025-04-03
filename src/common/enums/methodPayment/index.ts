@@ -6,6 +6,5 @@ export enum MethodPayment {
   APPLE_PAY = 'APPLE',
   VISA = 'VISA',
   MASTER_CARD = 'MASTER',
-  OTHER = 'OTHER'
-  }
-  
+  OTHER = 'OTHER',
+}

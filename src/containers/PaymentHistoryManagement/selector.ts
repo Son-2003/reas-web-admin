@@ -1,6 +1,7 @@
 import { ReduxState } from '@/lib/redux/store';
 
-export const selectPaymentHistory = (state: ReduxState) => state.paymentHistory.paymentHistory;
+export const selectPaymentHistory = (state: ReduxState) =>
+  state.paymentHistory.paymentHistory;
 
 export const selectPaymentHistoryFetchStatus = (state: ReduxState) =>
   state.paymentHistory.fetchStatus;

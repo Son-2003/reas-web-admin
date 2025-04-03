@@ -88,12 +88,12 @@ const router = createBrowserRouter([
           },
           {
             path: PAYMENT_HISTORY_MANAGEMENT_ROUTE,
-            element : <PaymentHistoryPage />
+            element: <PaymentHistoryPage />,
           },
           {
             path: PAYMENT_HISTORY_BY_USER_MANAGEMENT_ROUTE,
-            element : <PaymentHistoryByUserPage />
-          }
+            element: <PaymentHistoryByUserPage />,
+          },
         ],
       },
     ],

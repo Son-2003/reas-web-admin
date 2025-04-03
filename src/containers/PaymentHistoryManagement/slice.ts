@@ -3,7 +3,6 @@ import { fetchPaymentHistory } from './thunk';
 import { ApiStatus } from '@/common/enums/apiStatus';
 import { PaymentHistory } from '@/common/models/payment-history';
 
-
 export interface PaymentHistoryState {
   paymentHistory: PaymentHistory[];
   fetchStatus: ApiStatus;
@@ -50,7 +49,7 @@ const paymentHistorySlice = createSlice({
             totalPages: number;
             totalRecords: number;
             currentPage: number;
-          }>
+          }>,
         ) => {
           state.fetchStatus = ApiStatus.Fulfilled;
           state.paymentHistory = action.payload.paymentHistory;
@@ -58,7 +57,7 @@ const paymentHistorySlice = createSlice({
           state.totalRecords = action.payload.totalRecords;
           state.currentPage = action.payload.currentPage;
           state.errorMessage = undefined;
-        }
+        },
       )
       .addCase(fetchPaymentHistory.rejected, (state, action) => {
         state.fetchStatus = ApiStatus.Failed;

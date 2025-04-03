@@ -2,7 +2,6 @@ import { PaymentHistory } from '@/common/models/payment-history';
 import { createAppAsyncThunk } from '@/lib/redux/createAppAsyncThunk';
 import callApi from '@/utils/api';
 
-
 const TypePrefix = 'PaymentHistory';
 
 export const fetchPaymentHistory = createAppAsyncThunk(
@@ -14,7 +13,7 @@ export const fetchPaymentHistory = createAppAsyncThunk(
           method: 'post',
           url: 'payment-history/search',
         },
-        true
+        true,
       );
       return {
         paymentHistory: response.content as PaymentHistory[],
@@ -26,5 +25,5 @@ export const fetchPaymentHistory = createAppAsyncThunk(
       console.error('Error in fetchPaymentHistory:', error);
       throw error;
     }
-  }
+  },
 );

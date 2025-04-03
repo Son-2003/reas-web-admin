@@ -11,16 +11,19 @@ import { columns } from './components/columns';
 import { ReduxDispatch } from '@/lib/redux/store';
 import { useDispatch } from 'react-redux';
 import { selectPaymentHistoryByUserId } from './selector';
-import { selectPaymentHistoryFetchStatus, selectPaymentHistoryTotalPages } from '../PaymentHistoryManagement/selector';
+import {
+  selectPaymentHistoryFetchStatus,
+  selectPaymentHistoryTotalPages,
+} from '../PaymentHistoryManagement/selector';
 import { useSelector } from 'react-redux';
-import { fetchPaymentHistoryByUserId } from './thunk';  // Thêm import cho thunk
+import { fetchPaymentHistoryByUserId } from './thunk'; // Thêm import cho thunk
 import { ApiStatus } from '@/common/enums/apiStatus';
 
 export const PaymentHistoryByUserManagement = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch<ReduxDispatch>();
-  const { userId } = useParams();  
+  const { userId } = useParams();
 
   const [pageNo, setPageNo] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -33,11 +36,11 @@ export const PaymentHistoryByUserManagement = () => {
     if (userId) {
       dispatch(fetchPaymentHistoryByUserId(Number(userId)));
     }
-  }, [dispatch, userId, pageNo, pageSize]);  
+  }, [dispatch, userId, pageNo, pageSize]);
 
-   if (fetchStatus === ApiStatus.Loading) { 
-      return <div>Loading...</div>;
-    }
+  if (fetchStatus === ApiStatus.Loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -52,15 +55,15 @@ export const PaymentHistoryByUserManagement = () => {
       <div className="-mx-4 flex-1 overflow-auto px-4 py-4 lg:flex-row lg:space-x-12 lg:space-y-0">
         <DataTable
           columns={columns}
-          data={paymentHistory} 
+          data={paymentHistory}
           searchKey="id"
           placeholder="Tìm kiếm yêu cầu vật phẩm tại đây..."
-          dataType='itemRequests'
+          dataType="itemRequests"
         />
       </div>
       <DataTablePagination
         currentPage={pageNo}
-        totalPages={totalPages} 
+        totalPages={totalPages}
         pageSize={pageSize}
         setPageNo={setPageNo}
         setPageSize={setPageSize}

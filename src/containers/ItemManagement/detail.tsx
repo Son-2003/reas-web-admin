@@ -151,7 +151,8 @@ export const ItemDetail = () => {
                     {t('itemRequest.condition')}
                   </td>
                   <td
-                    className={`p-2 font-bold ${{
+                    className={`p-2 font-bold ${
+                      {
                         [ConditionItem.BRAND_NEW]: 'text-green-700',
                         [ConditionItem.LIKE_NEW]: 'text-green-500',
                         [ConditionItem.EXCELLENT]: 'text-blue-700',
@@ -161,10 +162,10 @@ export const ItemDetail = () => {
                         [ConditionItem.NOT_WORKING]: 'text-red-700',
                         [ConditionItem.NO_CONDITION]: 'text-gray-500',
                       }[item.conditionItem] || 'text-black dark:text-white'
-                      }`}
+                    }`}
                   >
                     {ConditionItemsLabels.find(
-                      (label) => label.value === item.conditionItem
+                      (label) => label.value === item.conditionItem,
                     )?.label || item.conditionItem}
                   </td>
                 </tr>

@@ -10,14 +10,18 @@ import { useTranslation } from 'react-i18next';
 import { columns } from './components/columns';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPaymentHistory } from './thunk'; // Import thunk
-import { selectPaymentHistory, selectPaymentHistoryFetchStatus, selectPaymentHistoryTotalPages } from './selector';
+import {
+  selectPaymentHistory,
+  selectPaymentHistoryFetchStatus,
+  selectPaymentHistoryTotalPages,
+} from './selector';
 import { ReduxDispatch } from '@/lib/redux/store';
 import { ApiStatus } from '@/common/enums/apiStatus';
 
 export const PaymentHistoryManagement = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-const dispatch = useDispatch<ReduxDispatch>();
+  const dispatch = useDispatch<ReduxDispatch>();
 
   const [pageNo, setPageNo] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -25,13 +29,12 @@ const dispatch = useDispatch<ReduxDispatch>();
   const paymentHistory = useSelector(selectPaymentHistory);
   const fetchStatus = useSelector(selectPaymentHistoryFetchStatus);
   const totalPages = useSelector(selectPaymentHistoryTotalPages);
-  
 
   useEffect(() => {
-    dispatch(fetchPaymentHistory()); 
+    dispatch(fetchPaymentHistory());
   }, [dispatch, pageNo, pageSize]);
 
-  if (fetchStatus === ApiStatus.Loading) { 
+  if (fetchStatus === ApiStatus.Loading) {
     return <div>Loading...</div>;
   }
 
@@ -48,15 +51,15 @@ const dispatch = useDispatch<ReduxDispatch>();
       <div className="-mx-4 flex-1 overflow-auto px-4 py-4 lg:flex-row lg:space-x-12 lg:space-y-0">
         <DataTable
           columns={columns}
-          data={paymentHistory} 
+          data={paymentHistory}
           searchKey="id"
           placeholder="Tìm kiếm yêu cầu vật phẩm tại đây..."
-          dataType='paymentHistory'
+          dataType="paymentHistory"
         />
       </div>
       <DataTablePagination
         currentPage={pageNo}
-        totalPages={totalPages} 
+        totalPages={totalPages}
         pageSize={pageSize}
         setPageNo={setPageNo}
         setPageSize={setPageSize}

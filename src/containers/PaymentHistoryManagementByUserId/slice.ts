@@ -49,7 +49,7 @@ const paymentHistoryByUserIdSlice = createSlice({
             totalPages: number;
             totalRecords: number;
             currentPage: number;
-          }>
+          }>,
         ) => {
           state.fetchStatus = ApiStatus.Fulfilled;
           state.paymentHistory = action.payload.paymentHistory;
@@ -57,7 +57,7 @@ const paymentHistoryByUserIdSlice = createSlice({
           state.totalRecords = action.payload.totalRecords;
           state.currentPage = action.payload.currentPage;
           state.errorMessage = undefined;
-        }
+        },
       )
       .addCase(fetchPaymentHistoryByUserId.rejected, (state, action) => {
         state.fetchStatus = ApiStatus.Failed;
@@ -67,5 +67,6 @@ const paymentHistoryByUserIdSlice = createSlice({
   },
 });
 
-export const { resetPaymentHistoryByUserIdState } = paymentHistoryByUserIdSlice.actions;
+export const { resetPaymentHistoryByUserIdState } =
+  paymentHistoryByUserIdSlice.actions;
 export default paymentHistoryByUserIdSlice.reducer;

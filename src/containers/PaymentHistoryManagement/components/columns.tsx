@@ -5,8 +5,6 @@ import { Icons } from '@/components/ui/icons';
 import { CellAction } from './cell-action';
 import { PaymentHistory } from '@/common/models/payment-history';
 
-
-
 export const columns: ColumnDef<PaymentHistory>[] = [
   {
     id: 'select',

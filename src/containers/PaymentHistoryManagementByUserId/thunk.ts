@@ -13,7 +13,7 @@ export const fetchPaymentHistoryByUserId = createAppAsyncThunk(
           method: 'post',
           url: `payment-history/search/${userId}`,
         },
-        true
+        true,
       );
       return {
         paymentHistory: response.content as PaymentHistory[],
@@ -25,5 +25,5 @@ export const fetchPaymentHistoryByUserId = createAppAsyncThunk(
       console.error('Error in fetchPaymentHistoryByUserId:', error);
       throw error;
     }
-  }
+  },
 );
