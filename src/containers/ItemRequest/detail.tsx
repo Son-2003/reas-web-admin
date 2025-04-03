@@ -193,13 +193,24 @@ export const ItemRequestDetail = () => {
           <div className="overflow-x-auto mt-2">
             <table className="min-w-full border border-gray-300 dark:border-gray-700 text-black dark:text-white text-sm">
               <tbody>
-                <tr className="border-b border-gray-300 dark:border-gray-700">
+              <tr className="border-b border-gray-300 dark:border-gray-700">
                   <td className="p-2 text-gray-600 dark:text-gray-400">
                     {t('itemRequest.condition')}
                   </td>
-                  <td className="p-2 text-green-600 dark:text-green-500 font-bold">
-                    {ConditionItemsLabels[item.conditionItem] ||
-                      item.conditionItem}
+                  <td
+                    className={`p-2 font-bold ${{
+                        [ConditionItem.BRAND_NEW]: 'text-green-700',
+                        [ConditionItem.LIKE_NEW]: 'text-green-500',
+                        [ConditionItem.EXCELLENT]: 'text-blue-700',
+                        [ConditionItem.GOOD]: 'text-blue-500',
+                        [ConditionItem.FAIR]: 'text-yellow-700',
+                        [ConditionItem.POOR]: 'text-yellow-500',
+                        [ConditionItem.NOT_WORKING]: 'text-red-700',
+                        [ConditionItem.NO_CONDITION]: 'text-gray-500',
+                      }[item.conditionItem] || 'text-black dark:text-white'
+                      }`}
+                  >
+                    {ConditionItemsLabels[item.conditionItem] || item.conditionItem}
                   </td>
                 </tr>
                 <tr className="border-b border-gray-300 dark:border-gray-700">

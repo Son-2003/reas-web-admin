@@ -23,8 +23,12 @@ import {
   EXCHANGE_HISTORY_MANAGEMENT_ROUTE,
   FEEDBACK_USER_MANAGEMENT_DETAIL_ROUTE,
   EXCHANGE_HISTORY_MANAGEMENT_DETAIL_ROUTE,
+  PAYMENT_HISTORY_MANAGEMENT_ROUTE,
+  PAYMENT_HISTORY_BY_USER_MANAGEMENT_ROUTE,
 } from '@/common/constants/router';
 import ProtectedRoute from './protectedRoute';
+import PaymentHistoryPage from '@/app/payment-history/page';
+import PaymentHistoryByUserPage from '@/app/payment-history-by-user/page';
 
 const router = createBrowserRouter([
   {
@@ -82,6 +86,14 @@ const router = createBrowserRouter([
             path: EXCHANGE_HISTORY_MANAGEMENT_DETAIL_ROUTE,
             element: <ExchangeHistoryDetailPage />,
           },
+          {
+            path: PAYMENT_HISTORY_MANAGEMENT_ROUTE,
+            element : <PaymentHistoryPage />
+          },
+          {
+            path: PAYMENT_HISTORY_BY_USER_MANAGEMENT_ROUTE,
+            element : <PaymentHistoryByUserPage />
+          }
         ],
       },
     ],

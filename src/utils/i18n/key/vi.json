@@ -101,7 +101,12 @@
     "title": "Quản lý nhân viên"
   },
   "itemsManagement":{
-    "title": "Quản lý sản phẩm"
+    "title": "Quản lý sản phẩm",
+    "itemName": "Tên sản phẩm",
+    "owner": "Người sở hữu",
+    "status": "Trạng thái",
+    "action": "Hành động",
+    "price": "Giá"
   },
   "itemRequest" :{
     "title": "Yêu cầu sản phẩm",

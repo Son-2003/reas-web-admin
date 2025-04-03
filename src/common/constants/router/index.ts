@@ -8,14 +8,14 @@ const ITEM_REQUEST_ROUTE = '/admin/item-request';
 const ITEM_REQUEST_DETAIL_ROUTE = '/admin/item-request/:id';
 const ITEMS_MANAGEMENT_ROUTE = '/admin/items-management/:id';
 const ITEM_MANAGEMENT_DETAIL_ROUTE = '/admin/items-management/:userId/:itemId';
-const FEEDBACK_USER_MANAGEMENT_ROUTE =
-  '/admin/feedback-user-management/:userId';
-const FEEDBACK_USER_MANAGEMENT_DETAIL_ROUTE =
-  '/admin/feedback-user-management/:userId/:feedbackId';
-const EXCHANGE_HISTORY_MANAGEMENT_ROUTE =
-  '/admin/exchange-history-management/:userId';
-const EXCHANGE_HISTORY_MANAGEMENT_DETAIL_ROUTE =
-  '/admin/exchange-history-management/:userId/:exchangeHistoryId';
+const FEEDBACK_USER_MANAGEMENT_ROUTE ='/admin/feedback-user-management/:userId';
+const FEEDBACK_USER_MANAGEMENT_DETAIL_ROUTE ='/admin/feedback-user-management/:userId/:feedbackId';
+const EXCHANGE_HISTORY_MANAGEMENT_ROUTE ='/admin/exchange-history-management/:userId';
+const EXCHANGE_HISTORY_MANAGEMENT_DETAIL_ROUTE ='/admin/exchange-history-management/:userId/:exchangeHistoryId';
+const PAYMENT_HISTORY_MANAGEMENT_ROUTE ='/admin/payment-history-management';
+const PAYMENT_HISTORY_BY_USER_MANAGEMENT_ROUTE ='/admin/payment-history-management/:userId';
+
+
 
 export {
   HOME_ROUTE,
@@ -32,4 +32,6 @@ export {
   FEEDBACK_USER_MANAGEMENT_DETAIL_ROUTE,
   EXCHANGE_HISTORY_MANAGEMENT_ROUTE,
   EXCHANGE_HISTORY_MANAGEMENT_DETAIL_ROUTE,
+  PAYMENT_HISTORY_MANAGEMENT_ROUTE,
+  PAYMENT_HISTORY_BY_USER_MANAGEMENT_ROUTE,
 };
