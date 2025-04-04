@@ -1,5 +1,18 @@
 {
-  "welcomeMessage": "Welcome to React and react-i18next",
+  "loginPage": {
+    "title": "REAS management system",
+    "loginMsg": "Login to your account",
+    "emailOrUsername": "Username or Email",
+    "password": "Password",
+    "loginButton": "Login",
+    "forgotPassword": "Forgot password?",
+    "rememberMe": "Remember me",
+    "errorMessage": {
+      "emptyUsername": "Please enter your username.",
+      "emptyPassword": "Please enter your password.",
+      "invalidCredentials": "Invalid username or password."
+    }
+  },
   "sidebar": {
     "management": "Management",
     "human": "Human",
@@ -142,7 +155,7 @@
       "minPrice": "Min price:",
       "maxPrice": "Max price:",
       "desiredItem": "Desired item:"
-      
+
     },
     "description": "Description:",
     "information": "Information",
