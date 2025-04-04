@@ -33,6 +33,7 @@ const FeedbackDetail: React.FC = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [openDialog, setOpenDialog] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     if (feedbackId) {
@@ -64,25 +65,40 @@ const FeedbackDetail: React.FC = () => {
         });
       }
     }
-    setOpenDialog(false); // Close dialog after action
+    setOpenDialog(false);
   };
 
+  const imageUrls = feedback?.imageUrl?.split(', ') || [];
+
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? imageUrls.length - 1 : prevIndex - 1,
+    );
+  };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === imageUrls.length - 1 ? 0 : prevIndex + 1,
+    );
+  };
+
+  const handleDotClick = (index: number) => {
+    setCurrentImageIndex(index);
+  };
   return (
     <div className="max-w-6xl mx-auto mt-10 p-4">
       <div className="flex flex-wrap gap-4 mb-6">
         <Button onClick={handleBackClick} variant="outline">
           Back
         </Button>
-        {/* Nút xóa với xác nhận */}
         <Button
-          onClick={() => setOpenDialog(true)} // Mở dialog khi nhấn nút xóa
+          onClick={() => setOpenDialog(true)}
           variant="destructive"
         >
           {t('feedback.delete')}
         </Button>
       </div>
 
-      {/* Dialog xác nhận xóa */}
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent>
           <DialogHeader>
@@ -133,11 +149,10 @@ const FeedbackDetail: React.FC = () => {
                         {Array.from({ length: 5 }).map((_, i) => (
                           <Star
                             key={i}
-                            className={`w-5 h-5 ${
-                              i < feedback.rating
+                            className={`w-5 h-5 ${i < feedback.rating
                                 ? 'text-yellow-400 dark:text-yellow-500'
                                 : 'text-gray-300 dark:text-gray-600'
-                            }`}
+                              }`}
                           />
                         ))}
                       </div>
@@ -152,14 +167,41 @@ const FeedbackDetail: React.FC = () => {
                       </span>
                     </div>
 
-                    {feedback.imageUrl && (
-                      <div>
-                        <img
-                          src={feedback.imageUrl}
-                          alt="Feedback"
-                          className="w-full max-w-xs rounded-lg border dark:border-gray-600"
-                        />
+                    {/* Display images with prev/next buttons */}
+                    {imageUrls.length > 0 && (
+                      <div className="relative w-full">
+                        <div className="w-full h-96 bg-gray-300 rounded-lg overflow-hidden mb-5">
+                          <img
+                            alt="Feedback"
+                            className="w-full h-full object-cover"
+                            src={imageUrls[currentImageIndex]}
+                          />
+                        </div>
+
+                        <button
+                          onClick={handlePrevImage}
+                          className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/80 text-white p-2 rounded-full hover:bg-black transition-colors"
+                        >
+                          &#8249;
+                        </button>
+
+                        <button
+                          onClick={handleNextImage}
+                          className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/80 text-white p-2 rounded-full hover:bg-black transition-colors"
+                        >
+                          &#8250;
+                        </button>
+                        <div className="flex justify-center mt-2 space-x-2">
+                          {imageUrls.map((_, index) => (
+                            <button
+                              key={index}
+                              onClick={() => handleDotClick(index)}
+                              className={`h-2 w-2 rounded-full focus:outline-none transition-colors duration-200 ${currentImageIndex === index ? 'bg-black dark:bg-white scale-125' : 'bg-gray-400 dark:bg-gray-600'}`}
+                            ></button>
+                          ))}
+                        </div>
                       </div>
+
                     )}
                   </div>
                 </section>
@@ -275,11 +317,10 @@ const FeedbackDetail: React.FC = () => {
                         {t('feedback.buyerConfirmation')}
                       </strong>
                       <span
-                        className={`${
-                          feedback.exchangeHistory.buyerConfirmation
+                        className={`${feedback.exchangeHistory.buyerConfirmation
                             ? 'text-green-600 dark:text-green-400'
                             : 'text-red-600 dark:text-red-400'
-                        }`}
+                          }`}
                       >
                         {feedback.exchangeHistory.buyerConfirmation
                           ? t('feedback.confirmed')
@@ -291,11 +332,10 @@ const FeedbackDetail: React.FC = () => {
                         {t('feedback.sellerConfirmation')}
                       </strong>
                       <span
-                        className={`${
-                          feedback.exchangeHistory.sellerConfirmation
+                        className={`${feedback.exchangeHistory.sellerConfirmation
                             ? 'text-green-600 dark:text-green-400'
                             : 'text-red-600 dark:text-red-400'
-                        }`}
+                          }`}
                       >
                         {feedback.exchangeHistory.sellerConfirmation
                           ? t('feedback.confirmed')
