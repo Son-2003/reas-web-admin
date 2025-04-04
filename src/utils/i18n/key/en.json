@@ -101,7 +101,12 @@
     "title": "Staffs management"
   },
   "itemsManagement":{
-    "title": "Items management"
+    "title": "Items management",
+    "itemName": "Item name",
+    "owner": "Owner",
+    "status": "Status",
+    "action": "Actions",
+    "price": "Price"
   },
   "itemRequest":{
     "title": "Item request management",

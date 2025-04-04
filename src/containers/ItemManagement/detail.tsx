@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxDispatch } from '@/lib/redux/store';
@@ -18,6 +18,7 @@ export const ItemDetail = () => {
   const item = useSelector(selectItemDetail);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     if (itemId) {
@@ -25,7 +26,7 @@ export const ItemDetail = () => {
     }
   }, [dispatch, itemId]);
 
-  if (!item) {
+  if (!item || !item.imageUrl) {
     return (
       <div className="flex justify-center items-center h-screen">
         <LoaderCircle />
@@ -93,6 +94,20 @@ export const ItemDetail = () => {
 
   const primaryLocation = item.owner.userLocations.find((loc) => loc.primary);
 
+  const imageUrls = item.imageUrl.split(', ');
+
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? imageUrls.length - 1 : prevIndex - 1,
+    );
+  };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === imageUrls.length - 1 ? 0 : prevIndex + 1,
+    );
+  };
+
   return (
     <div className="container mx-auto p-4 bg-white dark:bg-black transition-colors duration-300">
       <div className="flex flex-wrap gap-4 mb-6">
@@ -121,14 +136,30 @@ export const ItemDetail = () => {
             </div>
           </div>
 
-          <div className="mt-6">
-            <div className="w-full max-w-sm h-96 bg-gray-300 rounded-lg overflow-hidden mt-2 mb-5">
+          <div className="mt-6 relative">
+            <div className="w-96 max-w-sm h-96 bg-gray-300 rounded-lg overflow-hidden mt-2 mb-5">
               <img
-                src={item.imageUrl}
                 alt={item.itemName}
                 className="w-full h-full object-cover"
+                src={imageUrls[currentImageIndex]}
               />
             </div>
+
+            {/* Nút Previous */}
+            <button
+              onClick={handlePrevImage}
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black text-white p-2 rounded-full"
+            >
+              &#8249;
+            </button>
+
+            {/* Nút Next */}
+            <button
+              onClick={handleNextImage}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black text-white p-2 rounded-full ml-10"
+            >
+              &#8250;
+            </button>
           </div>
         </div>
 
@@ -150,12 +181,26 @@ export const ItemDetail = () => {
                   <td className="p-2 text-gray-600 dark:text-gray-400">
                     {t('itemRequest.condition')}
                   </td>
-                  <td className="p-2 text-green-600 dark:text-green-500 font-bold">
+                  <td
+                    className={`p-2 font-bold ${
+                      {
+                        [ConditionItem.BRAND_NEW]: 'text-green-700',
+                        [ConditionItem.LIKE_NEW]: 'text-green-500',
+                        [ConditionItem.EXCELLENT]: 'text-blue-700',
+                        [ConditionItem.GOOD]: 'text-blue-500',
+                        [ConditionItem.FAIR]: 'text-yellow-700',
+                        [ConditionItem.POOR]: 'text-yellow-500',
+                        [ConditionItem.NOT_WORKING]: 'text-red-700',
+                        [ConditionItem.NO_CONDITION]: 'text-gray-500',
+                      }[item.conditionItem] || 'text-black dark:text-white'
+                    }`}
+                  >
                     {ConditionItemsLabels.find(
                       (label) => label.value === item.conditionItem,
                     )?.label || item.conditionItem}
                   </td>
                 </tr>
+
                 <tr className="border-b border-gray-300 dark:border-gray-700">
                   <td className="p-2 text-gray-600 dark:text-gray-400">
                     {t('itemRequest.category')}

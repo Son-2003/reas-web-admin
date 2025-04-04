@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { columns } from './components/columns';
+
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchItems } from './thunk';
@@ -20,11 +20,13 @@ import {
   selectTotalPages,
 } from './selector';
 import { USERS_MANAGEMENT_ROUTE } from '@/common/constants/router';
+import { useItemColumns } from './components/columns';
 
 export const ItemManagement = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch<ReduxDispatch>();
   const navigate = useNavigate();
+  const columns = useItemColumns();
   const { id: userId } = useParams<{ id: string }>();
   const [pageNo, setPageNo] = useState(1);
   const [pageSize, setPageSize] = useState(10);

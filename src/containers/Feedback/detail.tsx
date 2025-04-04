@@ -1,17 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { Card, CardContent } from '@/components/ui/card';
 import { Loader2, AlertTriangle, Star } from 'lucide-react';
 import { selectFeedbackDetail, selectFeedbackFetchStatus } from './selector';
-import { getFeedbackDetail } from './thunk';
+import { getFeedbackDetail, deleteFeedback } from './thunk';
 import { ApiStatus } from '@/common/enums/apiStatus';
 import { ReduxDispatch } from '@/lib/redux/store';
 
 import { useNavigate, useParams } from 'react-router-dom';
 import { FEEDBACK_USER_MANAGEMENT_ROUTE } from '@/common/constants/router';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/components/ui/use-toast';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 const FeedbackDetail: React.FC = () => {
   const { feedbackId, userId } = useParams<{
@@ -23,15 +31,40 @@ const FeedbackDetail: React.FC = () => {
   const fetchStatus = useSelector(selectFeedbackFetchStatus);
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
     if (feedbackId) {
       dispatch(getFeedbackDetail(feedbackId));
     }
-  }, [dispatch]);
+  }, [dispatch, feedbackId]);
 
   const handleBackClick = () => {
     navigate(FEEDBACK_USER_MANAGEMENT_ROUTE.replace(':userId', userId || ''));
+  };
+
+  const handleDeleteClick = async () => {
+    if (feedbackId) {
+      try {
+        await dispatch(deleteFeedback(feedbackId)).unwrap();
+        toast({
+          title: t('feedback.deleted'),
+          description: t('feedback.deletedSuccess'),
+          variant: 'default',
+        });
+        navigate(
+          FEEDBACK_USER_MANAGEMENT_ROUTE.replace(':userId', userId || ''),
+        );
+      } catch {
+        toast({
+          title: t('feedback.error'),
+          description: t('feedback.deletedError'),
+          variant: 'destructive',
+        });
+      }
+    }
+    setOpenDialog(false); // Close dialog after action
   };
 
   return (
@@ -40,7 +73,32 @@ const FeedbackDetail: React.FC = () => {
         <Button onClick={handleBackClick} variant="outline">
           Back
         </Button>
+        {/* Nút xóa với xác nhận */}
+        <Button
+          onClick={() => setOpenDialog(true)} // Mở dialog khi nhấn nút xóa
+          variant="destructive"
+        >
+          {t('feedback.delete')}
+        </Button>
       </div>
+
+      {/* Dialog xác nhận xóa */}
+      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t('feedback.confirmDelete')}</DialogTitle>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setOpenDialog(false)}>
+              {t('feedback.cancel')}
+            </Button>
+            <Button variant="destructive" onClick={handleDeleteClick}>
+              {t('feedback.confirm')}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       <Card className="border-none shadow-none dark:bg-black">
         <CardContent className="px-0">
           {fetchStatus === ApiStatus.Loading && (

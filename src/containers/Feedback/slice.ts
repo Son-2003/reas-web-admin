@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getFeedback, getFeedbackDetail } from './thunk';
+import { getFeedback, getFeedbackDetail, deleteFeedback } from './thunk';
 import { ApiStatus } from '@/common/enums/apiStatus';
 import { Feedback } from '@/common/models/feedback';
 
@@ -39,7 +39,6 @@ const feedbackManagementSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Xử lý khi gọi getFeedback
       .addCase(getFeedback.pending, (state) => {
         state.fetchStatus = ApiStatus.Loading;
         state.errorMessage = undefined;
@@ -87,6 +86,24 @@ const feedbackManagementSlice = createSlice({
         state.fetchStatus = ApiStatus.Failed;
         state.errorMessage =
           action.error.message || 'Có lỗi xảy ra khi tải chi tiết feedback.';
+      })
+
+      // Xử lý khi xóa feedback
+      .addCase(deleteFeedback.pending, (state) => {
+        state.fetchStatus = ApiStatus.Loading;
+        state.errorMessage = undefined;
+      })
+      .addCase(deleteFeedback.fulfilled, (state, action) => {
+        state.fetchStatus = ApiStatus.Fulfilled;
+        state.feedbacks = state.feedbacks.filter(
+          (feedback) => feedback.id !== Number(action.meta.arg),
+        );
+        state.errorMessage = undefined;
+      })
+      .addCase(deleteFeedback.rejected, (state, action) => {
+        state.fetchStatus = ApiStatus.Failed;
+        state.errorMessage =
+          action.error.message || 'Có lỗi xảy ra khi xóa feedback.';
       });
   },
 });

@@ -26,6 +26,7 @@ import { useTranslation } from 'react-i18next';
 import {
   DASHBOARD_ROUTE,
   ITEM_REQUEST_ROUTE,
+  PAYMENT_HISTORY_MANAGEMENT_ROUTE,
   STAFFS_MANAGEMENT_ROUTE,
   USERS_MANAGEMENT_ROUTE,
 } from '@/common/constants/router';
@@ -79,8 +80,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         icon: BookOpen,
       },
       {
-        title: 'Settings',
-        url: '#',
+        title: 'Payment History',
+        url: PAYMENT_HISTORY_MANAGEMENT_ROUTE,
         icon: Settings2,
       },
     ],
