@@ -91,10 +91,7 @@ const FeedbackDetail: React.FC = () => {
         <Button onClick={handleBackClick} variant="outline">
           Back
         </Button>
-        <Button
-          onClick={() => setOpenDialog(true)}
-          variant="destructive"
-        >
+        <Button onClick={() => setOpenDialog(true)} variant="destructive">
           {t('feedback.delete')}
         </Button>
       </div>
@@ -149,10 +146,11 @@ const FeedbackDetail: React.FC = () => {
                         {Array.from({ length: 5 }).map((_, i) => (
                           <Star
                             key={i}
-                            className={`w-5 h-5 ${i < feedback.rating
+                            className={`w-5 h-5 ${
+                              i < feedback.rating
                                 ? 'text-yellow-400 dark:text-yellow-500'
                                 : 'text-gray-300 dark:text-gray-600'
-                              }`}
+                            }`}
                           />
                         ))}
                       </div>
@@ -201,7 +199,6 @@ const FeedbackDetail: React.FC = () => {
                           ))}
                         </div>
                       </div>
-
                     )}
                   </div>
                 </section>
@@ -317,10 +314,11 @@ const FeedbackDetail: React.FC = () => {
                         {t('feedback.buyerConfirmation')}
                       </strong>
                       <span
-                        className={`${feedback.exchangeHistory.buyerConfirmation
+                        className={`${
+                          feedback.exchangeHistory.buyerConfirmation
                             ? 'text-green-600 dark:text-green-400'
                             : 'text-red-600 dark:text-red-400'
-                          }`}
+                        }`}
                       >
                         {feedback.exchangeHistory.buyerConfirmation
                           ? t('feedback.confirmed')
@@ -332,10 +330,11 @@ const FeedbackDetail: React.FC = () => {
                         {t('feedback.sellerConfirmation')}
                       </strong>
                       <span
-                        className={`${feedback.exchangeHistory.sellerConfirmation
+                        className={`${
+                          feedback.exchangeHistory.sellerConfirmation
                             ? 'text-green-600 dark:text-green-400'
                             : 'text-red-600 dark:text-red-400'
-                          }`}
+                        }`}
                       >
                         {feedback.exchangeHistory.sellerConfirmation
                           ? t('feedback.confirmed')

@@ -44,26 +44,26 @@ const ExchangeHistoryDetail: React.FC = () => {
     : [];
 
   const handlePrevSellerImage = () => {
-    setCurrentSellerImageIndex(
-      (prevIndex) => (prevIndex === 0 ? sellerImageUrls.length - 1 : prevIndex - 1)
+    setCurrentSellerImageIndex((prevIndex) =>
+      prevIndex === 0 ? sellerImageUrls.length - 1 : prevIndex - 1,
     );
   };
 
   const handleNextSellerImage = () => {
-    setCurrentSellerImageIndex(
-      (prevIndex) => (prevIndex === sellerImageUrls.length - 1 ? 0 : prevIndex + 1)
+    setCurrentSellerImageIndex((prevIndex) =>
+      prevIndex === sellerImageUrls.length - 1 ? 0 : prevIndex + 1,
     );
   };
 
   const handlePrevBuyerImage = () => {
-    setCurrentBuyerImageIndex(
-      (prevIndex) => (prevIndex === 0 ? buyerImageUrls.length - 1 : prevIndex - 1)
+    setCurrentBuyerImageIndex((prevIndex) =>
+      prevIndex === 0 ? buyerImageUrls.length - 1 : prevIndex - 1,
     );
   };
 
   const handleNextBuyerImage = () => {
-    setCurrentBuyerImageIndex(
-      (prevIndex) => (prevIndex === buyerImageUrls.length - 1 ? 0 : prevIndex + 1)
+    setCurrentBuyerImageIndex((prevIndex) =>
+      prevIndex === buyerImageUrls.length - 1 ? 0 : prevIndex + 1,
     );
   };
 
@@ -147,7 +147,6 @@ const ExchangeHistoryDetail: React.FC = () => {
                         &#8250;
                       </button>
                     </div>
-
                   )}
                   <div className="flex justify-center mt-2 space-x-2">
                     {sellerImageUrls.map((_, index) => (

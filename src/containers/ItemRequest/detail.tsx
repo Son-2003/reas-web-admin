@@ -33,7 +33,6 @@ export const ItemRequestDetail = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-
   useEffect(() => {
     if (id) {
       dispatch(fetchItemDetail(id));
@@ -58,8 +57,9 @@ export const ItemRequestDetail = () => {
 
       toast({
         title: 'Thành công',
-        description: `Yêu cầu đã được ${reviewStatus === 'AVAILABLE' ? 'phê duyệt' : 'từ chối'
-          } thành công!`,
+        description: `Yêu cầu đã được ${
+          reviewStatus === 'AVAILABLE' ? 'phê duyệt' : 'từ chối'
+        } thành công!`,
         variant: 'default',
         action:
           reviewStatus === 'AVAILABLE' ? (
@@ -228,7 +228,6 @@ export const ItemRequestDetail = () => {
           </div>
         </div>
 
-
         <div className="border border-gray-300 dark:border-gray-700 p-4 rounded-lg">
           <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
             {t('itemRequest.description')}
@@ -237,7 +236,6 @@ export const ItemRequestDetail = () => {
           <p className="text-black dark:text-white text-sm mt-2 mb-4">
             {item.description}
           </p>
-
 
           <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
             {t('itemRequest.information')}
@@ -250,7 +248,8 @@ export const ItemRequestDetail = () => {
                     {t('itemRequest.condition')}
                   </td>
                   <td
-                    className={`p-2 font-bold ${{
+                    className={`p-2 font-bold ${
+                      {
                         [ConditionItem.BRAND_NEW]: 'text-green-700',
                         [ConditionItem.LIKE_NEW]: 'text-green-500',
                         [ConditionItem.EXCELLENT]: 'text-blue-700',
@@ -260,7 +259,7 @@ export const ItemRequestDetail = () => {
                         [ConditionItem.NOT_WORKING]: 'text-red-700',
                         [ConditionItem.NO_CONDITION]: 'text-gray-500',
                       }[item.conditionItem] || 'text-black dark:text-white'
-                      }`}
+                    }`}
                   >
                     {ConditionItemsLabels[item.conditionItem] ||
                       item.conditionItem}
@@ -404,7 +403,9 @@ export const ItemRequestDetail = () => {
                 {t('button.cancel')}
               </Button>
               <Button
-                variant={reviewStatus === 'AVAILABLE' ? 'default' : 'destructive'}
+                variant={
+                  reviewStatus === 'AVAILABLE' ? 'default' : 'destructive'
+                }
                 onClick={confirmReview}
                 disabled={isLoading}
               >
@@ -419,7 +420,6 @@ export const ItemRequestDetail = () => {
                   t('itemRequest.itemRequestDetail.dialog.discard2')
                 )}
               </Button>
-
             </DialogFooter>
           </DialogContent>
         </Dialog>
