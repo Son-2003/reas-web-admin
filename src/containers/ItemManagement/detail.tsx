@@ -107,6 +107,9 @@ export const ItemDetail = () => {
       prevIndex === imageUrls.length - 1 ? 0 : prevIndex + 1,
     );
   };
+  const handleDotClick = (index: number) => {
+    setCurrentImageIndex(index);
+  };
 
   return (
     <div className="container mx-auto p-4 bg-white dark:bg-black transition-colors duration-300">
@@ -136,8 +139,8 @@ export const ItemDetail = () => {
             </div>
           </div>
 
-          <div className="mt-6 relative">
-            <div className="w-96 max-w-sm h-96 bg-gray-300 rounded-lg overflow-hidden mt-2 mb-5">
+          <div className="mt-6 relative w-96">
+            <div className="w-96 h-96 bg-gray-300 rounded-lg overflow-hidden mt-2 mb-5">
               <img
                 alt={item.itemName}
                 className="w-full h-full object-cover"
@@ -145,21 +148,28 @@ export const ItemDetail = () => {
               />
             </div>
 
-            {/* Nút Previous */}
             <button
               onClick={handlePrevImage}
-              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black text-white p-2 rounded-full"
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/80 text-white p-2 rounded-full hover:bg-black transition-colors"
             >
               &#8249;
             </button>
 
-            {/* Nút Next */}
             <button
               onClick={handleNextImage}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black text-white p-2 rounded-full ml-10"
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/80 text-white p-2 rounded-full hover:bg-black transition-colors"
             >
               &#8250;
             </button>
+          </div>
+          <div className="flex justify-center mt-2 space-x-2">
+            {imageUrls.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => handleDotClick(index)}
+                className={`h-2 w-2 rounded-full focus:outline-none transition-colors duration-200 ${currentImageIndex === index ? 'bg-black dark:bg-white scale-125' : 'bg-gray-400 dark:bg-gray-600'}`}
+              ></button>
+            ))}
           </div>
         </div>
 

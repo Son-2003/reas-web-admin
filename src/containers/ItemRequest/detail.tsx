@@ -30,6 +30,8 @@ export const ItemRequestDetail = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { t } = useTranslation();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -46,6 +48,7 @@ export const ItemRequestDetail = () => {
   }
   const confirmReview = async () => {
     if (!id || !reviewStatus) return;
+    setIsLoading(true);
     try {
       await dispatch(
         reviewItemRequest({ id, statusItem: reviewStatus }),
@@ -54,7 +57,9 @@ export const ItemRequestDetail = () => {
 
       toast({
         title: 'Thành công',
-        description: `Yêu cầu đã được ${reviewStatus === 'AVAILABLE' ? 'phê duyệt' : 'từ chối'} thành công!`,
+        description: `Yêu cầu đã được ${
+          reviewStatus === 'AVAILABLE' ? 'phê duyệt' : 'từ chối'
+        } thành công!`,
         variant: 'default',
         action:
           reviewStatus === 'AVAILABLE' ? (
@@ -73,8 +78,11 @@ export const ItemRequestDetail = () => {
         variant: 'destructive',
         action: <XCircle className="text-red-500" />,
       });
+    } finally {
+      setIsLoading(false);
     }
   };
+
   const MethodExchangeLabelsArray = [
     {
       label: t('itemRequest.itemRequestDetail.pickUpInPerson'),
@@ -140,6 +148,23 @@ export const ItemRequestDetail = () => {
   );
   const primaryLocation = item.owner.userLocations.find((loc) => loc.primary);
 
+  const imageUrls = item.imageUrl.split(', ');
+
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? imageUrls.length - 1 : prevIndex - 1,
+    );
+  };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === imageUrls.length - 1 ? 0 : prevIndex + 1,
+    );
+  };
+  const handleDotClick = (index: number) => {
+    setCurrentImageIndex(index);
+  };
+
   return (
     <div className="container mx-auto p-4 bg-white dark:bg-black transition-colors duration-300">
       <div className="mt-6 flex flex-wrap gap-4">
@@ -168,14 +193,38 @@ export const ItemRequestDetail = () => {
             </div>
           </div>
 
-          <div className="mt-6">
-            <div className="w-full max-w-sm h-96 bg-gray-300 rounded-lg overflow-hidden mt-2 mb-5">
+          <div className="mt-6 relative w-96">
+            <div className="w-96 h-96 bg-gray-300 rounded-lg overflow-hidden mt-2 mb-5">
               <img
-                src={item.imageUrl}
                 alt={item.itemName}
                 className="w-full h-full object-cover"
+                src={imageUrls[currentImageIndex]}
               />
             </div>
+
+            <button
+              onClick={handlePrevImage}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/80 text-white p-2 rounded-full hover:bg-black transition-colors"
+            >
+              &#8249;
+            </button>
+
+            <button
+              onClick={handleNextImage}
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/80 text-white p-2 rounded-full hover:bg-black transition-colors"
+            >
+              &#8250;
+            </button>
+          </div>
+
+          <div className="flex justify-center mt-2 space-x-2">
+            {imageUrls.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => handleDotClick(index)}
+                className={`h-2 w-2 rounded-full focus:outline-none transition-colors duration-200 ${currentImageIndex === index ? 'bg-black dark:bg-white scale-125' : 'bg-gray-400 dark:bg-gray-600'}`}
+              ></button>
+            ))}
           </div>
         </div>
 
@@ -183,6 +232,7 @@ export const ItemRequestDetail = () => {
           <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
             {t('itemRequest.description')}
           </span>
+
           <p className="text-black dark:text-white text-sm mt-2 mb-4">
             {item.description}
           </p>
@@ -357,10 +407,18 @@ export const ItemRequestDetail = () => {
                   reviewStatus === 'AVAILABLE' ? 'default' : 'destructive'
                 }
                 onClick={confirmReview}
+                disabled={isLoading}
               >
-                {reviewStatus === 'AVAILABLE'
-                  ? t('itemRequest.itemRequestDetail.dialog.approve2')
-                  : t('itemRequest.itemRequestDetail.dialog.discard2')}
+                {isLoading ? (
+                  <>
+                    <LoaderCircle className="animate-spin mr-2" size={16} />
+                    {t('button.loading')}
+                  </>
+                ) : reviewStatus === 'AVAILABLE' ? (
+                  t('itemRequest.itemRequestDetail.dialog.approve2')
+                ) : (
+                  t('itemRequest.itemRequestDetail.dialog.discard2')
+                )}
               </Button>
             </DialogFooter>
           </DialogContent>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -21,6 +21,8 @@ const ExchangeHistoryDetail: React.FC = () => {
   const fetchStatus = useSelector(selectExchangeHistoryDetailFetchStatus);
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [currentSellerImageIndex, setCurrentSellerImageIndex] = useState(0);
+  const [currentBuyerImageIndex, setCurrentBuyerImageIndex] = useState(0);
 
   useEffect(() => {
     if (exchangeHistoryId) {
@@ -32,6 +34,44 @@ const ExchangeHistoryDetail: React.FC = () => {
     navigate(
       EXCHANGE_HISTORY_MANAGEMENT_ROUTE.replace(':userId', userId || ''),
     );
+  };
+
+  const sellerImageUrls = exchangeHistory?.sellerItem.imageUrl
+    ? exchangeHistory.sellerItem.imageUrl.split(', ')
+    : [];
+  const buyerImageUrls = exchangeHistory?.buyerItem.imageUrl
+    ? exchangeHistory.buyerItem.imageUrl.split(', ')
+    : [];
+
+  const handlePrevSellerImage = () => {
+    setCurrentSellerImageIndex((prevIndex) =>
+      prevIndex === 0 ? sellerImageUrls.length - 1 : prevIndex - 1,
+    );
+  };
+
+  const handleNextSellerImage = () => {
+    setCurrentSellerImageIndex((prevIndex) =>
+      prevIndex === sellerImageUrls.length - 1 ? 0 : prevIndex + 1,
+    );
+  };
+
+  const handlePrevBuyerImage = () => {
+    setCurrentBuyerImageIndex((prevIndex) =>
+      prevIndex === 0 ? buyerImageUrls.length - 1 : prevIndex - 1,
+    );
+  };
+
+  const handleNextBuyerImage = () => {
+    setCurrentBuyerImageIndex((prevIndex) =>
+      prevIndex === buyerImageUrls.length - 1 ? 0 : prevIndex + 1,
+    );
+  };
+
+  const handleDotBuyerClick = (index: number) => {
+    setCurrentBuyerImageIndex(index);
+  };
+  const handleDotSellerClick = (index: number) => {
+    setCurrentSellerImageIndex(index);
   };
 
   return (
@@ -87,13 +127,36 @@ const ExchangeHistoryDetail: React.FC = () => {
                       {exchangeHistory.sellerItem.price.toLocaleString()} VND
                     </span>
                   </div>
-                  {exchangeHistory.sellerItem.imageUrl && (
-                    <img
-                      src={exchangeHistory.sellerItem.imageUrl}
-                      alt={exchangeHistory.sellerItem.itemName}
-                      className="w-full h-[400px] object-cover rounded-lg border border-gray-300 dark:border-gray-600"
-                    />
+                  {sellerImageUrls.length > 0 && (
+                    <div className="relative w-full h-96 mt-2 mb-5">
+                      <img
+                        alt={exchangeHistory.sellerItem.itemName}
+                        className="w-full h-full object-cover rounded-lg border border-gray-300 dark:border-gray-600"
+                        src={sellerImageUrls[currentSellerImageIndex]}
+                      />
+                      <button
+                        onClick={handlePrevSellerImage}
+                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/80 text-white p-2 rounded-full hover:bg-black transition-colors"
+                      >
+                        &#8249;
+                      </button>
+                      <button
+                        onClick={handleNextSellerImage}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/80 text-white p-2 rounded-full hover:bg-black transition-colors"
+                      >
+                        &#8250;
+                      </button>
+                    </div>
                   )}
+                  <div className="flex justify-center mt-2 space-x-2">
+                    {sellerImageUrls.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleDotSellerClick(index)}
+                        className={`h-2 w-2 rounded-full focus:outline-none transition-colors duration-200 ${currentSellerImageIndex === index ? 'bg-black dark:bg-white scale-125' : 'bg-gray-400 dark:bg-gray-600'}`}
+                      ></button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -122,13 +185,36 @@ const ExchangeHistoryDetail: React.FC = () => {
                       {exchangeHistory.buyerItem.price.toLocaleString()} VND
                     </span>
                   </div>
-                  {exchangeHistory.buyerItem.imageUrl && (
-                    <img
-                      src={exchangeHistory.buyerItem.imageUrl}
-                      alt={exchangeHistory.buyerItem.itemName}
-                      className="w-full h-[400px] object-cover rounded-lg border border-gray-300 dark:border-gray-600"
-                    />
+                  {buyerImageUrls.length > 0 && (
+                    <div className="relative w-full h-96 mt-2 mb-5">
+                      <img
+                        alt={exchangeHistory.buyerItem.itemName}
+                        className="w-full h-full object-cover rounded-lg border border-gray-300 dark:border-gray-600"
+                        src={buyerImageUrls[currentBuyerImageIndex]}
+                      />
+                      <button
+                        onClick={handlePrevBuyerImage}
+                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/80 text-white p-2 rounded-full hover:bg-black transition-colors"
+                      >
+                        &#8249;
+                      </button>
+                      <button
+                        onClick={handleNextBuyerImage}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/80 text-white p-2 rounded-full hover:bg-black transition-colors"
+                      >
+                        &#8250;
+                      </button>
+                    </div>
                   )}
+                  <div className="flex justify-center mt-2 space-x-2">
+                    {buyerImageUrls.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleDotBuyerClick(index)}
+                        className={`h-2 w-2 rounded-full focus:outline-none transition-colors duration-200 ${currentBuyerImageIndex === index ? 'bg-black dark:bg-white scale-125' : 'bg-gray-400 dark:bg-gray-600'}`}
+                      ></button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
