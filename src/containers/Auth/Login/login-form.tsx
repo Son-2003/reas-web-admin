@@ -50,9 +50,7 @@ export function LoginForm({
                 </p>
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="email">
-                  {t('loginPage.emailOrUsername')}
-                </Label>
+                <Label htmlFor="email">{t('loginPage.emailOrUsername')}</Label>
                 <Input
                   type="text"
                   value={userNameOrEmailOrPhone}
@@ -62,9 +60,7 @@ export function LoginForm({
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
-                  <Label htmlFor="password">
-                    {t('loginPage.password')}
-                  </Label>
+                  <Label htmlFor="password">{t('loginPage.password')}</Label>
                   <a
                     href="#"
                     className="ml-auto text-sm underline-offset-2 hover:underline"
