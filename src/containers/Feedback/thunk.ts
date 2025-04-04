@@ -52,3 +52,25 @@ export const getFeedbackDetail = createAppAsyncThunk(
     }
   },
 );
+
+export const deleteFeedback = createAppAsyncThunk(
+  `${TypePrefix}/deleteFeedback`,
+  async (feedbackId: string) => {
+    try {
+      const response = await callApi(
+        {
+          method: 'delete',
+          url: `feedback`,
+          params: {
+            feedbackId,
+          },
+        },
+        true,
+      );
+      return response;
+    } catch (error) {
+      console.error('Error in deleteFeedback:', error);
+      throw error;
+    }
+  },
+);
