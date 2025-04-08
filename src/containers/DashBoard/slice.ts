@@ -6,6 +6,7 @@ import {
   fetchMonthlyRevenueBySubscriptionPlan,
   fetchSuccessfulExchanges,
   fetchSuccessfulTransactions,
+  fetchYearlyRevenueBySubscriptionPlan,
 } from './thunk';
 
 interface DashboardState {
@@ -14,11 +15,13 @@ interface DashboardState {
   monthlyRevenueBySubscriptionPlan: { [key: string]: number };
   successfulExchanges: number;
   currentActiveUsers: number;
+  yearlyRevenueBySubscriptionPlan: { [month: string]: { [plan: string]: number } };
   fetchRevenueStatus: ApiStatus;
   fetchTransactionStatus: ApiStatus;
   fetchSubscriptionPlanRevenueStatus: ApiStatus;
   fetchSuccessfulExchangesStatus: ApiStatus;
   fetchCurrentActiveUsersStatus: ApiStatus;
+  fetchYearlyRevenueStatus: ApiStatus;
   errorMessage?: string;
 }
 
@@ -28,11 +31,13 @@ const initialState: DashboardState = {
   monthlyRevenueBySubscriptionPlan: {},
   successfulExchanges: 0,
   currentActiveUsers: 0,
+  yearlyRevenueBySubscriptionPlan: {},
   fetchRevenueStatus: ApiStatus.Idle,
   fetchTransactionStatus: ApiStatus.Idle,
   fetchSubscriptionPlanRevenueStatus: ApiStatus.Idle,
   fetchSuccessfulExchangesStatus: ApiStatus.Idle,
   fetchCurrentActiveUsersStatus: ApiStatus.Idle,
+  fetchYearlyRevenueStatus: ApiStatus.Idle,
   errorMessage: undefined,
 };
 
@@ -132,6 +137,24 @@ const dashboardSlice = createSlice({
       )
       .addCase(fetchCurrentActiveUsers.rejected, (state, action) => {
         state.fetchCurrentActiveUsersStatus = ApiStatus.Failed;
+        state.errorMessage = action.error.message;
+      })
+      // Handle fetchYearlyRevenueBySubscriptionPlan
+      .addCase(fetchYearlyRevenueBySubscriptionPlan.pending, (state) => {
+        state.fetchYearlyRevenueStatus = ApiStatus.Loading;
+      })
+      .addCase(
+        fetchYearlyRevenueBySubscriptionPlan.fulfilled,
+        (
+          state,
+          action: PayloadAction<{ [month: string]: { [plan: string]: number } }>,
+        ) => {
+          state.yearlyRevenueBySubscriptionPlan = action.payload;
+          state.fetchYearlyRevenueStatus = ApiStatus.Fulfilled;
+        },
+      )
+      .addCase(fetchYearlyRevenueBySubscriptionPlan.rejected, (state, action) => {
+        state.fetchYearlyRevenueStatus = ApiStatus.Failed;
         state.errorMessage = action.error.message;
       });
   },

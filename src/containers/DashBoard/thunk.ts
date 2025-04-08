@@ -100,3 +100,23 @@ export const fetchCurrentActiveUsers = createAppAsyncThunk(
     }
   },
 );
+
+export const fetchYearlyRevenueBySubscriptionPlan = createAppAsyncThunk(
+  `${TypePrefix}/fetchYearlyRevenueBySubscriptionPlan`,
+  async ({ year }: { year: number }) => {
+    try {
+      const response = await callApi(
+        {
+          method: 'get',
+          url: `payment-history/monthly-revenue-by-subscription-plan-in-a-year`,
+          params: { year },
+        },
+        true,
+      );
+      return response;
+    } catch (error) {
+      console.error('Error in fetchYearlyRevenueBySubscriptionPlan:', error);
+      throw error;
+    }
+  },
+);

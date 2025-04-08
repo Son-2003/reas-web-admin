@@ -29,3 +29,9 @@ export const selectCurrentActiveUsers = (state: ReduxState) =>
 
 export const selectCurrentActiveUsersFetchStatus = (state: ReduxState) =>
   state.dashboardManagement.fetchCurrentActiveUsersStatus;
+
+export const selectYearlyRevenueBySubscriptionPlan = (state: ReduxState) =>
+  state.dashboardManagement.yearlyRevenueBySubscriptionPlan;
+
+export const selectYearlyRevenueFetchStatus = (state: ReduxState) =>
+  state.dashboardManagement.fetchYearlyRevenueStatus;

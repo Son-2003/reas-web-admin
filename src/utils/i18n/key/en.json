@@ -40,9 +40,9 @@
     "pieChartTitle": "Revenue previous month",
     "pieChartDes": "Number of exchanges and buys",
     "premiumPlan": "Premium plan",
-    "itemExtention": "Item extension",
+    "itemExtension": "Item extension",
     "trending": "Trending up by 5.2% this month",
-    "showing": "Showing total revenue for the last 6 months",
+    "showing": "Showing total revenue for the last month",
     "revenue": "Revenue"
     
   },
@@ -240,6 +240,20 @@
     "buyerConfirmation": "Buyer Confirmation",
     "confirmed": "Confirmed",
     "notConfirmed": "Not Confirmed"
+  },
+  "months": {
+    "jan": "Jan",
+    "feb": "Feb",
+    "mar": "Mar",
+    "apr": "Apr",
+    "may": "May",
+    "jun": "Jun",
+    "jul": "Jul",
+    "aug": "Aug",
+    "sep": "Sep",
+    "oct": "Oct",
+    "nov": "Nov",
+    "dec": "Dec"
   }
 
 }

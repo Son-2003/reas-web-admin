@@ -75,12 +75,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       //   icon: Bot,
       // },
       {
-        title: 'Item Requests',
+        title: 'Item requests',
         url: ITEM_REQUEST_ROUTE,
         icon: BookOpen,
       },
       {
-        title: 'Payment History',
+        title: 'Payment history',
         url: PAYMENT_HISTORY_MANAGEMENT_ROUTE,
         icon: Settings2,
       },

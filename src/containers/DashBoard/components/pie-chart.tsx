@@ -103,8 +103,8 @@ export function SalesPieChart() {
               data={chartData}
               dataKey="revenue"
               nameKey="plan"
-              innerRadius={80}
-              outerRadius={120}
+              innerRadius={70}
+              outerRadius={100}
               strokeWidth={5}
             >
               <Label
@@ -120,7 +120,7 @@ export function SalesPieChart() {
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className="fill-foreground text-3xl font-bold"
+                          className="fill-foreground text-xl font-bold"
                         >
                           {totalRevenue.toLocaleString()}
                         </tspan>
@@ -129,7 +129,7 @@ export function SalesPieChart() {
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Revenue
+                          {t('dashboard.revenue')}
                         </tspan>
                       </text>
                     );
@@ -141,13 +141,33 @@ export function SalesPieChart() {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center gap-2 font-medium leading-none">
+
+        <div className="flex gap-4">
+          <div className="flex items-center gap-2">
+            <div
+              className="w-4 h-4"
+              style={{ backgroundColor: chartConfig.premium.color }}
+            />
+            <span>{chartConfig.premium.label}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div
+              className="w-4 h-4"
+              style={{ backgroundColor: chartConfig.item.color }}
+            />
+            <span>{chartConfig.item.label}</span>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 font-medium leading-none mt-4">
           {t('dashboard.trending')} <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
           {t('dashboard.showing')}
         </div>
+
+
       </CardFooter>
+
     </Card>
   );
 }
