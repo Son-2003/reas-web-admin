@@ -11,6 +11,8 @@ import { ReduxDispatch } from '@/lib/redux/store';
 import { signIn } from '@/containers/Auth/thunk';
 import { useTranslation } from 'react-i18next';
 import { DASHBOARD_ROUTE } from '@/common/constants/router';
+import { toast } from '@/components/ui/use-toast';
+import { CheckCircle2, XCircle } from 'lucide-react';
 
 export function LoginForm({
   className,
@@ -19,6 +21,7 @@ export function LoginForm({
   const { t } = useTranslation();
   const [userNameOrEmailOrPhone, setUserNameOrEmailOrPhone] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch<ReduxDispatch>();
   const navigate = useNavigate();
 
@@ -32,8 +35,23 @@ export function LoginForm({
 
     const resultAction = await dispatch(signIn(accountSignIn));
 
+    setIsLoading(false);
+
     if (signIn.fulfilled.match(resultAction)) {
+      toast({
+        title: t('toast.success.login'),
+        variant: 'default',
+        action: <CheckCircle2 className="text-green-500" />,
+      });
+
       navigate(DASHBOARD_ROUTE);
+    } else {
+      toast({
+        title: t('toast.error.login'),
+        variant: 'default',
+        action: <XCircle className="text-red-500" />,
+      });
+      setIsLoading(false);
     }
   };
 
@@ -54,6 +72,7 @@ export function LoginForm({
                 <Input
                   type="text"
                   value={userNameOrEmailOrPhone}
+                  placeholder="Email or Username"
                   onChange={(e) => setUserNameOrEmailOrPhone(e.target.value)}
                   required
                 />
@@ -77,8 +96,8 @@ export function LoginForm({
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <Button type="submit" className="w-full">
-                {t('loginPage.loginButton')}
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? 'Logging in...' : t('loginPage.loginButton')}
               </Button>
               <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                 <span className="relative z-10 bg-background px-2 text-muted-foreground">

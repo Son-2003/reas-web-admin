@@ -1,4 +1,22 @@
 {
+  "toast": {
+    "success": {
+      "create": "Tạo thành công",
+      "update": "Cập nhật thành công",
+      "delete": "Xóa thành công",
+      "approve": "Duyệt thành công",
+      "discard": "Hủy thành công",
+      "login": "Đăng nhập thành công"
+    },
+    "error": {
+      "create": "Tạo thất bại",
+      "update": "Cập nhật thất bại",
+      "delete": "Xóa thất bại",
+      "approve": "Duyệt thất bại",
+      "discard": "Hủy thất bại",
+      "login": "Đăng nhập thất bại: Tên đăng nhập hoặc mật khẩu không đúng"
+    }
+  },
   "loginPage": {
     "title": "Hệ thống quản lý REAS",
     "loginMsg": "Đăng nhập vào tài khoản của bạn",
