@@ -1,4 +1,22 @@
 {
+  "toast": {
+    "success": {
+      "create": "Create successfully",
+      "update": "Update successfully",
+      "delete": "Delete successfully",
+      "approve": "Approve successfully",
+      "discard": "Discard successfully",
+      "login": "Login successfully"
+    },
+    "error": {
+      "create": "Create failed",
+      "update": "Update failed",
+      "delete": "Delete failed",
+      "approve": "Approve failed",
+      "discard": "Discard failed",
+      "login": "Login failed: Invalid username or password"
+    }
+  },
   "loginPage": {
     "title": "REAS management system",
     "loginMsg": "Login to your account",
