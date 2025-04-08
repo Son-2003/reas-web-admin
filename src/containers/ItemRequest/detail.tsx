@@ -56,10 +56,12 @@ export const ItemRequestDetail = () => {
       setOpenDialog(false);
 
       toast({
-        title: 'Thành công',
-        description: `Yêu cầu đã được ${
-          reviewStatus === 'AVAILABLE' ? 'phê duyệt' : 'từ chối'
-        } thành công!`,
+        title: t('itemRequest.itemRequestDetail.toast.success'),
+        description: `${t('itemRequest.itemRequestDetail.toast.description')} ${
+          reviewStatus === 'AVAILABLE'
+            ? t('itemRequest.itemRequestDetail.toast.approve')
+            : t('itemRequest.itemRequestDetail.toast.discard')
+        } ${t('itemRequest.itemRequestDetail.toast.successfully')}`,
         variant: 'default',
         action:
           reviewStatus === 'AVAILABLE' ? (

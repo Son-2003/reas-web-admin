@@ -8,32 +8,53 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { useTranslation } from 'react-i18next';
-
-const chartData = [
-  { month: 'Jan', buy: 4500, exchange: 3000 },
-  { month: 'Feb', buy: 3800, exchange: 4200 },
-  { month: 'Mar', buy: 5200, exchange: 1200 },
-  { month: 'Apr', buy: 1400, exchange: 5500 },
-  { month: 'May', buy: 6000, exchange: 3500 },
-  { month: 'Jun', buy: 4800, exchange: 4000 },
-  { month: 'Jul', buy: 5000, exchange: 4500 },
-  { month: 'Aug', buy: 4700, exchange: 3200 },
-  { month: 'Sep', buy: 5300, exchange: 4100 },
-  { month: 'Oct', buy: 4900, exchange: 3800 },
-  { month: 'Nov', buy: 5200, exchange: 3400 },
-  { month: 'Dec', buy: 5600, exchange: 3700 },
-];
+import { useSelector } from 'react-redux';
+import { selectYearlyRevenueBySubscriptionPlan } from '../selector';
+import { useDispatch } from 'react-redux';
+import { ReduxDispatch } from '@/lib/redux/store';
+import { useEffect } from 'react';
+import { fetchYearlyRevenueBySubscriptionPlan } from '../thunk';
 
 export function TooltipChart() {
   const { t } = useTranslation();
+  const yearlyRevenue = useSelector(selectYearlyRevenueBySubscriptionPlan);
+  const dispatch = useDispatch<ReduxDispatch>();
+
+  useEffect(() => {
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    dispatch(fetchYearlyRevenueBySubscriptionPlan({ year: currentYear }));
+  }, [dispatch]);
+
+  const months = Array.from({ length: 12 }, (_, i) => {
+    const date = new Date(2025, i);
+    const monthKey = date
+      .toLocaleString('en-US', { month: 'short' })
+      .toLowerCase();
+
+    return {
+      month: t(`months.${monthKey}`),
+      PREMIUM_PLAN: 0,
+      ITEM_EXTENSION: 0,
+    };
+  });
+
+  const chartData = months.map((defaultMonth, index) => {
+    const revenueForMonth = yearlyRevenue[index + 1];
+    return {
+      month: defaultMonth.month,
+      PREMIUM_PLAN: revenueForMonth?.PREMIUM_PLAN || 0,
+      ITEM_EXTENSION: revenueForMonth?.ITEM_EXTENSION || 0,
+    };
+  });
 
   const chartConfig = {
-    exchange: {
-      label: t('dashboard.exchange'),
+    ITEM_EXTENSION: {
+      label: t('dashboard.itemExtension'),
       color: 'hsl(var(--chart-2))',
     },
-    buy: {
-      label: t('dashboard.buy'),
+    PREMIUM_PLAN: {
+      label: t('dashboard.premiumPlan'),
       color: 'hsl(var(--chart-1))',
     },
   } satisfies ChartConfig;
@@ -49,15 +70,15 @@ export function TooltipChart() {
             axisLine={false}
           />
           <Bar
-            dataKey="buy"
+            dataKey="PREMIUM_PLAN"
             stackId="a"
-            fill="var(--color-buy)"
+            fill={chartConfig.PREMIUM_PLAN.color}
             radius={[0, 0, 4, 4]}
           />
           <Bar
-            dataKey="exchange"
+            dataKey="ITEM_EXTENSION"
             stackId="a"
-            fill="var(--color-exchange)"
+            fill={chartConfig.ITEM_EXTENSION.color}
             radius={[4, 4, 0, 0]}
           />
           <ChartTooltip

@@ -32,13 +32,19 @@
     "totalRevenue": "Total revenue",
     "subscriptions": "Subscriptions",
     "transactions": "Transactions",
-    "residentialArea": "Residential area",
+    "successfulExchanges": "Successful exchanges",
     "revenueChart": "Revenue chart",
     "buy": "Buy",
     "exchange": "Exchange",
     "barChartDes": "Monthly revenue from buy and exchange",
     "pieChartTitle": "Revenue previous month",
-    "pieChartDes": "Number of exchanges and buys"
+    "pieChartDes": "Number of exchanges and buys",
+    "premiumPlan": "Premium plan",
+    "itemExtension": "Item extension",
+    "trending": "Trending up by 5.2% this month",
+    "showing": "Showing total revenue for the last month",
+    "revenue": "Revenue"
+    
   },
   "usersManagement": {
     "title": "Users management",
@@ -154,8 +160,16 @@
       "description": "Description:",
       "minPrice": "Min price:",
       "maxPrice": "Max price:",
-      "desiredItem": "Desired item:"
-
+      "desiredItem": "Desired item:",
+      "toast":{
+        "success": "Success",
+        "description": "Request has been",
+        "approve": "approve",
+        "discard": "discard",
+        "successfully": "successfully!"
+      }
+      
+      
     },
     "description": "Description:",
     "information": "Information",
@@ -179,7 +193,8 @@
     "back": "Back",
     "approve": "Approve",
     "discard": "Discard",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "loading": "Loading"
   },
   "feedback": {
     "title": "Feedback Detail",
@@ -225,6 +240,20 @@
     "buyerConfirmation": "Buyer Confirmation",
     "confirmed": "Confirmed",
     "notConfirmed": "Not Confirmed"
+  },
+  "months": {
+    "jan": "Jan",
+    "feb": "Feb",
+    "mar": "Mar",
+    "apr": "Apr",
+    "may": "May",
+    "jun": "Jun",
+    "jul": "Jul",
+    "aug": "Aug",
+    "sep": "Sep",
+    "oct": "Oct",
+    "nov": "Nov",
+    "dec": "Dec"
   }
 
 }

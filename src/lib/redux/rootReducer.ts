@@ -6,7 +6,7 @@ import feedbackManagementReducer from '@/containers/Feedback/slice';
 import exchangeHistoryManagementReducer from '@/containers/ExchangeHistory/slice';
 import paymentHistoryReducer from '@/containers/PaymentHistoryManagement/slice';
 import paymentHistoryByUserIdReducer from '@/containers/PaymentHistoryManagementByUserId/slice';
-
+import dashboardManagementReducer from '@/containers/DashBoard/slice';
 export const reducer = {
   user: userReducer,
   userManagement: userManagementReducer,
@@ -16,4 +16,5 @@ export const reducer = {
   exchangeHistoryManagement: exchangeHistoryManagementReducer,
   paymentHistory: paymentHistoryReducer,
   paymentHistoryByUserId: paymentHistoryByUserIdReducer,
+  dashboardManagement: dashboardManagementReducer,
 };
