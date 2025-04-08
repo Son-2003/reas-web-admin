@@ -15,11 +15,25 @@ import { TooltipChart } from './components/tooltip-chart';
 import { useDispatch } from 'react-redux';
 import { ReduxDispatch } from '@/lib/redux/store';
 import { useSelector } from 'react-redux';
-import { selectCurrentActiveUsers, selectCurrentActiveUsersFetchStatus, selectDashboardRevenue, selectDashboardRevenueFetchStatus, selectDashboardSuccessfulTransactions, selectDashboardTransactionFetchStatus, selectSuccessfulExchanges, selectSuccessfulExchangesFetchStatus } from './selector';
+import {
+  selectCurrentActiveUsers,
+  selectCurrentActiveUsersFetchStatus,
+  selectDashboardRevenue,
+  selectDashboardRevenueFetchStatus,
+  selectDashboardSuccessfulTransactions,
+  selectDashboardTransactionFetchStatus,
+  selectSuccessfulExchanges,
+  selectSuccessfulExchangesFetchStatus,
+} from './selector';
 import { useEffect } from 'react';
 
 import { ApiStatus } from '@/common/enums/apiStatus';
-import { fetchCurrentActiveUsers, fetchMonthlyRevenue, fetchSuccessfulExchanges, fetchSuccessfulTransactions } from './thunk';
+import {
+  fetchCurrentActiveUsers,
+  fetchMonthlyRevenue,
+  fetchSuccessfulExchanges,
+  fetchSuccessfulTransactions,
+} from './thunk';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -31,12 +45,20 @@ export default function Dashboard() {
   const dispatch = useDispatch<ReduxDispatch>();
   const revenue = useSelector(selectDashboardRevenue);
   const fetchRevenueStatus = useSelector(selectDashboardRevenueFetchStatus);
-  const successfulTransactions = useSelector(selectDashboardSuccessfulTransactions);
-  const fetchTransactionStatus = useSelector(selectDashboardTransactionFetchStatus);
+  const successfulTransactions = useSelector(
+    selectDashboardSuccessfulTransactions,
+  );
+  const fetchTransactionStatus = useSelector(
+    selectDashboardTransactionFetchStatus,
+  );
   const successfulExchanges = useSelector(selectSuccessfulExchanges);
-  const fetchSuccessfulTransactionsStatus = useSelector(selectSuccessfulExchangesFetchStatus);
+  const fetchSuccessfulTransactionsStatus = useSelector(
+    selectSuccessfulExchangesFetchStatus,
+  );
   const currentActiveUsers = useSelector(selectCurrentActiveUsers);
-  const fetchCurrentActiveUsersStatus = useSelector(selectCurrentActiveUsersFetchStatus);
+  const fetchCurrentActiveUsersStatus = useSelector(
+    selectCurrentActiveUsersFetchStatus,
+  );
 
   useEffect(() => {
     const today = new Date();
@@ -44,10 +66,13 @@ export default function Dashboard() {
     const currentYear = today.getFullYear();
 
     dispatch(fetchMonthlyRevenue({ month: currentMonth, year: currentYear }));
-    dispatch(fetchSuccessfulTransactions({ month: currentMonth, year: currentYear }));
-    dispatch(fetchSuccessfulExchanges({ month: currentMonth, year: currentYear }));
+    dispatch(
+      fetchSuccessfulTransactions({ month: currentMonth, year: currentYear }),
+    );
+    dispatch(
+      fetchSuccessfulExchanges({ month: currentMonth, year: currentYear }),
+    );
     dispatch(fetchCurrentActiveUsers());
-   
   }, [dispatch]);
   return (
     <>
@@ -127,7 +152,7 @@ export default function Dashboard() {
                 </svg>
               </CardHeader>
               <CardContent>
-              <div className="text-2xl font-bold">
+                <div className="text-2xl font-bold">
                   {fetchCurrentActiveUsersStatus === ApiStatus.Loading
                     ? '...'
                     : `${currentActiveUsers.toLocaleString()}`}
@@ -137,8 +162,8 @@ export default function Dashboard() {
                 </p>
               </CardContent>
             </Card>
-          {/* 🧾 Transactions Card */}
-          <Card>
+            {/* 🧾 Transactions Card */}
+            <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   {t('dashboard.transactions')}
@@ -188,12 +213,12 @@ export default function Dashboard() {
                 </svg>
               </CardHeader>
               <CardContent>
-                <div className='text-2xl font-bold'>
-                {fetchSuccessfulTransactionsStatus === ApiStatus.Loading
+                <div className="text-2xl font-bold">
+                  {fetchSuccessfulTransactionsStatus === ApiStatus.Loading
                     ? '...'
                     : `${successfulExchanges.toLocaleString()}`}
                 </div>
-              
+
                 <p className="text-xs text-muted-foreground">
                   +201 since last hour
                 </p>

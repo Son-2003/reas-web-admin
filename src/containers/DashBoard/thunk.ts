@@ -10,15 +10,15 @@ export const fetchMonthlyRevenue = createAppAsyncThunk(
       const response = await callApi(
         {
           method: 'get',
-          url: `payment-history/monthly-revenue`, 
-          params: { month, year }, 
+          url: `payment-history/monthly-revenue`,
+          params: { month, year },
         },
-        true
+        true,
       );
       return response;
     } catch (error) {
       console.error('Error in fetchMonthlyRevenue:', error);
-      throw error; 
+      throw error;
     }
   },
 );
@@ -30,74 +30,73 @@ export const fetchSuccessfulTransactions = createAppAsyncThunk(
       const response = await callApi(
         {
           method: 'get',
-          url: `payment-history/number-of-successful-transaction`, 
-          params: { month, year }, 
+          url: `payment-history/number-of-successful-transaction`,
+          params: { month, year },
         },
-        true
+        true,
       );
-      return response; 
+      return response;
     } catch (error) {
       console.error('Error in fetchSuccessfulTransactions:', error);
-      throw error; 
+      throw error;
     }
   },
 );
 
 export const fetchMonthlyRevenueBySubscriptionPlan = createAppAsyncThunk(
-    `${TypePrefix}/fetchMonthlyRevenueBySubscriptionPlan`,
-    async ({ month, year }: { month: number; year: number }) => {
-      try {
-        const response = await callApi(
-          {
-            method: 'get',
-            url: `payment-history/monthly-revenue-by-subscription-plan`, 
-            params: { month, year }, 
-          },
-          true
-        );
-        return response; 
-      } catch (error) {
-        console.error('Error in fetchMonthlyRevenueBySubscriptionPlan:', error);
-        throw error; 
-      }
-    },
-  );
+  `${TypePrefix}/fetchMonthlyRevenueBySubscriptionPlan`,
+  async ({ month, year }: { month: number; year: number }) => {
+    try {
+      const response = await callApi(
+        {
+          method: 'get',
+          url: `payment-history/monthly-revenue-by-subscription-plan`,
+          params: { month, year },
+        },
+        true,
+      );
+      return response;
+    } catch (error) {
+      console.error('Error in fetchMonthlyRevenueBySubscriptionPlan:', error);
+      throw error;
+    }
+  },
+);
 
-
-  export const fetchSuccessfulExchanges = createAppAsyncThunk(
-    `${TypePrefix}/fetchSuccessfulExchanges`,
-    async ({ month, year }: { month: number; year: number }) => {
-      try {
-        const response = await callApi(
-          {
-            method: 'get',
-            url: `payment-history/number-of-successful-exchanges`, 
-            params: { month, year }, 
-          },
-          true
-        );
-        return response; 
-      } catch (error) {
-        console.error('Error in fetchSuccessfulExchanges:', error);
-        throw error; 
-      }
-    },
-  );
-  export const fetchCurrentActiveUsers = createAppAsyncThunk(
-    `${TypePrefix}/fetchCurrentActiveUsers`,
-    async () => {
-      try {
-        const response = await callApi(
-          {
-            method: 'get',
-            url: `user/count-active-users`,  
-          },
-          true
-        );
-        return response; 
-      } catch (error) {
-        console.error('Error in fetchSuccessfulExchanges:', error);
-        throw error; 
-      }
-    },
-  );
+export const fetchSuccessfulExchanges = createAppAsyncThunk(
+  `${TypePrefix}/fetchSuccessfulExchanges`,
+  async ({ month, year }: { month: number; year: number }) => {
+    try {
+      const response = await callApi(
+        {
+          method: 'get',
+          url: `payment-history/number-of-successful-exchanges`,
+          params: { month, year },
+        },
+        true,
+      );
+      return response;
+    } catch (error) {
+      console.error('Error in fetchSuccessfulExchanges:', error);
+      throw error;
+    }
+  },
+);
+export const fetchCurrentActiveUsers = createAppAsyncThunk(
+  `${TypePrefix}/fetchCurrentActiveUsers`,
+  async () => {
+    try {
+      const response = await callApi(
+        {
+          method: 'get',
+          url: `user/count-active-users`,
+        },
+        true,
+      );
+      return response;
+    } catch (error) {
+      console.error('Error in fetchSuccessfulExchanges:', error);
+      throw error;
+    }
+  },
+);

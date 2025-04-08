@@ -58,7 +58,9 @@ export const ItemRequestDetail = () => {
       toast({
         title: t('itemRequest.itemRequestDetail.toast.success'),
         description: `${t('itemRequest.itemRequestDetail.toast.description')} ${
-          reviewStatus === 'AVAILABLE' ? t('itemRequest.itemRequestDetail.toast.approve') : t('itemRequest.itemRequestDetail.toast.discard')
+          reviewStatus === 'AVAILABLE'
+            ? t('itemRequest.itemRequestDetail.toast.approve')
+            : t('itemRequest.itemRequestDetail.toast.discard')
         } ${t('itemRequest.itemRequestDetail.toast.successfully')}`,
         variant: 'default',
         action:
