@@ -1,5 +1,18 @@
 {
-  "welcomeMessage": "Chào mừng đến với React và react-i18next",
+  "loginPage": {
+    "title": "Hệ thống quản lý REAS",
+    "loginMsg": "Đăng nhập vào tài khoản của bạn",
+    "emailOrUsername": "Tên người dùng hoặc email",
+    "password": "Mật khẩu",
+    "loginButton": "Đăng nhập",
+    "forgotPassword": "Quên mật khẩu?",
+    "rememberMe": "Remember me",
+    "errorMessage": {
+      "emptyUsername": "Please enter your username.",
+      "emptyPassword": "Please enter your password.",
+      "invalidCredentials": "Invalid username or password."
+    }
+  },
   "sidebar": {
     "management": "Quản lý",
     "human": "Con người",
@@ -230,8 +243,8 @@
     "confirmed": "Đã xác nhận",
     "notConfirmed": "Chưa xác nhận"
   }
-  
-  
-  
+
+
+
 
 }
