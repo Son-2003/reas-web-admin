@@ -3,7 +3,8 @@
 import * as React from 'react';
 import { TrendingUp } from 'lucide-react';
 import { Label, Pie, PieChart } from 'recharts';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { ReduxDispatch } from '@/lib/redux/store'; 
 import {
   Card,
   CardContent,
@@ -16,51 +17,65 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-const chartData = [
-  { browser: 'chrome', visitors: 275, fill: 'var(--color-chrome)' },
-  { browser: 'safari', visitors: 200, fill: 'var(--color-safari)' },
-  { browser: 'firefox', visitors: 287, fill: 'var(--color-firefox)' },
-  { browser: 'edge', visitors: 173, fill: 'var(--color-edge)' },
-  { browser: 'other', visitors: 190, fill: 'var(--color-other)' },
-];
+import { TypeSubscriptionPlan } from '@/common/enums/typeSubcriptionPlan';
+import { fetchMonthlyRevenueBySubscriptionPlan } from '../thunk';
+import { selectMonthlyRevenueBySubscriptionPlan } from '../selector';
+import { useTranslation } from 'react-i18next';
 
-const chartConfig = {
-  visitors: {
-    label: 'Visitors',
-  },
-  chrome: {
-    label: 'Chrome',
-    color: 'hsl(var(--chart-1))',
-  },
-  safari: {
-    label: 'Safari',
-    color: 'hsl(var(--chart-2))',
-  },
-  firefox: {
-    label: 'Firefox',
-    color: 'hsl(var(--chart-3))',
-  },
-  edge: {
-    label: 'Edge',
-    color: 'hsl(var(--chart-4))',
-  },
-  other: {
-    label: 'Other',
-    color: 'hsl(var(--chart-5))',
-  },
-} satisfies ChartConfig;
+
+
+
 
 export function SalesPieChart() {
-  const totalVisitors = React.useMemo(
-    () => chartData.reduce((acc, curr) => acc + curr.visitors, 0),
-    [],
+  const dispatch = useDispatch<ReduxDispatch>();
+  
+  const { t } = useTranslation();
+
+  const monthlyRevenueBySubscriptionPlan = useSelector(selectMonthlyRevenueBySubscriptionPlan)
+
+
+  const totalRevenue = React.useMemo(
+    () => Object.values(monthlyRevenueBySubscriptionPlan).reduce((acc, curr) => acc + curr, 0),
+    [monthlyRevenueBySubscriptionPlan]
   );
+
+  const planNameMap = {
+    [TypeSubscriptionPlan.PREMIUM_PLAN]: t('dashboard.premiumPlan'),
+    [TypeSubscriptionPlan.ITEM_EXTENSION]: t('dashboard.itemExtension'),
+  };
+
+  const chartConfig = {
+    revenue: {
+      label: t('dashboard.revenue'),
+    },
+    premium: {
+      label: 'Premium Plan',
+      color: 'hsl(var(--chart-1))',
+    },
+    item: {
+      label: 'Item Extension',
+      color: 'hsl(var(--chart-2))',
+    },
+  } satisfies ChartConfig;
+
+  React.useEffect(() => {
+    const today = new Date();
+    const currentMonth = today.getMonth() + 1;
+    const currentYear = today.getFullYear();
+    dispatch(fetchMonthlyRevenueBySubscriptionPlan({ month: currentMonth, year: currentYear }));
+  }, [dispatch]);
+
+  const chartData = React.useMemo(() => {
+    return Object.entries(monthlyRevenueBySubscriptionPlan).map(([plan, revenue]) => ({
+      plan: planNameMap[plan as TypeSubscriptionPlan] || plan,  
+      revenue,
+      fill: plan === TypeSubscriptionPlan.PREMIUM_PLAN ? 'var(--color-premium)' : 'var(--color-item)',
+    }));
+  }, [monthlyRevenueBySubscriptionPlan]);
 
   return (
     <Card className="flex flex-col h-full">
       <CardHeader className="items-center pb-0">
-        {/* <CardTitle>Pie Chart - Donut with Text</CardTitle> */}
-        {/* <CardDescription>January - June 2024</CardDescription> */}
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
@@ -74,9 +89,10 @@ export function SalesPieChart() {
             />
             <Pie
               data={chartData}
-              dataKey="visitors"
-              nameKey="browser"
-              innerRadius={60}
+              dataKey="revenue"
+              nameKey="plan"
+              innerRadius={80}
+              outerRadius={120}
               strokeWidth={5}
             >
               <Label
@@ -94,14 +110,14 @@ export function SalesPieChart() {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {totalVisitors.toLocaleString()}
+                          {totalRevenue.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Visitors
+                          Revenue
                         </tspan>
                       </text>
                     );
@@ -114,10 +130,10 @@ export function SalesPieChart() {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+         {t('dashboard.trending')} <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
+          {t('dashboard.showing')}
         </div>
       </CardFooter>
     </Card>

@@ -12,6 +12,14 @@ import { CalendarDateRangePicker } from '@/containers/DashBoard/components/date-
 import { useTranslation } from 'react-i18next';
 import { SalesPieChart } from './components/pie-chart';
 import { TooltipChart } from './components/tooltip-chart';
+import { useDispatch } from 'react-redux';
+import { ReduxDispatch } from '@/lib/redux/store';
+import { useSelector } from 'react-redux';
+import { selectCurrentActiveUsers, selectCurrentActiveUsersFetchStatus, selectDashboardRevenue, selectDashboardRevenueFetchStatus, selectDashboardSuccessfulTransactions, selectDashboardTransactionFetchStatus, selectSuccessfulExchanges, selectSuccessfulExchangesFetchStatus } from './selector';
+import { useEffect } from 'react';
+
+import { ApiStatus } from '@/common/enums/apiStatus';
+import { fetchCurrentActiveUsers, fetchMonthlyRevenue, fetchSuccessfulExchanges, fetchSuccessfulTransactions } from './thunk';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -20,6 +28,27 @@ export const metadata: Metadata = {
 
 export default function Dashboard() {
   const { t } = useTranslation();
+  const dispatch = useDispatch<ReduxDispatch>();
+  const revenue = useSelector(selectDashboardRevenue);
+  const fetchRevenueStatus = useSelector(selectDashboardRevenueFetchStatus);
+  const successfulTransactions = useSelector(selectDashboardSuccessfulTransactions);
+  const fetchTransactionStatus = useSelector(selectDashboardTransactionFetchStatus);
+  const successfulExchanges = useSelector(selectSuccessfulExchanges);
+  const fetchSuccessfulTransactionsStatus = useSelector(selectSuccessfulExchangesFetchStatus);
+  const currentActiveUsers = useSelector(selectCurrentActiveUsers);
+  const fetchCurrentActiveUsersStatus = useSelector(selectCurrentActiveUsersFetchStatus);
+
+  useEffect(() => {
+    const today = new Date();
+    const currentMonth = today.getMonth() + 1;
+    const currentYear = today.getFullYear();
+
+    dispatch(fetchMonthlyRevenue({ month: currentMonth, year: currentYear }));
+    dispatch(fetchSuccessfulTransactions({ month: currentMonth, year: currentYear }));
+    dispatch(fetchSuccessfulExchanges({ month: currentMonth, year: currentYear }));
+    dispatch(fetchCurrentActiveUsers());
+   
+  }, [dispatch]);
   return (
     <>
       <div className="flex items-center justify-between space-y-2">
@@ -46,6 +75,7 @@ export default function Dashboard() {
         </TabsList>
         <TabsContent value="overview" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {/* 🧾 Total Revenue Card */}
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
@@ -65,8 +95,13 @@ export default function Dashboard() {
                 </svg>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">$45,231.89</div>
+                <div className="text-2xl font-bold">
+                  {fetchRevenueStatus === ApiStatus.Loading
+                    ? '...'
+                    : `${revenue.toLocaleString()}`}
+                </div>
                 <p className="text-xs text-muted-foreground">
+                  {/* Optional: dùng thêm tỉ lệ tăng nếu có */}
                   +20.1% from last month
                 </p>
               </CardContent>
@@ -92,13 +127,18 @@ export default function Dashboard() {
                 </svg>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">+2350</div>
+              <div className="text-2xl font-bold">
+                  {fetchCurrentActiveUsersStatus === ApiStatus.Loading
+                    ? '...'
+                    : `${currentActiveUsers.toLocaleString()}`}
+                </div>
                 <p className="text-xs text-muted-foreground">
                   +180.1% from last month
                 </p>
               </CardContent>
             </Card>
-            <Card>
+          {/* 🧾 Transactions Card */}
+          <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   {t('dashboard.transactions')}
@@ -118,8 +158,13 @@ export default function Dashboard() {
                 </svg>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">+12,234</div>
+                <div className="text-2xl font-bold">
+                  {fetchTransactionStatus === ApiStatus.Loading
+                    ? '...'
+                    : `${successfulTransactions.toLocaleString()}`}
+                </div>
                 <p className="text-xs text-muted-foreground">
+                  {/* Optional: dùng thêm tỉ lệ tăng nếu có */}
                   +19% from last month
                 </p>
               </CardContent>
@@ -127,7 +172,7 @@ export default function Dashboard() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  {t('dashboard.residentialArea')}
+                  {t('dashboard.successfulExchanges')}
                 </CardTitle>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +188,12 @@ export default function Dashboard() {
                 </svg>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">+573</div>
+                <div className='text-2xl font-bold'>
+                {fetchSuccessfulTransactionsStatus === ApiStatus.Loading
+                    ? '...'
+                    : `${successfulExchanges.toLocaleString()}`}
+                </div>
+              
                 <p className="text-xs text-muted-foreground">
                   +201 since last hour
                 </p>

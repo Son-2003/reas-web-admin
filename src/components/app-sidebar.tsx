@@ -75,7 +75,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       //   icon: Bot,
       // },
       {
-        title: 'Requests',
+        title: 'Item Requests',
         url: ITEM_REQUEST_ROUTE,
         icon: BookOpen,
       },

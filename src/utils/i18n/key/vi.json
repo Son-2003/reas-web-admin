@@ -19,13 +19,19 @@
     "totalRevenue": "Tổng doanh thu",
     "subscriptions": "Đăng ký",
     "transactions": "Giao dịch",
-    "residentialArea": "Khu dân cư",
+    "successfulExchanges": "Trao đổi thành công",
     "revenueChart": "Biểu đồ doanh thu",
     "buy": "Mua bán",
     "exchange": "Trao đổi",
     "barChartDes": "Doanh thu hàng tháng từ mua bán và trao đổi",
     "pieChartTitle": "Doanh thu tháng trước",
-    "pieChartDes": "Số lượng trao đổi và mua bán"
+    "pieChartDes": "Số lượng trao đổi và mua bán",
+    "premiumPlan": "Gói cao cấp",
+    "itemExtention": "Gia hạn sản phẩm",
+    "trending": "Tăng 5.2% trong tháng này",
+    "showing": "Đang hiển thị tổng doanh thu trong 6 tháng qua",
+    "revenue": "Doanh thu"
+    
   },
   "usersManagement": {
     "title": "Quản lý người dùng",
@@ -141,7 +147,14 @@
       "description": "Mô tả:",
       "minPrice": "Giá tối thiểu:",
       "maxPrice": "Giá tối đa:",
-      "desiredItem": "Món đồ mong muốn:"
+      "desiredItem": "Món đồ mong muốn:",
+      "toast":{
+        "success": "Thành công",
+        "description": "Yêu cầu đã được",
+        "approve": "phê duyệt",
+        "discard": "từ chối",
+        "successfully": "thành công!"
+      }
 
     },
     "description": "Mô tả:",
@@ -168,7 +181,8 @@
     "back" : "Quay lại",
     "approve" : "Duyệt",
     "discard" : "Hủy",
-    "cancel" : "Hủy"
+    "cancel" : "Hủy",
+    "loading": "Đang tải"
     
   },
   "feedback": {
