@@ -141,7 +141,6 @@ export function SalesPieChart() {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
-
         <div className="flex gap-4">
           <div className="flex items-center gap-2">
             <div
@@ -164,10 +163,7 @@ export function SalesPieChart() {
         <div className="leading-none text-muted-foreground">
           {t('dashboard.showing')}
         </div>
-
-
       </CardFooter>
-
     </Card>
   );
 }

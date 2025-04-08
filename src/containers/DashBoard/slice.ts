@@ -15,7 +15,9 @@ interface DashboardState {
   monthlyRevenueBySubscriptionPlan: { [key: string]: number };
   successfulExchanges: number;
   currentActiveUsers: number;
-  yearlyRevenueBySubscriptionPlan: { [month: string]: { [plan: string]: number } };
+  yearlyRevenueBySubscriptionPlan: {
+    [month: string]: { [plan: string]: number };
+  };
   fetchRevenueStatus: ApiStatus;
   fetchTransactionStatus: ApiStatus;
   fetchSubscriptionPlanRevenueStatus: ApiStatus;
@@ -147,16 +149,21 @@ const dashboardSlice = createSlice({
         fetchYearlyRevenueBySubscriptionPlan.fulfilled,
         (
           state,
-          action: PayloadAction<{ [month: string]: { [plan: string]: number } }>,
+          action: PayloadAction<{
+            [month: string]: { [plan: string]: number };
+          }>,
         ) => {
           state.yearlyRevenueBySubscriptionPlan = action.payload;
           state.fetchYearlyRevenueStatus = ApiStatus.Fulfilled;
         },
       )
-      .addCase(fetchYearlyRevenueBySubscriptionPlan.rejected, (state, action) => {
-        state.fetchYearlyRevenueStatus = ApiStatus.Failed;
-        state.errorMessage = action.error.message;
-      });
+      .addCase(
+        fetchYearlyRevenueBySubscriptionPlan.rejected,
+        (state, action) => {
+          state.fetchYearlyRevenueStatus = ApiStatus.Failed;
+          state.errorMessage = action.error.message;
+        },
+      );
   },
 });
 

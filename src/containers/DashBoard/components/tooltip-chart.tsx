@@ -12,10 +12,8 @@ import { useSelector } from 'react-redux';
 import { selectYearlyRevenueBySubscriptionPlan } from '../selector';
 import { useDispatch } from 'react-redux';
 import { ReduxDispatch } from '@/lib/redux/store';
-import {  useEffect } from 'react';
+import { useEffect } from 'react';
 import { fetchYearlyRevenueBySubscriptionPlan } from '../thunk';
-
-
 
 export function TooltipChart() {
   const { t } = useTranslation();
@@ -30,24 +28,25 @@ export function TooltipChart() {
 
   const months = Array.from({ length: 12 }, (_, i) => {
     const date = new Date(2025, i);
-    const monthKey = date.toLocaleString('en-US', { month: 'short' }).toLowerCase(); 
-    
+    const monthKey = date
+      .toLocaleString('en-US', { month: 'short' })
+      .toLowerCase();
+
     return {
-      month: t(`months.${monthKey}`),  
+      month: t(`months.${monthKey}`),
       PREMIUM_PLAN: 0,
       ITEM_EXTENSION: 0,
     };
   });
-  
+
   const chartData = months.map((defaultMonth, index) => {
-    const revenueForMonth = yearlyRevenue[index + 1]; 
+    const revenueForMonth = yearlyRevenue[index + 1];
     return {
       month: defaultMonth.month,
       PREMIUM_PLAN: revenueForMonth?.PREMIUM_PLAN || 0,
       ITEM_EXTENSION: revenueForMonth?.ITEM_EXTENSION || 0,
     };
   });
-  
 
   const chartConfig = {
     ITEM_EXTENSION: {
