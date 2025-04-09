@@ -8,3 +8,10 @@ export const selectPendingItemsStatus = (state: ReduxState) =>
   state.pendingItems.status;
 export const selectItemDetailStatus = (state: ReduxState) =>
   state.pendingItems.itemDetailStatus;
+
+export const selectTotalPages = (state: ReduxState) =>
+  state.pendingItems.totalPages;
+export const selectTotalRecords = (state: ReduxState) =>
+  state.pendingItems.totalRecords;
+export const selectCurrentPage = (state: ReduxState) =>
+  state.pendingItems.currentPage;

@@ -11,7 +11,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { ReduxDispatch } from '@/lib/redux/store';
 import { fetchPendingItems } from './thunk';
-import { selectPendingItems } from './selector';
+import {
+  selectCurrentPage,
+  selectPendingItems,
+  selectTotalPages,
+} from './selector';
 import { useItemRequestColumns } from './components/columns';
 
 export const ItemRequest = () => {
@@ -23,6 +27,8 @@ export const ItemRequest = () => {
   const [pageNo, setPageNo] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [loading, setLoading] = useState(true);
+  const totalPages = useSelector(selectTotalPages);
+  const currentPage = useSelector(selectCurrentPage);
 
   useEffect(() => {
     setLoading(true);
@@ -53,8 +59,8 @@ export const ItemRequest = () => {
         />
       </div>
       <DataTablePagination
-        currentPage={pageNo}
-        totalPages={5}
+        currentPage={currentPage}
+        totalPages={totalPages}
         pageSize={pageSize}
         setPageNo={setPageNo}
         setPageSize={setPageSize}

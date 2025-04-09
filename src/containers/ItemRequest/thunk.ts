@@ -12,7 +12,13 @@ export const fetchPendingItems = createAppAsyncThunk(
         true,
       );
 
-      return response.content;
+      // Return items along with pagination details
+      return {
+        items: response.content,
+        totalPages: response.totalPages,
+        totalRecords: response.totalRecords,
+        currentPage: response.pageNo,
+      };
     } catch (error) {
       console.error('Error in fetchPendingItems:', error);
       throw error;

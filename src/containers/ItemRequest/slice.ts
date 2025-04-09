@@ -8,6 +8,9 @@ export interface PendingItemsState {
   itemDetail: Item | null;
   status: ApiStatus;
   itemDetailStatus: ApiStatus;
+  totalPages: number;
+  totalRecords: number;
+  currentPage: number;
 }
 
 export const initialState: PendingItemsState = {
@@ -15,6 +18,9 @@ export const initialState: PendingItemsState = {
   itemDetail: null,
   status: ApiStatus.Idle,
   itemDetailStatus: ApiStatus.Idle,
+  totalPages: 1,
+  totalRecords: 0,
+  currentPage: 0,
 };
 
 const pendingItemsSlice = createSlice({
@@ -28,9 +34,20 @@ const pendingItemsSlice = createSlice({
       })
       .addCase(
         fetchPendingItems.fulfilled,
-        (state, action: PayloadAction<Item[]>) => {
+        (
+          state,
+          action: PayloadAction<{
+            items: Item[];
+            totalPages: number;
+            totalRecords: number;
+            currentPage: number;
+          }>,
+        ) => {
           state.status = ApiStatus.Fulfilled;
-          state.pendingItems = action.payload;
+          state.pendingItems = action.payload.items;
+          state.totalPages = action.payload.totalPages;
+          state.totalRecords = action.payload.totalRecords;
+          state.currentPage = action.payload.currentPage;
         },
       )
       .addCase(fetchPendingItems.rejected, (state) => {
