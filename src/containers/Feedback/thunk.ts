@@ -4,10 +4,9 @@ import { Feedback } from '@/common/models/feedback';
 
 const TypePrefix = 'Feedback';
 
-// Thunk để lấy danh sách feedback
 export const getFeedback = createAppAsyncThunk(
   `${TypePrefix}/getFeedback`,
-  async (params: { userId: string }) => {
+  async (params: { userId: string; pageNo: number; pageSize: number }) => {
     try {
       const response = await callApi(
         {
@@ -15,6 +14,8 @@ export const getFeedback = createAppAsyncThunk(
           url: 'feedback',
           params: {
             userId: params.userId,
+            pageNo: params.pageNo,
+            pageSize: params.pageSize,
           },
         },
         true,

@@ -5,14 +5,17 @@ const TypePrefix = 'Item';
 
 export const fetchPendingItems = createAppAsyncThunk(
   `${TypePrefix}/fetchPendingItems`,
-  async () => {
+  async ({ pageNo, pageSize }: { pageNo: number; pageSize: number }) => {
     try {
       const response = await callApi(
-        { method: 'get', url: '/item/pending' },
+        {
+          method: 'get',
+          url: '/item/pending',
+          params: { pageNo, pageSize },
+        },
         true,
       );
 
-      // Return items along with pagination details
       return {
         items: response.content,
         totalPages: response.totalPages,

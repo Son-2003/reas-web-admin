@@ -17,7 +17,7 @@
     "management": "Management",
     "human": "Human",
     "staffs": "Staffs",
-    "users": "Users",
+    "residents": "Residents",
     "items": "Items",
     "settings": "Settings",
     "logout": "Logout"
@@ -113,7 +113,9 @@
       "view": "View detail staff",
       "viewItem": "View item",
       "viewFeedback": "View feedback",
-      "viewHistoryExchange": "View history exchange"
+      "viewHistoryExchange": "View history exchange",
+      "viewHistoryPayment": "View history payment"
+      
     }
   },
   "staffsManagement":{
@@ -197,7 +199,7 @@
     "loading": "Loading"
   },
   "feedback": {
-    "title": "Feedback Detail",
+    "title": "Feedbacks of user",
     "loading": "Loading...",
     "error": "Unable to load feedback data.",
     "feedbackInfo": "Feedback Information",
@@ -220,9 +222,13 @@
     "buyerConfirmation": "Buyer Confirmation",
     "sellerConfirmation": "Seller Confirmation",
     "confirmed": "Confirmed",
-    "notConfirmed": "Not Confirmed"
+    "notConfirmed": "Not Confirmed",
+    "searchPlaceholder": "Search feedback here...",
+    "userName": "User Name",
+    "actions": "Actions"
   },
   "exchangeHistory": {
+    "title": "Exchange History",
     "loading": "Loading exchange history...",
     "error": "Failed to load exchange history.",
     "sellerItem": "Seller's Item",
@@ -239,7 +245,13 @@
     "confirmationAndNotes": "Confirmation & Notes",
     "buyerConfirmation": "Buyer Confirmation",
     "confirmed": "Confirmed",
-    "notConfirmed": "Not Confirmed"
+    "notConfirmed": "Not Confirmed",
+    "searchPlaceholder": "Search exchange history here...",
+    "buyer": "Buyer",
+    "seller": "Seller",
+    "date": "Date",
+    "actions": "Actions",
+    "time": "Time"
   },
   "months": {
     "jan": "Jan",
@@ -254,6 +266,26 @@
     "oct": "Oct",
     "nov": "Nov",
     "dec": "Dec"
+  },
+  "paymentHistory": {
+    "title": "Payment History",
+    "title1": "User's payment history",
+    "transactionId": "Transaction ID",
+    "amount": "Amount",
+    "methodPayment": "Payment Method",
+    "statusPayment": "Payment Status",
+    "time": "Time",
+    "date": "Date",
+    "actions": "Actions",
+    "placeholder": "Search payment history here...",
+    "methodPaymentCash": "Cash",
+    "methodPaymentBankTransfer": "Bank Transfer",
+    "methodPaymentCreditCard": "Credit Card",
+    "methodPaymentPayPal": "PayPal",
+    "methodPaymentApplePay": "Apple Pay",
+    "methodPaymentVisa": "Visa",
+    "methodPaymentMasterCard": "MasterCard",
+    "methodPaymentOther": "Other"
   }
 
 }

@@ -6,7 +6,7 @@ export const UserStatuses = [
   { value: 'PENDING', label: 'Pending', icon: Icons.pending },
 ];
 
-export const ItemRequestStatuses = [
+export const ItemStatuses = [
   { value: 'AVAILABLE', label: 'Available', icon: Icons.check },
   { value: 'UNAVAILABLE', label: 'Unavailable', icon: Icons.cancel },
   { value: 'EXPIRED', label: 'Expired', icon: Icons.x },

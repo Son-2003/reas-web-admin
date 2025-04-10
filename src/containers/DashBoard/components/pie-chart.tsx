@@ -17,10 +17,11 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-import { TypeSubscriptionPlan } from '@/common/enums/typeSubcriptionPlan';
+
 import { fetchMonthlyRevenueBySubscriptionPlan } from '../thunk';
 import { selectMonthlyRevenueBySubscriptionPlan } from '../selector';
 import { useTranslation } from 'react-i18next';
+import { TypeSubscriptionPlan } from '@/common/enums/typeSubscriptionPlan';
 
 export function SalesPieChart() {
   const dispatch = useDispatch<ReduxDispatch>();

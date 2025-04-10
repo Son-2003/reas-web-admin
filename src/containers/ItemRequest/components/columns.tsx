@@ -1,6 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
+// import { Checkbox } from '@/components/ui/checkbox';
 import { Icons } from '@/components/ui/icons';
 import { CellAction } from './cell-action';
 import { Item } from '@/common/models/item';
@@ -9,29 +9,30 @@ import { useTranslation } from 'react-i18next';
 export const useItemRequestColumns = (): ColumnDef<Item>[] => {
   const { t } = useTranslation();
   return [
-    {
-      id: 'select',
-      header: ({ table }) => (
-        <Checkbox
-          checked={table.getIsAllPageRowsSelected()}
-          onCheckedChange={(value: any) =>
-            table.toggleAllPageRowsSelected(!!value)
-          }
-          aria-label="Select all"
-        />
-      ),
-      cell: ({ row }) => (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value: any) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
-      ),
-      enableSorting: false,
-      enableHiding: false,
-    },
+    // {
+    //   id: 'select',
+    //   header: ({ table }) => (
+    //     <Checkbox
+    //       checked={table.getIsAllPageRowsSelected()}
+    //       onCheckedChange={(value: any) =>
+    //         table.toggleAllPageRowsSelected(!!value)
+    //       }
+    //       aria-label="Select all"
+    //     />
+    //   ),
+    //   cell: ({ row }) => (
+    //     <Checkbox
+    //       checked={row.getIsSelected()}
+    //       onCheckedChange={(value: any) => row.toggleSelected(!!value)}
+    //       aria-label="Select row"
+    //     />
+    //   ),
+    //   enableSorting: false,
+    //   enableHiding: false,
+    // },
     {
       accessorKey: 'id',
+      sortDescFirst: true,
       header: ({ column }) => (
         <Button
           variant="ghost"
@@ -42,6 +43,7 @@ export const useItemRequestColumns = (): ColumnDef<Item>[] => {
         </Button>
       ),
     },
+
     {
       accessorKey: 'itemName',
       header: t('itemRequest.itemName'),

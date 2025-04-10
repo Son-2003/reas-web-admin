@@ -51,7 +51,6 @@ export const UsersManagement = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    // Only dispatch the API call when lastSegment is set
     if (!lastSegment) return;
 
     const defaultSearchRequestBody: SearchUserRequest = {
@@ -117,8 +116,10 @@ export const UsersManagement = () => {
         <DataTable
           columns={columns}
           data={responsePagination?.content || []}
-          searchKey="id"
+          searchKey="userName"
           placeholder={t('usersManagement.searchPlaceholder')}
+          dataType="usersManagement"
+          defaultSortOrder={false}
         />
       </div>
       <DataTablePagination

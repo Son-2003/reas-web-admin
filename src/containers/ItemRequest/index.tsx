@@ -11,11 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { ReduxDispatch } from '@/lib/redux/store';
 import { fetchPendingItems } from './thunk';
-import {
-  selectCurrentPage,
-  selectPendingItems,
-  selectTotalPages,
-} from './selector';
+import { selectPendingItems, selectTotalPages } from './selector';
 import { useItemRequestColumns } from './components/columns';
 
 export const ItemRequest = () => {
@@ -24,15 +20,16 @@ export const ItemRequest = () => {
   const items = useSelector(selectPendingItems);
   const columns = useItemRequestColumns();
 
-  const [pageNo, setPageNo] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
   const [loading, setLoading] = useState(true);
   const totalPages = useSelector(selectTotalPages);
-  const currentPage = useSelector(selectCurrentPage);
+  const [pageNo, setPageNo] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
 
   useEffect(() => {
     setLoading(true);
-    dispatch(fetchPendingItems()).finally(() => setLoading(false));
+    dispatch(fetchPendingItems({ pageNo: pageNo, pageSize })).finally(() =>
+      setLoading(false),
+    );
   }, [dispatch, pageNo, pageSize]);
 
   if (loading) {
@@ -53,13 +50,13 @@ export const ItemRequest = () => {
         <DataTable
           columns={columns}
           data={items || []}
-          searchKey="id"
+          searchKey="itemName"
           placeholder={t('itemRequest.searchPlaceholder')}
           dataType="itemRequests"
         />
       </div>
       <DataTablePagination
-        currentPage={currentPage}
+        currentPage={pageNo}
         totalPages={totalPages}
         pageSize={pageSize}
         setPageNo={setPageNo}

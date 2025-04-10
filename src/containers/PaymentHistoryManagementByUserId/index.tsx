@@ -2,53 +2,68 @@ import { DataTable } from '@/components/DataTable/data-table';
 import { DataTablePagination } from '@/components/DataTable/data-table-pagination';
 import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
-import { Plus } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { columns } from './components/columns';
+import { usePaymentHistoryByIdcolumns } from './components/columns';
 import { ReduxDispatch } from '@/lib/redux/store';
 import { useDispatch } from 'react-redux';
-import { selectPaymentHistoryByUserId } from './selector';
 import {
-  selectPaymentHistoryFetchStatus,
-  selectPaymentHistoryTotalPages,
-} from '../PaymentHistoryManagement/selector';
+  selectPaymentHistoryByUserId,
+  selectPaymentHistoryByUserIdFetchStatus,
+  selectPaymentHistoryByUserIdTotalPages,
+} from './selector';
+
 import { useSelector } from 'react-redux';
-import { fetchPaymentHistoryByUserId } from './thunk'; // Thêm import cho thunk
+import { fetchPaymentHistoryByUserId } from './thunk';
 import { ApiStatus } from '@/common/enums/apiStatus';
+import { USERS_MANAGEMENT_ROUTE } from '@/common/constants/router';
+import { LoaderCircle } from 'lucide-react';
 
 export const PaymentHistoryByUserManagement = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch<ReduxDispatch>();
   const { userId } = useParams();
+  const columns = usePaymentHistoryByIdcolumns();
 
-  const [pageNo, setPageNo] = useState(1);
+  const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(10);
 
   const paymentHistory = useSelector(selectPaymentHistoryByUserId);
-  const fetchStatus = useSelector(selectPaymentHistoryFetchStatus);
-  const totalPages = useSelector(selectPaymentHistoryTotalPages);
+  const fetchStatus = useSelector(selectPaymentHistoryByUserIdFetchStatus);
+  const totalPages = useSelector(selectPaymentHistoryByUserIdTotalPages);
 
   useEffect(() => {
     if (userId) {
-      dispatch(fetchPaymentHistoryByUserId(Number(userId)));
+      dispatch(
+        fetchPaymentHistoryByUserId({
+          userId: Number(userId),
+          pageNo,
+          pageSize,
+        }),
+      );
     }
   }, [dispatch, userId, pageNo, pageSize]);
 
   if (fetchStatus === ApiStatus.Loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <LoaderCircle />
+      </div>
+    );
   }
 
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading title={t('paymentHistoryByUser.title')} description="" />
-        <Button onClick={() => navigate('/admin/newItemRequest')}>
-          <Plus className="mr-2 h-4 w-4" />
-          Add New
+        <Heading title={t('paymentHistory.title1')} description="" />
+        <Button
+          onClick={() => navigate(USERS_MANAGEMENT_ROUTE)}
+          variant="outline"
+        >
+          {t('button.back')}
         </Button>
       </div>
       <Separator />
@@ -57,8 +72,9 @@ export const PaymentHistoryByUserManagement = () => {
           columns={columns}
           data={paymentHistory}
           searchKey="id"
-          placeholder="Tìm kiếm yêu cầu vật phẩm tại đây..."
-          dataType="itemRequests"
+          placeholder={t('paymentHistory.placeholder')}
+          dataType="paymentHistoryByUserId"
+          defaultSortOrder={false}
         />
       </div>
       <DataTablePagination

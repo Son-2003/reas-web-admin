@@ -6,12 +6,13 @@ const TypePrefix = 'PaymentHistory';
 
 export const fetchPaymentHistory = createAppAsyncThunk(
   `${TypePrefix}/fetchPaymentHistory`,
-  async () => {
+  async ({ pageNo, pageSize }: { pageNo: number; pageSize: number }) => {
     try {
       const response = await callApi(
         {
           method: 'post',
           url: 'payment-history/search',
+          params: { pageNo, pageSize },
         },
         true,
       );

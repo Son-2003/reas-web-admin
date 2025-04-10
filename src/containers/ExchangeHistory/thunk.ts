@@ -6,7 +6,7 @@ const TypePrefix = 'ExchangeHistory';
 
 export const getExchangeHistory = createAppAsyncThunk(
   `${TypePrefix}/getExchangeHistory`,
-  async (params: { userId: string }) => {
+  async (params: { userId: string; pageNo: number; pageSize: number }) => {
     try {
       const response = await callApi(
         {
@@ -14,6 +14,8 @@ export const getExchangeHistory = createAppAsyncThunk(
           url: 'exchange/history',
           params: {
             userId: params.userId,
+            pageNo: params.pageNo,
+            pageSize: params.pageSize,
           },
         },
         true,

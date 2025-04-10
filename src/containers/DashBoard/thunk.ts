@@ -70,7 +70,7 @@ export const fetchSuccessfulExchanges = createAppAsyncThunk(
       const response = await callApi(
         {
           method: 'get',
-          url: `payment-history/number-of-successful-exchanges`,
+          url: `exchange/number-of-successful-exchanges`,
           params: { month, year },
         },
         true,
