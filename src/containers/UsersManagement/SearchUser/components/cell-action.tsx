@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import {
   EXCHANGE_HISTORY_MANAGEMENT_ROUTE,
   FEEDBACK_USER_MANAGEMENT_ROUTE,
+  PAYMENT_HISTORY_BY_USER_MANAGEMENT_ROUTE,
 } from '@/common/constants/router';
 import { Package, MessageCircle, History } from 'lucide-react';
 
@@ -73,6 +74,15 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     );
   };
 
+  const handleViewPaymentExchange = () => {
+    navigate(
+      PAYMENT_HISTORY_BY_USER_MANAGEMENT_ROUTE.replace(
+        ':userId',
+        String(data.id),
+      ),
+    );
+  };
+
   const handleDeactivateStaff = () => {
     // call api to deactivate staff here
   };
@@ -116,6 +126,10 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             <DropdownMenuItem onClick={handleViewHistoryExchange}>
               <History className="mr-2 h-4 w-4" />
               {t('usersManagement.cell-action.viewHistoryExchange')}
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleViewPaymentExchange}>
+              <History className="mr-2 h-4 w-4" />
+              {t('usersManagement.cell-action.viewHistoryPayment')}
             </DropdownMenuItem>
             {/* <DropdownMenuItem
               onClick={handleViewPaymentBetweenLocationAndSystem}

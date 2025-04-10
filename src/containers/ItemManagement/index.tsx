@@ -13,12 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchItems } from './thunk';
 import { ReduxDispatch } from '@/lib/redux/store';
 import { ApiStatus } from '@/common/enums/apiStatus';
-import {
-  selectCurrentPage,
-  selectFetchStatus,
-  selectItems,
-  selectTotalPages,
-} from './selector';
+import { selectFetchStatus, selectItems, selectTotalPages } from './selector';
 import { USERS_MANAGEMENT_ROUTE } from '@/common/constants/router';
 import { useItemColumns } from './components/columns';
 
@@ -28,20 +23,26 @@ export const ItemManagement = () => {
   const navigate = useNavigate();
   const columns = useItemColumns();
   const { id: userId } = useParams<{ id: string }>();
-  const [pageNo, setPageNo] = useState(1);
+
+  const items = useSelector(selectItems);
+  const fetchStatus = useSelector(selectFetchStatus);
+  const totalPages = useSelector(selectTotalPages);
+  const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [selectedFilters, setSelectedFilters] = useState<string[]>([
     'AVAILABLE',
   ]);
 
-  const items = useSelector(selectItems);
-  const fetchStatus = useSelector(selectFetchStatus);
-  const totalPages = useSelector(selectTotalPages);
-  const currentPage = useSelector(selectCurrentPage);
-
   useEffect(() => {
     if (userId) {
-      dispatch(fetchItems({ userId, statusItem: selectedFilters[0] }));
+      dispatch(
+        fetchItems({
+          userId,
+          statusItem: selectedFilters[0],
+          pageNo,
+          pageSize,
+        }),
+      );
     }
   }, [dispatch, userId, pageNo, pageSize, selectedFilters]);
 
@@ -67,16 +68,16 @@ export const ItemManagement = () => {
           <DataTable
             columns={columns}
             data={items || []}
-            searchKey="id"
+            searchKey="itemName"
             placeholder="Tìm kiếm yêu cầu vật phẩm tại đây..."
-            dataType="itemRequests"
+            dataType="items"
             onFilterChange={setSelectedFilters}
           />
         )}
       </div>
 
       <DataTablePagination
-        currentPage={currentPage}
+        currentPage={pageNo}
         totalPages={totalPages}
         pageSize={pageSize}
         setPageNo={setPageNo}

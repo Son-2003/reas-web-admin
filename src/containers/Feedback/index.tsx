@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 
 import { getFeedback } from '@/containers/Feedback/thunk';
 
-import { columns } from './components/columns';
+import { useFeedbackUserColumns } from './components/columns';
 import {
   selectFeedbackFetchStatus,
   selectFeedbacks,
@@ -20,9 +20,12 @@ import { ApiStatus } from '@/common/enums/apiStatus';
 import { ReduxDispatch } from '@/lib/redux/store';
 import { useDispatch } from 'react-redux';
 import { USERS_MANAGEMENT_ROUTE } from '@/common/constants/router';
+import { useTranslation } from 'react-i18next';
 
 export const FeedbackUser = () => {
   const { userId: userId } = useParams<{ userId: string }>();
+  const { t } = useTranslation();
+  const columns = useFeedbackUserColumns();
   const navigate = useNavigate();
   const dispatch = useDispatch<ReduxDispatch>();
 
@@ -35,19 +38,19 @@ export const FeedbackUser = () => {
 
   useEffect(() => {
     if (userId) {
-      dispatch(getFeedback({ userId }));
+      dispatch(getFeedback({ userId, pageNo, pageSize }));
     }
-  }, [dispatch, pageNo, pageSize]);
+  }, [dispatch, userId, pageNo, pageSize]);
 
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading title="Feedback" description="" />
+        <Heading title={t('feedback.title')} description="" />
         <Button
           onClick={() => navigate(USERS_MANAGEMENT_ROUTE)}
           variant="outline"
         >
-          Back
+          {t('button.back')}
         </Button>
       </div>
       <Separator />
@@ -59,7 +62,7 @@ export const FeedbackUser = () => {
             columns={columns}
             data={feedbacks}
             searchKey="id"
-            placeholder="Tìm kiếm phản hồi tại đây..."
+            placeholder={t('feedback.searchPlaceholder')}
             dataType="feedbacks"
           />
         )}

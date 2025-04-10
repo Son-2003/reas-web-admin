@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { CalendarDateRangePicker } from '@/containers/DashBoard/components/date-range-picker';
+// import { CalendarDateRangePicker } from '@/containers/DashBoard/components/date-range-picker';
 import { useTranslation } from 'react-i18next';
 import { SalesPieChart } from './components/pie-chart';
 import { TooltipChart } from './components/tooltip-chart';
@@ -80,15 +80,15 @@ export default function Dashboard() {
         <h2 className="text-3xl font-bold tracking-tight">
           {t('dashboard.title')}
         </h2>
-        <div className="flex items-center space-x-2">
+        {/* <div className="flex items-center space-x-2">
           <CalendarDateRangePicker />
           <Button>{t('dashboard.download')}</Button>
-        </div>
+        </div> */}
       </div>
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
           <TabsTrigger value="overview">{t('dashboard.overview')}</TabsTrigger>
-          <TabsTrigger value="analytics" disabled>
+          {/* <TabsTrigger value="analytics" disabled>
             {t('dashboard.analytics')}
           </TabsTrigger>
           <TabsTrigger value="reports" disabled>
@@ -96,7 +96,7 @@ export default function Dashboard() {
           </TabsTrigger>
           <TabsTrigger value="notifications" disabled>
             {t('dashboard.notifications')}
-          </TabsTrigger>
+          </TabsTrigger> */}
         </TabsList>
         <TabsContent value="overview" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

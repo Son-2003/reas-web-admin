@@ -31,6 +31,7 @@ interface DataTableProps<TData, TValue> {
   dataType?: string;
   placeholder?: string;
   onFilterChange?: (filters: string[]) => void;
+  defaultSortOrder?: boolean;
 }
 
 export function DataTable<TData, TValue>({
@@ -40,14 +41,18 @@ export function DataTable<TData, TValue>({
   dataType,
   placeholder,
   onFilterChange,
+  defaultSortOrder = true,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [sorting, setSorting] = React.useState<SortingState>([
+    { id: 'id', desc: defaultSortOrder },
+  ]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
   );
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+
   const table = useReactTable({
     data,
     columns,
@@ -56,6 +61,14 @@ export function DataTable<TData, TValue>({
       columnVisibility,
       rowSelection,
       columnFilters,
+    },
+    initialState: {
+      sorting: [
+        {
+          id: 'id',
+          desc: defaultSortOrder,
+        },
+      ],
     },
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
@@ -78,9 +91,8 @@ export function DataTable<TData, TValue>({
         searchKey={searchKey}
         placeholder={placeholder}
         data={data}
-        onFilterChange={onFilterChange} // Truyền xuống
+        onFilterChange={onFilterChange}
       />
-
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -129,7 +141,6 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      {/* <DataTablePagination table={table} /> */}
     </div>
   );
 }

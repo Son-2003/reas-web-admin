@@ -25,10 +25,16 @@ import {
   EXCHANGE_HISTORY_MANAGEMENT_DETAIL_ROUTE,
   PAYMENT_HISTORY_MANAGEMENT_ROUTE,
   PAYMENT_HISTORY_BY_USER_MANAGEMENT_ROUTE,
+  SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE,
+  CREATE_STAFF_ACCOUNT_ROUTE,
+  CREATE_SUBSCRIPTION_PLAN_ROUTE,
 } from '@/common/constants/router';
 import ProtectedRoute from './protectedRoute';
 import PaymentHistoryPage from '@/app/payment-history/page';
 import PaymentHistoryByUserPage from '@/app/payment-history-by-user/page';
+import SubscriptionPlanManagementPage from '@/app/subscription-plan/page';
+import CreateUpdateUserPage from '@/app/create-account-user/page';
+import { CreateSubscriptionPlan } from '@/containers/SubcriptionPlanManagement/CreateSubscriptionPlan';
 
 const router = createBrowserRouter([
   {
@@ -53,6 +59,10 @@ const router = createBrowserRouter([
           {
             path: STAFFS_MANAGEMENT_ROUTE,
             element: <UsersManagementPage />,
+          },
+          {
+            path: CREATE_STAFF_ACCOUNT_ROUTE,
+            element: <CreateUpdateUserPage />,
           },
           {
             path: ITEM_REQUEST_ROUTE,
@@ -93,6 +103,14 @@ const router = createBrowserRouter([
           {
             path: PAYMENT_HISTORY_BY_USER_MANAGEMENT_ROUTE,
             element: <PaymentHistoryByUserPage />,
+          },
+          {
+            path: SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE,
+            element: <SubscriptionPlanManagementPage />,
+          },
+          {
+            path: CREATE_SUBSCRIPTION_PLAN_ROUTE,
+            element: <CreateSubscriptionPlan />,
           },
         ],
       },
