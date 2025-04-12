@@ -27,9 +27,7 @@ import { DataTableToolbar } from './data-table-toolbar';
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  searchKey: string;
   dataType?: string;
-  placeholder?: string;
   onFilterChange?: (filters: string[]) => void;
   defaultSortOrder?: boolean;
 }
@@ -37,9 +35,7 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
   data,
-  searchKey,
   dataType,
-  placeholder,
   onFilterChange,
   defaultSortOrder = true,
 }: DataTableProps<TData, TValue>) {
@@ -88,8 +84,6 @@ export function DataTable<TData, TValue>({
       <DataTableToolbar
         dataType={dataType}
         table={table}
-        searchKey={searchKey}
-        placeholder={placeholder}
         data={data}
         onFilterChange={onFilterChange}
       />

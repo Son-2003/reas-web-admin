@@ -5,13 +5,25 @@ const TypePrefix = 'Item';
 
 export const fetchPendingItems = createAppAsyncThunk(
   `${TypePrefix}/fetchPendingItems`,
-  async ({ pageNo, pageSize }: { pageNo: number; pageSize: number }) => {
+  async ({
+    pageNo,
+    pageSize,
+    itemName = '',
+  }: {
+    pageNo: number;
+    pageSize: number;
+    itemName?: string;
+  }) => {
     try {
       const response = await callApi(
         {
-          method: 'get',
-          url: '/item/pending',
+          method: 'post',
+          url: '/item/search',
           params: { pageNo, pageSize },
+          data: {
+            itemName,
+            statusItems: ['PENDING'],
+          },
         },
         true,
       );

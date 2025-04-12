@@ -44,7 +44,6 @@
     "trending": "Tăng 5.2% trong tháng này",
     "showing": "Đang hiển thị tổng doanh thu trong tháng qua",
     "revenue": "Doanh thu"
-    
   },
   "usersManagement": {
     "title": "Quản lý người dùng",
@@ -66,8 +65,12 @@
     "edit": "Chỉnh sửa",
     "delete": "Xóa",
     "searchPlaceholder": "Tìm kiếm người dùng tại đây...",
+    "accountDetail": {
+      "title": "Chi tiết tài khoản"
+    },
     "createAccountUser": {
       "title": "Tạo tài khoản",
+      "title2": "Chỉnh sửa tài khoản",
       "createButton": "Tạo tài khoản",
       "updateButton": "Cập nhật",
       "cancelButton": "Hủy",
@@ -106,7 +109,7 @@
         "other": "Khác"
       }
     },
-    "cell-action":{
+    "cell-action": {
       "title": "Hành động",
       "edit": "Chỉnh sửa thông tin nhân viên",
       "delete": "Vô hiệu hóa nhân viên",
@@ -117,10 +120,10 @@
       "viewHistoryPayment": "Xem lịch sử thanh toán"
     }
   },
-  "staffsManagement":{
+  "staffsManagement": {
     "title": "Quản lý nhân viên"
   },
-  "itemsManagement":{
+  "itemsManagement": {
     "title": "Quản lý sản phẩm",
     "itemName": "Tên sản phẩm",
     "owner": "Người sở hữu",
@@ -128,7 +131,7 @@
     "action": "Hành động",
     "price": "Giá"
   },
-  "itemRequest" :{
+  "itemRequest": {
     "title": "Yêu cầu sản phẩm",
     "itemName": "Tên sản phẩm",
     "owner": "Người sỡ hữu",
@@ -136,7 +139,7 @@
     "action": "Hành động",
     "searchPlaceholder": "Tìm kiếm yêu cầu sản phẩm tại đây...",
     "detail": "Chi tiết",
-    "itemRequestDetail":{
+    "itemRequestDetail": {
       "brandNew": "Mới",
       "likeNew": "Như mới",
       "good": "Tốt",
@@ -149,7 +152,7 @@
       "delivery": "Giao hàng",
       "meetAtGivenLocation": "Gặp tại địa điểm hẹn",
       "noMethod": "Không có phương thức",
-      "dialog" : {
+      "dialog": {
         "title": "Xác nhận",
         "content1": "Bạn có chắc chắn muốn",
         "content2": "yêu cầu này không?",
@@ -162,14 +165,13 @@
       "minPrice": "Giá tối thiểu:",
       "maxPrice": "Giá tối đa:",
       "desiredItem": "Món đồ mong muốn:",
-      "toast":{
+      "toast": {
         "success": "Thành công",
         "description": "Yêu cầu đã được",
         "approve": "phê duyệt",
         "discard": "từ chối",
         "successfully": "thành công!"
       }
-
     },
     "description": "Mô tả:",
     "information": "Thông tin",
@@ -188,16 +190,13 @@
     "minPrice": "Giá tối thiểu:",
     "maxPrice": "Giá tối đa:",
     "price": "Giá:"
-
-
   },
-  "button":{
-    "back" : "Quay lại",
-    "approve" : "Duyệt",
-    "discard" : "Hủy",
-    "cancel" : "Hủy",
+  "button": {
+    "back": "Quay lại",
+    "approve": "Duyệt",
+    "discard": "Hủy",
+    "cancel": "Hủy",
     "loading": "Đang tải"
-    
   },
   "feedback": {
     "title": "Phản hồi người dùng",
@@ -287,9 +286,67 @@
     "methodPaymentVisa": "Visa",
     "methodPaymentMasterCard": "MasterCard",
     "methodPaymentOther": "Khác"
+  },
+  "subscriptionPlan": {
+    "deleted": "Đã xoá!",
+    "deleteSuccess": "Gói đăng ký đã được xoá thành công.",
+    "deleteFailed": "Xoá thất bại",
+    "deleteError": "Đã xảy ra lỗi khi xoá gói đăng ký.",
+    "confirmTitle": "Xác nhận",
+    "confirmMessage": "Bạn có chắc chắn muốn xoá gói đăng ký này không?",
+    "openMenu": "Mở menu",
+    "actions": "Hành động",
+    "update": "Cập nhật",
+    "delete": "Xoá",
+    "id": "ID",
+    "planName": "Tên gói",
+    "description": "Mô tả",
+    "price": "Giá",
+    "subscriptionType": "Loại gói đăng ký",
+    "typePremium": "Cao cấp",
+    "typeItemExtension": "Gia hạn vật phẩm",
+    "duration": "Thời gian",
+    "durationUnit": "{{count}} tháng",
+    "durationUnit_plural": "{{count}} tháng",
+    "selectAll": "Chọn tất cả",
+    "selectRow": "Chọn dòng",
+    "title": "Quản lý gói đăng ký",
+    "addNew": "Thêm mới",
+    "searchPlaceholder": "Tìm kiếm theo tên...",
+    "createSubscriptionPlan": {
+      "heading": "Tạo gói đăng ký",
+      "planName": "Tên gói",
+      "planNamePlaceholder": "Nhập tên gói (ví dụ: Gói cơ bản)",
+      "planType": "Loại gói",
+      "selectType": "Chọn loại gói",
+      "typePremium": "Gói Cao Cấp",
+      "typeItemExtension": "Gia hạn vật phẩm",
+      "price": "Giá (VND)",
+      "duration": "Thời gian sử dụng (tháng)",
+      "description": "Mô tả",
+      "descriptionPlaceholder": "Nhập tính năng và lợi ích của gói...",
+      "createButton": "Tạo gói",
+      "cancelButton": "Huỷ",
+      "successTitle": "Tạo gói đăng ký thành công!",
+      "successDesc": "Gói mới đã được lưu.",
+      "errorTitle": "Lỗi khi tạo gói",
+      "errorUnknown": "Đã xảy ra lỗi không xác định",
+      "validate": {
+        "nameMin": "Tên phải có ít nhất 3 ký tự.",
+        "descriptionMin": "Mô tả phải có ít nhất 10 ký tự.",
+        "descriptionMax": "Mô tả không được vượt quá 1000 ký tự.",
+        "priceMin": "Giá phải là một giá trị dương.",
+        "durationMin": "Thời gian sử dụng phải ít nhất 1 tháng."
+      },
+      "updateSuccessTitle": "Cập nhật gói đăng ký thành công!",
+      "updateSuccessDescription": "Gói đã được cập nhật.",
+      "updateErrorTitle": "Lỗi khi cập nhật gói",
+      "updateErrorUnknown": "Đã xảy ra lỗi không xác định khi cập nhật gói."
+      
+    }
+  },
+  "common": {
+    "cancel": "Huỷ",
+    "delete": "Xoá"
   }
-
-
-
-
 }

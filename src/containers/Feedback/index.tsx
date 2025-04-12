@@ -58,13 +58,7 @@ export const FeedbackUser = () => {
         {fetchStatus === ApiStatus.Loading ? (
           <p>Loading feedbacks...</p>
         ) : (
-          <DataTable
-            columns={columns}
-            data={feedbacks}
-            searchKey="id"
-            placeholder={t('feedback.searchPlaceholder')}
-            dataType="feedbacks"
-          />
+          <DataTable columns={columns} data={feedbacks} dataType="feedbacks" />
         )}
       </div>
       <DataTablePagination

@@ -1,4 +1,3 @@
-import { Input } from '@/components/ui/input';
 import { Column, Table } from '@tanstack/react-table';
 import { DataTableViewOptions } from './data-table-view-options';
 import { DataTableFacetedFilter } from './data-table-faceted-filter';
@@ -8,9 +7,7 @@ import { Icons } from '../ui/icons';
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
-  searchKey: string;
   dataType?: string;
-  placeholder?: string;
   data: TData[];
   onFilterChange?: (filters: string[]) => void; // Nhận prop mới
 }
@@ -22,9 +19,7 @@ interface DataTableToolbarProps<TData> {
 
 export function DataTableToolbar<TData>({
   table,
-  searchKey,
   dataType,
-  placeholder,
   // data,
   onFilterChange,
 }: DataTableToolbarProps<TData>) {
@@ -47,15 +42,6 @@ export function DataTableToolbar<TData>({
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
-        <Input
-          placeholder={placeholder}
-          value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table.getColumn(searchKey)?.setFilterValue(event.target.value)
-          }
-          className="h-8 w-[150px] lg:w-[250px]"
-        />
-
         {statusColumn && statusOptions && (
           <DataTableFacetedFilter
             column={statusColumn}

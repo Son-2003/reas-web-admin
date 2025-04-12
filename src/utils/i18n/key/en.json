@@ -66,8 +66,13 @@
     "edit": "Edit",
     "delete": "Delete",
     "searchPlaceholder": "Search user here...",
+    "accountDetail": {
+      "title": "Account detail"
+
+    },
     "createAccountUser": {
       "title": "Create account",
+      "title2" : "Edit account",
       "createButton": "Create account",
       "updateButton": "Update account",
       "cancelButton": "Cancel",
@@ -286,6 +291,70 @@
     "methodPaymentVisa": "Visa",
     "methodPaymentMasterCard": "MasterCard",
     "methodPaymentOther": "Other"
+  },
+
+   "subscriptionPlan": {
+    "deleted": "Deleted!",
+    "deleteSuccess": "The subscription plan was successfully deleted.",
+    "deleteFailed": "Delete Failed",
+    "deleteError": "An error occurred while deleting the subscription plan.",
+    "confirmTitle": "Confirm",
+    "confirmMessage": "Are you sure you want to delete this subscription plan?",
+    "openMenu": "Open menu",
+    "actions": "Actions",
+    "update": "Update",
+    "delete": "Delete",
+    "id": "ID",
+    "planName": "Plan Name",
+    "description": "Description",
+    "price": "Price",
+    "subscriptionType": "Subscription Type",
+    "typePremium": "Premium",
+    "typeItemExtension": "Item Extension",
+    "duration": "Duration",
+    "durationUnit": "{{count}} month",
+    "durationUnit_plural": "{{count}} months",
+    "selectAll": "Select all",
+    "selectRow": "Select row",
+    "title": "Subscription management",
+    "addNew": "Add new",
+    "searchPlaceholder": "Search by name...",
+    "createSubscriptionPlan": {
+      "heading": "Create subscription plan",
+      "planName": "Plan Name",
+      "planNamePlaceholder": "Basic plan",
+      "planType": "Plan type",
+      "selectType": "Select plan type",
+      "typePremium": "Premium plan",
+      "typeItemExtension": "Item extension",
+      "price": "Price",
+      "duration": "Duration (months)",
+      "description": "Description",
+      "descriptionPlaceholder": "Plan features and benefits...",
+      "createButton": "Create plan",
+      "cancelButton": "Cancel",
+      "successTitle": "Subscription plan created successfully!",
+      "successDesc": "Your new plan has been saved.",
+      "errorTitle": "Error creating plan",
+      "errorUnknown": "Unknown error occurred",
+      "validate": {
+        "nameMin": "Name must be at least 3 characters.",
+        "descriptionMin": "Description must be at least 10 characters.",
+        "descriptionMax": "Description must not exceed 1000 characters.",
+        "priceMin": "Price must be a positive value.",
+        "durationMin": "Duration must be at least 1 month."
+      },
+      "updateSuccessTitle": "Subscription plan updated successfully!",
+      "updateSuccessDescription": "Your changes have been saved.",
+      "updateErrorTitle": "Error updating plan",
+      "updateErrorDescription": "An error occurred while updating the plan."
+
+    }
+  },
+  "common": {
+    "cancel": "Cancel",
+    "delete": "Delete"
   }
+  
 
 }

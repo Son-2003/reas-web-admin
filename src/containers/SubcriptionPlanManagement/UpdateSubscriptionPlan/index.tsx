@@ -23,60 +23,42 @@ import {
 import { TypeSubscriptionPlan } from '@/common/enums/typeSubscriptionPlan';
 import { useDispatch } from 'react-redux';
 import { ReduxDispatch } from '@/lib/redux/store';
-import { createSubscriptionPlan } from '../thunk';
-import { useNavigate } from 'react-router-dom';
+import { updateSubscriptionPlan } from '../thunk';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE } from '@/common/constants/router';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useMemo } from 'react';
 
-export const CreateSubscriptionPlan = () => {
+export const UpdateSubscriptionPlan = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch<ReduxDispatch>();
-  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  console.log('Current ID from useParams:', id);
+  const location = useLocation();
+  const subscriptionPlan = location.state?.subscriptionPlan;
 
-  const subscriptionPlanSchema = useMemo(
-    () =>
-      z.object({
-        name: z
-          .string()
-          .min(
-            3,
-            t('subscriptionPlan.createSubscriptionPlan.validate.nameMin'),
-          ),
-        description: z
-          .string()
-          .min(
-            10,
-            t(
-              'subscriptionPlan.createSubscriptionPlan.validate.descriptionMin',
-            ),
-          )
-          .max(
-            1000,
-            t(
-              'subscriptionPlan.createSubscriptionPlan.validate.descriptionMax',
-            ),
-          ),
-        price: z
-          .number()
-          .min(
-            0,
-            t('subscriptionPlan.createSubscriptionPlan.validate.priceMin'),
-          ),
-        imageUrl: z.string().default('abc'),
-        typeSubscriptionPlan: z.enum([
-          TypeSubscriptionPlan.PREMIUM_PLAN,
-          TypeSubscriptionPlan.ITEM_EXTENSION,
-        ]),
-        duration: z
-          .number()
-          .min(
-            1,
-            t('subscriptionPlan.createSubscriptionPlan.validate.durationMin'),
-          ),
-      }),
-    [t],
-  );
+  const subscriptionPlanSchema = z.object({
+    name: z
+      .string()
+      .min(3, 'subscriptionPlan.createSubscriptionPlan.validate.nameMin'),
+    description: z
+      .string()
+      .min(
+        10,
+        'subscriptionPlan.createSubscriptionPlan.validate.descriptionMin',
+      )
+      .max(1000),
+    price: z
+      .number()
+      .min(0, 'subscriptionPlan.createSubscriptionPlan.validate.priceMin'),
+    imageUrl: z.string().default('abc'),
+    typeSubscriptionPlan: z.enum([
+      TypeSubscriptionPlan.PREMIUM_PLAN,
+      TypeSubscriptionPlan.ITEM_EXTENSION,
+    ]),
+    duration: z
+      .number()
+      .min(1, 'subscriptionPlan.createSubscriptionPlan.validate.durationMin'),
+  });
 
   type SubscriptionPlanFormValues = z.infer<typeof subscriptionPlanSchema>;
 
@@ -84,10 +66,30 @@ export const CreateSubscriptionPlan = () => {
     resolver: zodResolver(subscriptionPlanSchema),
     mode: 'onChange',
     defaultValues: {
-      imageUrl: 'abc',
+      name: '',
+      description: '',
+      price: 0,
+      duration: 1,
+      typeSubscriptionPlan: TypeSubscriptionPlan.PREMIUM_PLAN,
+      imageUrl: '',
     },
   });
 
+  useEffect(() => {
+    if (subscriptionPlan) {
+      form.reset({
+        name: subscriptionPlan.name,
+        description: subscriptionPlan.description,
+        price: subscriptionPlan.price,
+        duration: subscriptionPlan.duration,
+        typeSubscriptionPlan: subscriptionPlan.typeSubscriptionPlan,
+        imageUrl: subscriptionPlan.imageUrl || 'abc',
+      });
+    }
+  }, [subscriptionPlan, form]);
+
+  const dispatch = useDispatch<ReduxDispatch>();
+  const navigate = useNavigate();
   const handleCancel = () => {
     navigate(SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE);
   };
@@ -95,28 +97,29 @@ export const CreateSubscriptionPlan = () => {
   async function onSubmit(formData: SubscriptionPlanFormValues) {
     try {
       const payload = {
+        id: id,
         ...formData,
-        price: formData.price,
-        duration: Number(formData.duration),
-        imageUrl: 'abc',
       };
 
-      await dispatch(createSubscriptionPlan(payload));
+      await dispatch(updateSubscriptionPlan(payload));
 
       toast({
-        title: t('subscriptionPlan.createSubscriptionPlan.successTitle'),
-        description: t('subscriptionPlan.createSubscriptionPlan.successDesc'),
+        title: t('subscriptionPlan.createSubscriptionPlan.updateSuccessTitle'),
+        description: t(
+          'subscriptionPlan.createSubscriptionPlan.updateSuccessDescription',
+        ),
       });
 
-      form.reset();
       navigate(SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE);
     } catch (error) {
       toast({
-        title: t('subscriptionPlan.createSubscriptionPlan.errorTitle'),
+        title: t('subscriptionPlan.createSubscriptionPlan.updateErrorTitle'),
         description:
           error instanceof Error
             ? error.message
-            : t('subscriptionPlan.createSubscriptionPlan.errorUnknown'),
+            : t(
+                'subscriptionPlan.createSubscriptionPlan.updateErrorDescription',
+              ),
         variant: 'destructive',
       });
     }
@@ -125,7 +128,7 @@ export const CreateSubscriptionPlan = () => {
   return (
     <div className="flex flex-col gap-4 p-4 w-full h-full">
       <h1 className="text-2xl font-bold">
-        {t('subscriptionPlan.createSubscriptionPlan.heading')}
+        {t('subscriptionPlan.createSubscriptionPlan.title')}
       </h1>
 
       <Form {...form}>
@@ -145,7 +148,7 @@ export const CreateSubscriptionPlan = () => {
                   <FormControl>
                     <Input
                       placeholder={t(
-                        'subscriptionPlan.createSubscriptionPlan.planNamePlaceholder',
+                        'subscriptionPlan.createSubscriptionPlan.planName',
                       )}
                       {...field}
                     />
@@ -269,7 +272,7 @@ export const CreateSubscriptionPlan = () => {
 
           <div className="flex space-x-4 justify-end">
             <Button type="submit">
-              {t('subscriptionPlan.createSubscriptionPlan.createButton')}
+              {t('subscriptionPlan.createSubscriptionPlan.updateButton')}
             </Button>
             <Button type="button" variant="outline" onClick={handleCancel}>
               {t('subscriptionPlan.createSubscriptionPlan.cancelButton')}

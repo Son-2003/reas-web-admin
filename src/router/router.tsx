@@ -28,13 +28,18 @@ import {
   SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE,
   CREATE_STAFF_ACCOUNT_ROUTE,
   CREATE_SUBSCRIPTION_PLAN_ROUTE,
+  UPDATE_SUBSCRIPTION_PLAN_ROUTE,
+  EDIT_STAFF_ACCOUNT_ROUTE,
+  ACCOUNT_DETAIL_ROUTE,
 } from '@/common/constants/router';
 import ProtectedRoute from './protectedRoute';
 import PaymentHistoryPage from '@/app/payment-history/page';
 import PaymentHistoryByUserPage from '@/app/payment-history-by-user/page';
 import SubscriptionPlanManagementPage from '@/app/subscription-plan/page';
 import CreateUpdateUserPage from '@/app/create-account-user/page';
-import { CreateSubscriptionPlan } from '@/containers/SubcriptionPlanManagement/CreateSubscriptionPlan';
+import CreateSubscriptionPlanPage from '@/app/create-subscription-plan/page';
+import UpdateSubscriptionPlanPage from '@/app/update-subscription-plan/page';
+import AccountDetailPage from '@/app/user-detail/page';
 
 const router = createBrowserRouter([
   {
@@ -63,6 +68,14 @@ const router = createBrowserRouter([
           {
             path: CREATE_STAFF_ACCOUNT_ROUTE,
             element: <CreateUpdateUserPage />,
+          },
+          {
+            path: EDIT_STAFF_ACCOUNT_ROUTE,
+            element: <CreateUpdateUserPage />,
+          },
+          {
+            path: ACCOUNT_DETAIL_ROUTE,
+            element: <AccountDetailPage />,
           },
           {
             path: ITEM_REQUEST_ROUTE,
@@ -110,7 +123,11 @@ const router = createBrowserRouter([
           },
           {
             path: CREATE_SUBSCRIPTION_PLAN_ROUTE,
-            element: <CreateSubscriptionPlan />,
+            element: <CreateSubscriptionPlanPage />,
+          },
+          {
+            path: UPDATE_SUBSCRIPTION_PLAN_ROUTE,
+            element: <UpdateSubscriptionPlanPage />,
           },
         ],
       },

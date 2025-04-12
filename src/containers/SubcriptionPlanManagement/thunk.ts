@@ -9,13 +9,23 @@ const TypePrefix = 'SubscriptionPlan';
 
 export const fetchSubscriptionPlans = createAppAsyncThunk(
   `${TypePrefix}/fetchSubscriptionPlans`,
-  async (params?: { pageNo?: number; pageSize?: number }) => {
+  async (params?: { pageNo?: number; pageSize?: number; search?: string }) => {
     try {
+      const requestBody = params?.search
+        ? { name: params.search, statusEntities: ['ACTIVE'] }
+        : { statusEntities: ['ACTIVE'] };
+
+      const queryParams = {
+        pageNo: params?.pageNo,
+        pageSize: params?.pageSize,
+      };
+
       const response = await callApi(
         {
           method: 'post',
           url: 'subscription-plan/search',
-          params,
+          params: queryParams,
+          data: requestBody,
         },
         true,
       );
@@ -49,6 +59,27 @@ export const createSubscriptionPlan = createAppAsyncThunk(
       return response.data;
     } catch (error) {
       console.error('Error in createSubscriptionPlan:', error);
+      throw error;
+    }
+  },
+);
+
+export const updateSubscriptionPlan = createAppAsyncThunk(
+  `${TypePrefix}/updateSubscriptionPlan`,
+  async (subscriptionData: SubscriptionPlan) => {
+    try {
+      const response = await callApi(
+        {
+          method: 'put',
+          url: 'subscription-plan',
+          data: subscriptionData,
+        },
+        true,
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error('Error in updateSubscriptionPlan:', error);
       throw error;
     }
   },
