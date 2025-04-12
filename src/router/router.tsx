@@ -31,6 +31,7 @@ import {
   UPDATE_SUBSCRIPTION_PLAN_ROUTE,
   EDIT_STAFF_ACCOUNT_ROUTE,
   ACCOUNT_DETAIL_ROUTE,
+  CHAT_ROUTE,
 } from '@/common/constants/router';
 import ProtectedRoute from './protectedRoute';
 import PaymentHistoryPage from '@/app/payment-history/page';
@@ -40,6 +41,7 @@ import CreateUpdateUserPage from '@/app/create-account-user/page';
 import CreateSubscriptionPlanPage from '@/app/create-subscription-plan/page';
 import UpdateSubscriptionPlanPage from '@/app/update-subscription-plan/page';
 import AccountDetailPage from '@/app/user-detail/page';
+import ChatPage from '@/app/chat/page';
 
 const router = createBrowserRouter([
   {
@@ -128,6 +130,10 @@ const router = createBrowserRouter([
           {
             path: UPDATE_SUBSCRIPTION_PLAN_ROUTE,
             element: <UpdateSubscriptionPlanPage />,
+          },
+          {
+            path: CHAT_ROUTE,
+            element: <ChatPage />,
           },
         ],
       },
