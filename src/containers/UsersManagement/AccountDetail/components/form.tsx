@@ -54,11 +54,11 @@ const createAccountSchema = z
 
 type CreateAccountUserRequest = z.infer<typeof createAccountSchema>;
 
-export default function CreateUpdateUserForm() {
+export default function AccountDetailForm() {
   const { t } = useTranslation();
   const dispatch = useDispatch<ReduxDispatch>();
   const navigate = useNavigate();
-  const [previewImage, setPreviewImage] = useState<string | null>(null); // State for image preview
+  // const [previewImage, setPreviewImage] = useState<string | null>(null); // State for image preview
   const form = useForm<CreateAccountUserRequest>({
     resolver: zodResolver(createAccountSchema),
     mode: 'onChange',
@@ -69,7 +69,7 @@ export default function CreateUpdateUserForm() {
   const staffInfo = useSelector(selectStaffAccountInfo);
 
   useEffect(() => {
-    if (location.pathname.includes('edit-staff') && staffId) {
+    if (location.pathname.includes('account-detail') && staffId) {
       setIsEdittingStaff(true);
     } else {
       setIsEdittingStaff(false);
@@ -94,9 +94,9 @@ export default function CreateUpdateUserForm() {
         password: '',
         confirmPassword: '',
       });
-      if (staffInfo.image) {
-        setPreviewImage(staffInfo.image);
-      }
+      // if (staffInfo.image) {
+      //   setPreviewImage(staffInfo.image);
+      // }
     }
   }, [isEdittingStaff, staffInfo, form]);
 
@@ -169,17 +169,17 @@ export default function CreateUpdateUserForm() {
     }
   }
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-      form.setValue('image', file);
-    }
-  };
+  // const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setPreviewImage(reader.result as string);
+  //     };
+  //     reader.readAsDataURL(file);
+  //     form.setValue('image', file);
+  //   }
+  // };
 
   return (
     <Form {...form}>
@@ -199,6 +199,7 @@ export default function CreateUpdateUserForm() {
                       'usersManagement.createAccountUser.fullName.placeholder',
                     )}
                     {...field}
+                    readOnly
                   />
                 </FormControl>
                 <FormMessage />
@@ -220,6 +221,7 @@ export default function CreateUpdateUserForm() {
                       'usersManagement.createAccountUser.phone.placeholder',
                     )}
                     {...field}
+                    readOnly
                   />
                 </FormControl>
                 <FormMessage />
@@ -243,6 +245,7 @@ export default function CreateUpdateUserForm() {
                       'usersManagement.createAccountUser.username.placeholder',
                     )}
                     {...field}
+                    readOnly
                   />
                 </FormControl>
                 <FormMessage />
@@ -264,6 +267,7 @@ export default function CreateUpdateUserForm() {
                       'usersManagement.createAccountUser.email.placeholder',
                     )}
                     {...field}
+                    readOnly
                   />
                 </FormControl>
                 <FormMessage />
@@ -272,54 +276,11 @@ export default function CreateUpdateUserForm() {
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  {t('usersManagement.createAccountUser.password.label')}
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    type="password"
-                    placeholder={t(
-                      'usersManagement.createAccountUser.password.placeholder',
-                    )}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="confirmPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  {t('usersManagement.createAccountUser.confirmPassword.label')}
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    type="password"
-                    placeholder={t(
-                      'usersManagement.createAccountUser.confirmPassword.placeholder',
-                    )}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+        <div className="grid grid-cols-2 gap-4"></div>
 
         {/* Image and Gender on the same row */}
         <div className="grid grid-cols-2 gap-4">
-          <FormField
+          {/* <FormField
             control={form.control}
             name="image"
             render={({}) => (
@@ -346,7 +307,7 @@ export default function CreateUpdateUserForm() {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
           <FormField
             control={form.control}
             name="gender"
@@ -362,19 +323,31 @@ export default function CreateUpdateUserForm() {
                     className="flex space-x-4 pt-2"
                   >
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value={Gender.MALE} id="male" />
+                      <RadioGroupItem
+                        value={Gender.MALE}
+                        id="male"
+                        disabled={true}
+                      />
                       <FormLabel htmlFor="male" className="font-normal">
                         {t('usersManagement.createAccountUser.gender.male')}
                       </FormLabel>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value={Gender.FEMALE} id="female" />
+                      <RadioGroupItem
+                        value={Gender.FEMALE}
+                        id="female"
+                        disabled={true}
+                      />
                       <FormLabel htmlFor="female" className="font-normal">
                         {t('usersManagement.createAccountUser.gender.female')}
                       </FormLabel>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value={Gender.OTHER} id="other" />
+                      <RadioGroupItem
+                        value={Gender.OTHER}
+                        id="other"
+                        disabled={true}
+                      />
                       <FormLabel htmlFor="other" className="font-normal">
                         {t('usersManagement.createAccountUser.gender.other')}
                       </FormLabel>
@@ -389,21 +362,21 @@ export default function CreateUpdateUserForm() {
 
         {/* Cancel and Create Account Buttons */}
         <div className="flex space-x-4">
-          <Button type="submit">
+          {/* <Button type="submit">
             {isEdittingStaff
               ? t('usersManagement.createAccountUser.updateButton')
               : t('usersManagement.createAccountUser.createButton')}
-          </Button>
+          </Button> */}
           <Button
             type="button"
             variant="outline"
             onClick={() => {
               form.reset(); // Reset the form
-              setPreviewImage(null); // Clear the image preview
+              // setPreviewImage(null); // Clear the image preview
               navigate(STAFFS_MANAGEMENT_ROUTE);
             }}
           >
-            {t('usersManagement.createAccountUser.cancelButton')}
+            {t('button.back')}
           </Button>
         </div>
       </form>

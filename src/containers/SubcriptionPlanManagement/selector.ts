@@ -8,6 +8,7 @@ export const selectSubscriptionFetchStatus = (state: ReduxState) =>
 
 export const selectSubscriptionCreateStatus = (state: ReduxState) =>
   state.subscriptionPlan.createStatus;
+
 export const selectSubscriptionTotalPages = (state: ReduxState) =>
   state.subscriptionPlan.totalPages;
 

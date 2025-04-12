@@ -63,8 +63,6 @@ export const ExchangeHistory = () => {
           <DataTable
             columns={columns}
             data={exchangeHistory}
-            searchKey="id"
-            placeholder={t('exchangeHistory.searchPlaceholder')}
             dataType="exchangeHistory"
           />
         )}

@@ -24,6 +24,7 @@ import { Role } from '@/common/enums/role';
 import { StatusEntity } from '@/common/enums/statusEntity';
 import { Gender } from '@/common/enums/gender';
 import { useUserColumns } from './components/column';
+import { CREATE_STAFF_ACCOUNT_ROUTE } from '@/common/constants/router';
 
 export const UsersManagement = () => {
   const { t } = useTranslation();
@@ -103,7 +104,7 @@ export const UsersManagement = () => {
         {isStaffsManagement && (
           <Button
             onClick={() =>
-              navigate('/admin/create-account-staff', { state: null })
+              navigate(CREATE_STAFF_ACCOUNT_ROUTE, { state: null })
             }
           >
             <Plus className="mr-2 h-4 w-4" />
@@ -116,8 +117,6 @@ export const UsersManagement = () => {
         <DataTable
           columns={columns}
           data={responsePagination?.content || []}
-          searchKey="userName"
-          placeholder={t('usersManagement.searchPlaceholder')}
           dataType="usersManagement"
           defaultSortOrder={false}
         />

@@ -68,8 +68,6 @@ export const ItemManagement = () => {
           <DataTable
             columns={columns}
             data={items || []}
-            searchKey="itemName"
-            placeholder="Tìm kiếm yêu cầu vật phẩm tại đây..."
             dataType="items"
             onFilterChange={setSelectedFilters}
           />

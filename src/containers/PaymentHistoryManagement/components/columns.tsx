@@ -125,7 +125,7 @@ export const usePaymentHistorycolumns = (): ColumnDef<PaymentHistory>[] => {
       },
     },
     {
-      accessorKey: 'statusItem',
+      accessorKey: 'status',
       header: t('paymentHistory.statusPayment'),
       cell: ({ row }) => {
         const status = row.original.description;
