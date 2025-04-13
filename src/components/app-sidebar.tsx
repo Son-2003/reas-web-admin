@@ -1,10 +1,14 @@
 'use client';
 
 import * as React from 'react';
-import { BookOpen, Settings2, SquareTerminal } from 'lucide-react';
+import {
+  BookOpen,
+  Settings2,
+  SquareTerminal,
+  MessageCircle,
+} from 'lucide-react'; // Thêm icon chat
 
-import { selectUserInfo } from '@/containers/Auth/selector'; // <-- import selector
-
+import { selectUserInfo } from '@/containers/Auth/selector';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 
@@ -17,6 +21,7 @@ import {
 } from '@/components/ui/sidebar';
 import { useTranslation } from 'react-i18next';
 import {
+  CHAT_ROUTE,
   DASHBOARD_ROUTE,
   ITEM_REQUEST_ROUTE,
   PAYMENT_HISTORY_MANAGEMENT_ROUTE,
@@ -29,8 +34,38 @@ import { useSelector } from 'react-redux';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { t } = useTranslation();
-  const userInfo = useSelector(selectUserInfo); // <-- get user info
+  const userInfo = useSelector(selectUserInfo);
   const role = userInfo?.roleName;
+
+  const chatItem = {
+    title: 'Chat',
+    url: CHAT_ROUTE,
+    icon: MessageCircle,
+  };
+
+  const navSingle =
+    role === 'ROLE_ADMIN'
+      ? [
+          {
+            title: 'Subcription plans',
+            url: SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE,
+            icon: Settings2,
+          },
+          chatItem,
+        ]
+      : [
+          {
+            title: 'Item requests',
+            url: ITEM_REQUEST_ROUTE,
+            icon: BookOpen,
+          },
+          {
+            title: 'Payment history',
+            url: PAYMENT_HISTORY_MANAGEMENT_ROUTE,
+            icon: Settings2,
+          },
+          chatItem,
+        ];
 
   const data = {
     user: {
@@ -64,27 +99,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         ],
       },
     ],
-    navSingle:
-      role === 'ROLE_ADMIN'
-        ? [
-            {
-              title: 'Subcription plans',
-              url: SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE,
-              icon: Settings2,
-            },
-          ]
-        : [
-            {
-              title: 'Item requests',
-              url: ITEM_REQUEST_ROUTE,
-              icon: BookOpen,
-            },
-            {
-              title: 'Payment history',
-              url: PAYMENT_HISTORY_MANAGEMENT_ROUTE,
-              icon: Settings2,
-            },
-          ],
+    navSingle, // dùng navSingle đã thêm chat
   };
 
   return (

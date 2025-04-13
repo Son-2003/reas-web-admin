@@ -147,7 +147,17 @@
     "owner": "Người sở hữu",
     "status": "Trạng thái",
     "action": "Hành động",
-    "price": "Giá"
+    "price": "Giá",
+    "available": "Đang có sẵn",
+    "unavailable": "Không có sẵn",
+    "rejected": "Đã bị từ chối",
+    "expired": "Đã hết hạn",
+    "pending": "Đang chờ duyệt",
+    "noLongerForExchange": "Ngừng trao đổi",
+    "filter": {
+    "title": "Bộ lọc",
+    "clear": "Xoá bộ lọc"
+  }
   },
   "itemRequest": {
     "title": "Yêu cầu sản phẩm",

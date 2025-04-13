@@ -150,7 +150,18 @@
     "owner": "Owner",
     "status": "Status",
     "action": "Actions",
-    "price": "Price"
+    "price": "Price",
+    "available": "Available",
+    "unavailable": "Unavailable",
+    "rejected": "Rejected",
+    "expired": "Expired",
+    "pending": "Pending",
+    "noLongerForExchange": "No longer for exchange",
+    "placeholder": "Search item name...",
+    "filter": {
+      "title": "Filter",
+      "clear": "Clear Filter"
+    }
   },
   "itemRequest":{
     "title": "Item request management",
