@@ -6,12 +6,25 @@ const TypePrefix = 'PaymentHistoryByUserId';
 
 export const fetchPaymentHistoryByUserId = createAppAsyncThunk(
   `${TypePrefix}/fetchPaymentHistoryByUserId`,
-  async (userId: number) => {
+  async ({
+    userId,
+    pageNo,
+    pageSize,
+    transactionId,
+  }: {
+    userId: number;
+    pageNo: number;
+    pageSize: number;
+    transactionId?: string;
+  }) => {
     try {
+      const requestBody = transactionId ? { transactionId } : {};
       const response = await callApi(
         {
           method: 'post',
           url: `payment-history/search/${userId}`,
+          params: { pageNo, pageSize },
+          data: requestBody,
         },
         true,
       );

@@ -16,8 +16,12 @@ import { MoreHorizontal } from 'lucide-react';
 import { Icons } from '@/components/ui/icons';
 import { useTranslation } from 'react-i18next';
 import {
+  ACCOUNT_DETAIL_ROUTE,
+  EDIT_STAFF_ACCOUNT_ROUTE,
   EXCHANGE_HISTORY_MANAGEMENT_ROUTE,
   FEEDBACK_USER_MANAGEMENT_ROUTE,
+  ITEMS_MANAGEMENT_ROUTE,
+  PAYMENT_HISTORY_BY_USER_MANAGEMENT_ROUTE,
 } from '@/common/constants/router';
 import { Package, MessageCircle, History } from 'lucide-react';
 
@@ -53,14 +57,14 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   };
 
   const handleViewDetailsClick = () => {
-    navigate(`/admin/location/${data.id}`);
+    navigate(ACCOUNT_DETAIL_ROUTE.replace(':staffId', String(data.id)));
   };
 
   const handleUpdateInfoStaff = () => {
-    navigate(`/admin/edit-staff/${data.id}`);
+    navigate(EDIT_STAFF_ACCOUNT_ROUTE.replace(':staffId', String(data.id)));
   };
   const handleViewItem = () => {
-    navigate(`/admin/items-management/${data.id}`);
+    navigate(ITEMS_MANAGEMENT_ROUTE.replace(':id', String(data.id)));
   };
   const handleViewFeedback = () => {
     navigate(
@@ -70,6 +74,15 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const handleViewHistoryExchange = () => {
     navigate(
       EXCHANGE_HISTORY_MANAGEMENT_ROUTE.replace(':userId', String(data.id)),
+    );
+  };
+
+  const handleViewPaymentExchange = () => {
+    navigate(
+      PAYMENT_HISTORY_BY_USER_MANAGEMENT_ROUTE.replace(
+        ':userId',
+        String(data.id),
+      ),
     );
   };
 
@@ -116,6 +129,10 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             <DropdownMenuItem onClick={handleViewHistoryExchange}>
               <History className="mr-2 h-4 w-4" />
               {t('usersManagement.cell-action.viewHistoryExchange')}
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleViewPaymentExchange}>
+              <History className="mr-2 h-4 w-4" />
+              {t('usersManagement.cell-action.viewHistoryPayment')}
             </DropdownMenuItem>
             {/* <DropdownMenuItem
               onClick={handleViewPaymentBetweenLocationAndSystem}

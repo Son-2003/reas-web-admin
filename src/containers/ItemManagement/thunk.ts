@@ -6,19 +6,35 @@ const TypePrefix = 'Item';
 
 export const fetchItems = createAppAsyncThunk(
   `${TypePrefix}/fetchItems`,
-  async (params: { userId: string; statusItem?: string }) => {
+  async ({
+    ownerIds,
+    pageNo,
+    pageSize,
+    itemName,
+    statusItems,
+  }: {
+    ownerIds: string[];
+    pageNo: number;
+    pageSize: number;
+    itemName: string;
+    statusItems?: string[];
+  }) => {
     try {
       const response = await callApi(
         {
-          method: 'get',
-          url: 'item/user',
-          params: {
-            userId: params.userId,
-            statusItem: params.statusItem,
+          method: 'post',
+          url: '/item/search',
+          data: {
+            ownerIds,
+            itemName,
+            pageNo,
+            pageSize,
+            statusItems,
           },
         },
         true,
       );
+
       return {
         items: response.content as Item[],
         totalPages: response.totalPages,

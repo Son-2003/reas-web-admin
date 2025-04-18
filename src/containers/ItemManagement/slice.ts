@@ -12,7 +12,7 @@ export interface ItemState {
   errorMessage?: string;
 }
 
-export const initialState: ItemState = {
+const initialState: ItemState = {
   items: [],
   fetchStatus: ApiStatus.Idle,
   totalPages: 1,
@@ -25,13 +25,8 @@ const itemManagementSlice = createSlice({
   name: 'itemManagement',
   initialState,
   reducers: {
-    resetItemState: (state) => {
-      state.items = [];
-      state.fetchStatus = ApiStatus.Idle;
-      state.totalPages = 1;
-      state.totalRecords = 0;
-      state.currentPage = 0;
-      state.errorMessage = undefined;
+    resetItemState(state) {
+      Object.assign(state, initialState);
     },
   },
   extraReducers: (builder) => {

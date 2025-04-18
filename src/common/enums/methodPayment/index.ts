@@ -1,6 +1,6 @@
 export enum MethodPayment {
   CASH = 'CASH',
-  BANK_TRANSFER = 'BANK',
+  BANK_TRANSFER = 'BANK_TRANSFER',
   CREDIT_CARD = 'CREDIT',
   PAYPAL = 'PAYPAL',
   APPLE_PAY = 'APPLE',

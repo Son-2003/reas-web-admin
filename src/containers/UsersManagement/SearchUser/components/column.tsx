@@ -4,33 +4,33 @@ import { UserDto } from '@/common/models/user';
 import { Button } from '@/components/ui/button';
 import { Icons } from '@/components/ui/icons';
 import { CellAction } from './cell-action';
-import { Checkbox } from '@/components/ui/checkbox';
+// import { Checkbox } from '@/components/ui/checkbox';
 
 export const useUserColumns = (): ColumnDef<UserDto>[] => {
   const { t } = useTranslation();
 
   return [
-    {
-      id: 'select',
-      header: ({ table }) => (
-        <Checkbox
-          checked={table.getIsAllPageRowsSelected()}
-          onCheckedChange={(value: any) =>
-            table.toggleAllPageRowsSelected(!!value)
-          }
-          aria-label="Select all"
-        />
-      ),
-      cell: ({ row }) => (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value: any) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
-      ),
-      enableSorting: false,
-      enableHiding: false,
-    },
+    // {
+    //   id: 'select',
+    //   header: ({ table }) => (
+    //     <Checkbox
+    //       checked={table.getIsAllPageRowsSelected()}
+    //       onCheckedChange={(value: any) =>
+    //         table.toggleAllPageRowsSelected(!!value)
+    //       }
+    //       aria-label="Select all"
+    //     />
+    //   ),
+    //   cell: ({ row }) => (
+    //     <Checkbox
+    //       checked={row.getIsSelected()}
+    //       onCheckedChange={(value: any) => row.toggleSelected(!!value)}
+    //       aria-label="Select row"
+    //     />
+    //   ),
+    //   enableSorting: false,
+    //   enableHiding: false,
+    // },
     {
       accessorKey: 'id',
       header: ({ column }) => (

@@ -1,3 +1,4 @@
+import { StatusItem } from '@/common/enums/statusItem';
 import { Icons } from '../ui/icons';
 
 export const UserStatuses = [
@@ -6,15 +7,15 @@ export const UserStatuses = [
   { value: 'PENDING', label: 'Pending', icon: Icons.pending },
 ];
 
-export const ItemRequestStatuses = [
-  { value: 'AVAILABLE', label: 'Available', icon: Icons.check },
-  { value: 'UNAVAILABLE', label: 'Unavailable', icon: Icons.cancel },
-  { value: 'EXPIRED', label: 'Expired', icon: Icons.x },
+export const ItemStatuses = [
+  { value: 'AVAILABLE', label: StatusItem.AVAILABLE, icon: Icons.check },
+  { value: 'UNAVAILABLE', label: StatusItem.UNAVAILABLE, icon: Icons.cancel },
+  { value: 'EXPIRED', label: StatusItem.EXPIRED, icon: Icons.x },
   {
-    value: 'NO_LONGER_FOR_EXCHANGE',
+    value: StatusItem.NO_LONGER_FOR_EXCHANGE,
     label: 'No Longer for Exchange',
     icon: Icons.outStock,
   },
-  { value: 'PENDING', label: 'Pending', icon: Icons.pending },
-  { value: 'REJECTED', label: 'Rejected', icon: Icons.cancel },
+  { value: StatusItem.PENDING, label: 'Pending', icon: Icons.pending },
+  { value: StatusItem.REJECTED, label: 'Rejected', icon: Icons.cancel },
 ];

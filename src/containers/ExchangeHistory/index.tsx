@@ -8,7 +8,7 @@ import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 
-import { columns } from './components/columns';
+import { useExchangeHistoryColumns } from './components/columns';
 
 import { ApiStatus } from '@/common/enums/apiStatus';
 import {
@@ -19,9 +19,12 @@ import {
 import { getExchangeHistory } from './thunk';
 import { ReduxDispatch } from '@/lib/redux/store';
 import { USERS_MANAGEMENT_ROUTE } from '@/common/constants/router';
+import { useTranslation } from 'react-i18next';
 
 export const ExchangeHistory = () => {
+  const { t } = useTranslation();
   const { userId: userId } = useParams<{ userId: string }>();
+  const columns = useExchangeHistoryColumns();
   const navigate = useNavigate();
   const dispatch = useDispatch<ReduxDispatch>();
 
@@ -34,21 +37,21 @@ export const ExchangeHistory = () => {
 
   useEffect(() => {
     if (userId) {
-      dispatch(getExchangeHistory({ userId }));
+      dispatch(getExchangeHistory({ userId, pageNo, pageSize }));
     }
   }, [dispatch, pageNo, pageSize]);
 
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading title="Exchange History" description="" />
+        <Heading title={t('exchangeHistory.title')} description="" />
 
         <div className="flex flex-wrap gap-4 mb-6">
           <Button
             onClick={() => navigate(USERS_MANAGEMENT_ROUTE)}
             variant="outline"
           >
-            Back
+            {t('button.back')}
           </Button>
         </div>
       </div>
@@ -60,8 +63,6 @@ export const ExchangeHistory = () => {
           <DataTable
             columns={columns}
             data={exchangeHistory}
-            searchKey="id"
-            placeholder="Tìm kiếm lịch sử trao đổi tại đây..."
             dataType="exchangeHistory"
           />
         )}

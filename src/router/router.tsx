@@ -25,10 +25,23 @@ import {
   EXCHANGE_HISTORY_MANAGEMENT_DETAIL_ROUTE,
   PAYMENT_HISTORY_MANAGEMENT_ROUTE,
   PAYMENT_HISTORY_BY_USER_MANAGEMENT_ROUTE,
+  SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE,
+  CREATE_STAFF_ACCOUNT_ROUTE,
+  CREATE_SUBSCRIPTION_PLAN_ROUTE,
+  UPDATE_SUBSCRIPTION_PLAN_ROUTE,
+  EDIT_STAFF_ACCOUNT_ROUTE,
+  ACCOUNT_DETAIL_ROUTE,
+  CHAT_ROUTE,
 } from '@/common/constants/router';
 import ProtectedRoute from './protectedRoute';
 import PaymentHistoryPage from '@/app/payment-history/page';
 import PaymentHistoryByUserPage from '@/app/payment-history-by-user/page';
+import SubscriptionPlanManagementPage from '@/app/subscription-plan/page';
+import CreateUpdateUserPage from '@/app/create-account-user/page';
+import CreateSubscriptionPlanPage from '@/app/create-subscription-plan/page';
+import UpdateSubscriptionPlanPage from '@/app/update-subscription-plan/page';
+import AccountDetailPage from '@/app/user-detail/page';
+import ChatPage from '@/app/chat/page';
 
 const router = createBrowserRouter([
   {
@@ -53,6 +66,18 @@ const router = createBrowserRouter([
           {
             path: STAFFS_MANAGEMENT_ROUTE,
             element: <UsersManagementPage />,
+          },
+          {
+            path: CREATE_STAFF_ACCOUNT_ROUTE,
+            element: <CreateUpdateUserPage />,
+          },
+          {
+            path: EDIT_STAFF_ACCOUNT_ROUTE,
+            element: <CreateUpdateUserPage />,
+          },
+          {
+            path: ACCOUNT_DETAIL_ROUTE,
+            element: <AccountDetailPage />,
           },
           {
             path: ITEM_REQUEST_ROUTE,
@@ -93,6 +118,22 @@ const router = createBrowserRouter([
           {
             path: PAYMENT_HISTORY_BY_USER_MANAGEMENT_ROUTE,
             element: <PaymentHistoryByUserPage />,
+          },
+          {
+            path: SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE,
+            element: <SubscriptionPlanManagementPage />,
+          },
+          {
+            path: CREATE_SUBSCRIPTION_PLAN_ROUTE,
+            element: <CreateSubscriptionPlanPage />,
+          },
+          {
+            path: UPDATE_SUBSCRIPTION_PLAN_ROUTE,
+            element: <UpdateSubscriptionPlanPage />,
+          },
+          {
+            path: CHAT_ROUTE,
+            element: <ChatPage />,
           },
         ],
       },

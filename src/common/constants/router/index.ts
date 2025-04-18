@@ -19,6 +19,12 @@ const EXCHANGE_HISTORY_MANAGEMENT_DETAIL_ROUTE =
 const PAYMENT_HISTORY_MANAGEMENT_ROUTE = '/admin/payment-history-management';
 const PAYMENT_HISTORY_BY_USER_MANAGEMENT_ROUTE =
   '/admin/payment-history-management/:userId';
+const SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE =
+  '/admin/subscription-plan-management';
+const CREATE_SUBSCRIPTION_PLAN_ROUTE = '/admin/create-subscription-plan';
+const UPDATE_SUBSCRIPTION_PLAN_ROUTE = '/admin/update-subscription-plan/:id';
+const ACCOUNT_DETAIL_ROUTE = '/admin/account-detail/:staffId';
+const CHAT_ROUTE = '/admin/chat';
 
 export {
   HOME_ROUTE,
@@ -37,4 +43,9 @@ export {
   EXCHANGE_HISTORY_MANAGEMENT_DETAIL_ROUTE,
   PAYMENT_HISTORY_MANAGEMENT_ROUTE,
   PAYMENT_HISTORY_BY_USER_MANAGEMENT_ROUTE,
+  SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE,
+  CREATE_SUBSCRIPTION_PLAN_ROUTE,
+  UPDATE_SUBSCRIPTION_PLAN_ROUTE,
+  ACCOUNT_DETAIL_ROUTE,
+  CHAT_ROUTE,
 };

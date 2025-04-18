@@ -35,7 +35,7 @@
     "management": "Quản lý",
     "human": "Con người",
     "staffs": "Nhân viên",
-    "users": "Người dùng",
+    "residents": "Người dùng",
     "products": "Sản phẩm",
     "settings": "Cài đặt",
     "logout": "Đăng xuất"
@@ -62,7 +62,6 @@
     "trending": "Tăng 5.2% trong tháng này",
     "showing": "Đang hiển thị tổng doanh thu trong tháng qua",
     "revenue": "Doanh thu"
-    
   },
   "usersManagement": {
     "title": "Quản lý người dùng",
@@ -84,8 +83,12 @@
     "edit": "Chỉnh sửa",
     "delete": "Xóa",
     "searchPlaceholder": "Tìm kiếm người dùng tại đây...",
+    "accountDetail": {
+      "title": "Chi tiết tài khoản"
+    },
     "createAccountUser": {
       "title": "Tạo tài khoản",
+      "title2": "Chỉnh sửa tài khoản",
       "createButton": "Tạo tài khoản",
       "updateButton": "Cập nhật",
       "cancelButton": "Hủy",
@@ -124,28 +127,39 @@
         "other": "Khác"
       }
     },
-    "cell-action":{
+    "cell-action": {
       "title": "Hành động",
       "edit": "Chỉnh sửa thông tin nhân viên",
       "delete": "Vô hiệu hóa nhân viên",
       "view": "Xem thông tin nhân viên",
       "viewFeedback": "Xem phản hồi",
       "viewItem": "Xem sản phẩm",
-      "viewHistoryExchange": "Xem lịch sử trao đổi"
+      "viewHistoryExchange": "Xem lịch sử trao đổi",
+      "viewHistoryPayment": "Xem lịch sử thanh toán"
     }
   },
-  "staffsManagement":{
+  "staffsManagement": {
     "title": "Quản lý nhân viên"
   },
-  "itemsManagement":{
+  "itemsManagement": {
     "title": "Quản lý sản phẩm",
     "itemName": "Tên sản phẩm",
     "owner": "Người sở hữu",
     "status": "Trạng thái",
     "action": "Hành động",
-    "price": "Giá"
+    "price": "Giá",
+    "available": "Đang có sẵn",
+    "unavailable": "Không có sẵn",
+    "rejected": "Đã bị từ chối",
+    "expired": "Đã hết hạn",
+    "pending": "Đang chờ duyệt",
+    "noLongerForExchange": "Ngừng trao đổi",
+    "filter": {
+    "title": "Bộ lọc",
+    "clear": "Xoá bộ lọc"
+  }
   },
-  "itemRequest" :{
+  "itemRequest": {
     "title": "Yêu cầu sản phẩm",
     "itemName": "Tên sản phẩm",
     "owner": "Người sỡ hữu",
@@ -153,7 +167,7 @@
     "action": "Hành động",
     "searchPlaceholder": "Tìm kiếm yêu cầu sản phẩm tại đây...",
     "detail": "Chi tiết",
-    "itemRequestDetail":{
+    "itemRequestDetail": {
       "brandNew": "Mới",
       "likeNew": "Như mới",
       "good": "Tốt",
@@ -166,7 +180,7 @@
       "delivery": "Giao hàng",
       "meetAtGivenLocation": "Gặp tại địa điểm hẹn",
       "noMethod": "Không có phương thức",
-      "dialog" : {
+      "dialog": {
         "title": "Xác nhận",
         "content1": "Bạn có chắc chắn muốn",
         "content2": "yêu cầu này không?",
@@ -179,14 +193,13 @@
       "minPrice": "Giá tối thiểu:",
       "maxPrice": "Giá tối đa:",
       "desiredItem": "Món đồ mong muốn:",
-      "toast":{
+      "toast": {
         "success": "Thành công",
         "description": "Yêu cầu đã được",
         "approve": "phê duyệt",
         "discard": "từ chối",
         "successfully": "thành công!"
       }
-
     },
     "description": "Mô tả:",
     "information": "Thông tin",
@@ -205,21 +218,18 @@
     "minPrice": "Giá tối thiểu:",
     "maxPrice": "Giá tối đa:",
     "price": "Giá:"
-
-
   },
-  "button":{
-    "back" : "Quay lại",
-    "approve" : "Duyệt",
-    "discard" : "Hủy",
-    "cancel" : "Hủy",
+  "button": {
+    "back": "Quay lại",
+    "approve": "Duyệt",
+    "discard": "Hủy",
+    "cancel": "Hủy",
     "loading": "Đang tải"
-    
   },
   "feedback": {
-    "title": "Chi tiết Feedback",
+    "title": "Phản hồi người dùng",
     "loading": "Đang tải...",
-    "error": "Không thể tải dữ liệu feedback.",
+    "error": "Không thể tải dữ liệu phản hồi.",
     "feedbackInfo": "Thông tin phản hồi",
     "rating": "Đánh giá",
     "comment": "Bình luận",
@@ -240,9 +250,13 @@
     "buyerConfirmation": "Xác nhận người mua",
     "sellerConfirmation": "Xác nhận người bán",
     "confirmed": "Đã xác nhận",
-    "notConfirmed": "Chưa xác nhận"
+    "notConfirmed": "Chưa xác nhận",
+    "searchPlaceholder": "Tìm kiếm phản hồi tại đây...",
+    "userName": "Tên người dùng",
+    "actions": "Hành động"
   },
   "exchangeHistory": {
+    "title": "Lịch sử trao đổi",
     "loading": "Đang tải lịch sử trao đổi...",
     "error": "Không thể tải lịch sử trao đổi.",
     "sellerItem": "Món hàng của người bán",
@@ -259,7 +273,13 @@
     "confirmationAndNotes": "Xác nhận & Ghi chú",
     "buyerConfirmation": "Xác nhận của người mua",
     "confirmed": "Đã xác nhận",
-    "notConfirmed": "Chưa xác nhận"
+    "notConfirmed": "Chưa xác nhận",
+    "searchPlaceholder": "Tìm kiếm lịch sử trao đổi tại đây...",
+    "buyer": "Người mua",
+    "seller": "Người bán",
+    "date": "Ngày",
+    "actions": "Hành động",
+    "time": "Thời gian"
   },
   "months": {
     "jan": "Tháng 1",
@@ -274,9 +294,87 @@
     "oct": "Tháng 10",
     "nov": "Tháng 11",
     "dec": "Tháng 12"
+  },
+  "paymentHistory": {
+    "title": "Lịch sử thanh toán",
+    "title1": "Lịch sử thanh toán của người dùng",
+    "transactionId": "Mã giao dịch",
+    "amount": "Số tiền",
+    "methodPayment": "Phương thức thanh toán",
+    "statusPayment": "Trạng thái thanh toán",
+    "time": "Thời gian",
+    "date": "Ngày",
+    "actions": "Hành động",
+    "searchPlaceholder": "Tìm kiếm lịch sử thanh toán tại đây...",
+    "methodPaymentCash": "Tiền mặt",
+    "methodPaymentBankTransfer": "Chuyển khoản ngân hàng",
+    "methodPaymentCreditCard": "Thẻ tín dụng",
+    "methodPaymentPayPal": "PayPal",
+    "methodPaymentApplePay": "Apple Pay",
+    "methodPaymentVisa": "Visa",
+    "methodPaymentMasterCard": "MasterCard",
+    "methodPaymentOther": "Khác"
+  },
+  "subscriptionPlan": {
+    "deleted": "Đã xoá!",
+    "deleteSuccess": "Gói đăng ký đã được xoá thành công.",
+    "deleteFailed": "Xoá thất bại",
+    "deleteError": "Đã xảy ra lỗi khi xoá gói đăng ký.",
+    "confirmTitle": "Xác nhận",
+    "confirmMessage": "Bạn có chắc chắn muốn xoá gói đăng ký này không?",
+    "openMenu": "Mở menu",
+    "actions": "Hành động",
+    "update": "Cập nhật",
+    "delete": "Xoá",
+    "id": "ID",
+    "planName": "Tên gói",
+    "description": "Mô tả",
+    "price": "Giá",
+    "subscriptionType": "Loại gói đăng ký",
+    "typePremium": "Cao cấp",
+    "typeItemExtension": "Gia hạn vật phẩm",
+    "duration": "Thời gian",
+    "durationUnit": "{{count}} tháng",
+    "durationUnit_plural": "{{count}} tháng",
+    "selectAll": "Chọn tất cả",
+    "selectRow": "Chọn dòng",
+    "title": "Quản lý gói đăng ký",
+    "addNew": "Thêm mới",
+    "searchPlaceholder": "Tìm kiếm theo tên...",
+    "createSubscriptionPlan": {
+      "heading": "Tạo gói đăng ký",
+      "planName": "Tên gói",
+      "planNamePlaceholder": "Nhập tên gói (ví dụ: Gói cơ bản)",
+      "planType": "Loại gói",
+      "selectType": "Chọn loại gói",
+      "typePremium": "Gói Cao Cấp",
+      "typeItemExtension": "Gia hạn vật phẩm",
+      "price": "Giá (VND)",
+      "duration": "Thời gian sử dụng (tháng)",
+      "description": "Mô tả",
+      "descriptionPlaceholder": "Nhập tính năng và lợi ích của gói...",
+      "createButton": "Tạo gói",
+      "cancelButton": "Huỷ",
+      "successTitle": "Tạo gói đăng ký thành công!",
+      "successDesc": "Gói mới đã được lưu.",
+      "errorTitle": "Lỗi khi tạo gói",
+      "errorUnknown": "Đã xảy ra lỗi không xác định",
+      "validate": {
+        "nameMin": "Tên phải có ít nhất 3 ký tự.",
+        "descriptionMin": "Mô tả phải có ít nhất 10 ký tự.",
+        "descriptionMax": "Mô tả không được vượt quá 1000 ký tự.",
+        "priceMin": "Giá phải là một giá trị dương.",
+        "durationMin": "Thời gian sử dụng phải ít nhất 1 tháng."
+      },
+      "updateSuccessTitle": "Cập nhật gói đăng ký thành công!",
+      "updateSuccessDescription": "Gói đã được cập nhật.",
+      "updateErrorTitle": "Lỗi khi cập nhật gói",
+      "updateErrorUnknown": "Đã xảy ra lỗi không xác định khi cập nhật gói."
+      
+    }
+  },
+  "common": {
+    "cancel": "Huỷ",
+    "delete": "Xoá"
   }
-
-
-
-
 }

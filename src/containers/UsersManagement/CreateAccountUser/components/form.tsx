@@ -400,6 +400,7 @@ export default function CreateUpdateUserForm() {
             onClick={() => {
               form.reset(); // Reset the form
               setPreviewImage(null); // Clear the image preview
+              navigate(STAFFS_MANAGEMENT_ROUTE);
             }}
           >
             {t('usersManagement.createAccountUser.cancelButton')}

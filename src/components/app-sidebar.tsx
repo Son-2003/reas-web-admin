@@ -3,16 +3,13 @@
 import * as React from 'react';
 import {
   BookOpen,
-  // Bot,
-  Frame,
-  Map,
-  PieChart,
   Settings2,
   SquareTerminal,
-} from 'lucide-react';
+  MessageCircle,
+} from 'lucide-react'; // Thêm icon chat
 
+import { selectUserInfo } from '@/containers/Auth/selector';
 import { NavMain } from '@/components/nav-main';
-import { NavProjects } from '@/components/nav-projects';
 import { NavUser } from '@/components/nav-user';
 
 import {
@@ -24,32 +21,66 @@ import {
 } from '@/components/ui/sidebar';
 import { useTranslation } from 'react-i18next';
 import {
+  CHAT_ROUTE,
   DASHBOARD_ROUTE,
   ITEM_REQUEST_ROUTE,
   PAYMENT_HISTORY_MANAGEMENT_ROUTE,
   STAFFS_MANAGEMENT_ROUTE,
+  SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE,
   USERS_MANAGEMENT_ROUTE,
 } from '@/common/constants/router';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { t } = useTranslation();
+  const userInfo = useSelector(selectUserInfo);
+  const role = userInfo?.roleName;
+
+  const chatItem = {
+    title: 'Chat',
+    url: CHAT_ROUTE,
+    icon: MessageCircle,
+  };
+
+  const navSingle =
+    role === 'ROLE_ADMIN'
+      ? [
+          {
+            title: 'Subcription plans',
+            url: SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE,
+            icon: Settings2,
+          },
+          chatItem,
+        ]
+      : [
+          {
+            title: 'Item requests',
+            url: ITEM_REQUEST_ROUTE,
+            icon: BookOpen,
+          },
+          {
+            title: 'Payment history',
+            url: PAYMENT_HISTORY_MANAGEMENT_ROUTE,
+            icon: Settings2,
+          },
+          chatItem,
+        ];
 
   const data = {
     user: {
-      name: 'shadcn',
-      email: 'm@example.com',
-      avatar: '/avatars/shadcn.jpg',
+      name: userInfo?.fullName || 'shadcn',
+      email: userInfo?.email || 'm@example.com',
+      avatar: userInfo?.image || '/avatars/shadcn.jpg',
     },
     teams: [
       {
         name: 'REAS',
-        logo: 'https://res.cloudinary.com/dpysbryyk/image/upload/v1739892939/REAS/Logo/Logo.png',
+        logo: 'https://res.cloudinary.com/dpysbryyk/image/upload/v1744177339/REAS/Logo/Reas-logo.png',
         plan: 'Enterprise',
         url: DASHBOARD_ROUTE,
       },
     ],
-
     navMain: [
       {
         title: t('sidebar.human'),
@@ -62,46 +93,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             url: STAFFS_MANAGEMENT_ROUTE,
           },
           {
-            title: t('sidebar.users'),
+            title: t('sidebar.residents'),
             url: USERS_MANAGEMENT_ROUTE,
           },
         ],
       },
     ],
-    navSingle: [
-      // {
-      //   title: 'Items',
-      //   url: ITEMS_MANAGEMENT_ROUTE,
-      //   icon: Bot,
-      // },
-      {
-        title: 'Item requests',
-        url: ITEM_REQUEST_ROUTE,
-        icon: BookOpen,
-      },
-      {
-        title: 'Payment history',
-        url: PAYMENT_HISTORY_MANAGEMENT_ROUTE,
-        icon: Settings2,
-      },
-    ],
-    projects: [
-      {
-        name: 'Design Engineering',
-        url: '#',
-        icon: Frame,
-      },
-      {
-        name: 'Sales & Marketing',
-        url: '#',
-        icon: PieChart,
-      },
-      {
-        name: 'Travel',
-        url: '#',
-        icon: Map,
-      },
-    ],
+    navSingle, // dùng navSingle đã thêm chat
   };
 
   return (
@@ -134,8 +132,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <span>{item.title}</span>
           </a>
         ))}
-        <NavProjects projects={data.projects} />
       </SidebarContent>
+
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
