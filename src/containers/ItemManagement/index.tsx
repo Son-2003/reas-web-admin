@@ -25,6 +25,7 @@ import { CheckIcon } from 'lucide-react';
 import { StatusItem } from '@/common/enums/statusItem';
 import { Icons } from '@/components/ui/icons';
 import { SortingState } from '@tanstack/react-table';
+import { SORT_BY_ID, SORT_DIRTECTION_ASC } from '@/common/constants/sort';
 
 export const ItemManagement = () => {
   const { t } = useTranslation();
@@ -106,8 +107,8 @@ export const ItemManagement = () => {
           pageSize,
           itemName,
           statusItems: [...selectedValues],
-          sortBy: 'id',
-          sortDir: 'asc',
+          sortBy: SORT_BY_ID,
+          sortDir: SORT_DIRTECTION_ASC,
         }),
       );
     }
@@ -124,8 +125,8 @@ export const ItemManagement = () => {
           pageSize,
           itemName: '',
           statusItems: [...selectedValues],
-          sortBy: 'id',
-          sortDir: 'asc',
+          sortBy: SORT_BY_ID,
+          sortDir: SORT_DIRTECTION_ASC,
         }),
       );
     }
