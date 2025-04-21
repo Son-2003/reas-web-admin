@@ -7,29 +7,24 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
 import { useDispatch, useSelector } from 'react-redux';
-
 import { fetchItems } from './thunk';
 import { ReduxDispatch } from '@/lib/redux/store';
 import { selectItems, selectTotalPages } from './selector';
 import { USERS_MANAGEMENT_ROUTE } from '@/common/constants/router';
 import { useItemColumns } from './components/columns';
 import { Input } from '@/components/ui/input';
-
 import { Badge } from '@/components/ui/badge';
-
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-
 import { PlusCircledIcon } from '@radix-ui/react-icons';
-
 import { CheckIcon } from 'lucide-react';
 import { StatusItem } from '@/common/enums/statusItem';
 import { Icons } from '@/components/ui/icons';
+import { SortingState } from '@tanstack/react-table';
 
 export const ItemManagement = () => {
   const { t } = useTranslation();
@@ -43,7 +38,6 @@ export const ItemManagement = () => {
   const totalPages = useSelector(selectTotalPages);
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(10);
-
   const [itemName, setItemName] = useState('');
   const [selectedValues, setSelectedValues] = useState<Set<string>>(new Set());
 
@@ -57,10 +51,12 @@ export const ItemManagement = () => {
           pageNo,
           pageSize,
           statusItems: [...selectedValues],
+          sortBy: 'id',
+          sortDir: 'asc',
         }),
       ).finally(() => setLoading(false));
     }
-  }, [dispatch, userId, pageNo, pageSize]);
+  }, [dispatch, userId, pageNo, pageSize, itemName, selectedValues]);
 
   const options = [
     {
@@ -69,8 +65,8 @@ export const ItemManagement = () => {
       icon: Icons.check,
     },
     {
-      label: t('itemsManagement.unavailable'),
-      value: StatusItem.UNAVAILABLE,
+      label: t('itemsManagement.sold'),
+      value: StatusItem.SOLD,
       icon: Icons.cancel,
     },
     {
@@ -93,13 +89,26 @@ export const ItemManagement = () => {
       value: StatusItem.NO_LONGER_FOR_EXCHANGE,
       icon: Icons.outStock,
     },
+    {
+      label: t('itemsManagement.inExchange'),
+      value: StatusItem.IN_EXCHANGE,
+      icon: Icons.spinner,
+    },
   ];
 
   const handleSearch = () => {
     setPageNo(0);
     if (userId) {
       dispatch(
-        fetchItems({ ownerIds: [userId], pageNo: 0, pageSize, itemName }),
+        fetchItems({
+          ownerIds: [userId],
+          pageNo: 0,
+          pageSize,
+          itemName,
+          statusItems: [...selectedValues],
+          sortBy: 'id',
+          sortDir: 'asc',
+        }),
       );
     }
   };
@@ -109,10 +118,38 @@ export const ItemManagement = () => {
     setPageNo(0);
     if (userId) {
       dispatch(
-        fetchItems({ ownerIds: [userId], pageNo: 0, pageSize, itemName: '' }),
+        fetchItems({
+          ownerIds: [userId],
+          pageNo: 0,
+          pageSize,
+          itemName: '',
+          statusItems: [...selectedValues],
+          sortBy: 'id',
+          sortDir: 'asc',
+        }),
       );
     }
   };
+
+  const handleSortChange = (sorting: SortingState) => {
+    const sortBy = sorting[0]?.id || 'id';
+    const sortDir = sorting[0]?.desc ? 'desc' : 'asc';
+    if (userId && sortBy === 'id') {
+      setPageNo(0);
+      dispatch(
+        fetchItems({
+          ownerIds: [userId],
+          pageNo: 0,
+          pageSize,
+          itemName,
+          statusItems: [...selectedValues],
+          sortBy,
+          sortDir,
+        }),
+      );
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -159,7 +196,7 @@ export const ItemManagement = () => {
             )}
           </div>
 
-          {/* Filter Section thêm vào đây */}
+          {/* Filter Section */}
           <Popover>
             <PopoverTrigger asChild>
               <Button
@@ -212,14 +249,14 @@ export const ItemManagement = () => {
                   <div
                     key={option.value}
                     className={`
-            flex items-center justify-between py-1 px-2 rounded cursor-pointer 
-            text-black dark:text-white text-sm
-            ${
-              isSelected
-                ? 'bg-gray-50 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
-                : 'hover:bg-gray-100 dark:hover:bg-gray-700'
-            }
-          `}
+                      flex items-center justify-between py-1 px-2 rounded cursor-pointer 
+                      text-black dark:text-white text-sm
+                      ${
+                        isSelected
+                          ? 'bg-gray-50 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
+                          : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                      }
+                    `}
                     onClick={() => {
                       const newSet = new Set(selectedValues);
                       isSelected
@@ -235,6 +272,8 @@ export const ItemManagement = () => {
                             pageSize,
                             itemName,
                             statusItems: [...newSet],
+                            sortBy: 'id',
+                            sortDir: 'asc',
                           }),
                         );
                       }
@@ -269,6 +308,8 @@ export const ItemManagement = () => {
                             pageSize,
                             itemName,
                             statusItems: [],
+                            sortBy: 'id',
+                            sortDir: 'asc',
                           }),
                         );
                       }
@@ -280,11 +321,14 @@ export const ItemManagement = () => {
               )}
             </PopoverContent>
           </Popover>
-
-          {/* End Filter Section */}
         </div>
 
-        <DataTable columns={columns} data={items || []} />
+        <DataTable
+          columns={columns}
+          data={items || []}
+          defaultSortOrder={false}
+          onSortChange={handleSortChange}
+        />
       </div>
 
       <DataTablePagination

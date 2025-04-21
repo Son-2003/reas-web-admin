@@ -12,23 +12,32 @@ export const fetchItems = createAppAsyncThunk(
     pageSize,
     itemName,
     statusItems,
+    sortBy = 'id',
+    sortDir = 'asc',
   }: {
     ownerIds: string[];
     pageNo: number;
     pageSize: number;
     itemName: string;
     statusItems?: string[];
+    sortBy?: string;
+    sortDir?: string;
   }) => {
     try {
+      const queryParams = new URLSearchParams({
+        pageNo: pageNo.toString(),
+        pageSize: pageSize.toString(),
+        sortBy,
+        sortDir,
+        itemName,
+      }).toString();
+
       const response = await callApi(
         {
           method: 'post',
-          url: '/item/search',
+          url: `/item/search?${queryParams}`,
           data: {
             ownerIds,
-            itemName,
-            pageNo,
-            pageSize,
             statusItems,
           },
         },

@@ -136,8 +136,8 @@
       "view": "View detail staff",
       "viewItem": "View item",
       "viewFeedback": "View feedback",
-      "viewHistoryExchange": "View history exchange",
-      "viewHistoryPayment": "View history payment"
+      "viewHistoryExchange": "View exchange history",
+      "viewHistoryPayment": "View payment history"
       
     }
   },
@@ -152,7 +152,8 @@
     "action": "Actions",
     "price": "Price",
     "available": "Available",
-    "unavailable": "Unavailable",
+    "sold": "Sold",
+    "inExchange": "In exchange",
     "rejected": "Rejected",
     "expired": "Expired",
     "pending": "Pending",
