@@ -30,6 +30,7 @@ interface DataTableProps<TData, TValue> {
   dataType?: string;
   onFilterChange?: (filters: string[]) => void;
   defaultSortOrder?: boolean;
+  onSortChange?: (sorting: SortingState) => void;
 }
 
 export function DataTable<TData, TValue>({
@@ -38,6 +39,7 @@ export function DataTable<TData, TValue>({
   dataType,
   onFilterChange,
   defaultSortOrder = true,
+  onSortChange,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([
     { id: 'id', desc: defaultSortOrder },
@@ -68,7 +70,14 @@ export function DataTable<TData, TValue>({
     },
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
-    onSortingChange: setSorting,
+    onSortingChange: (updater) => {
+      setSorting(updater);
+      if (onSortChange) {
+        const newSorting =
+          typeof updater === 'function' ? updater(sorting) : updater;
+        onSortChange(newSorting);
+      }
+    },
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),

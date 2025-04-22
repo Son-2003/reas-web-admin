@@ -11,6 +11,7 @@ import { fetchPendingItems } from './thunk';
 import { selectPendingItems, selectTotalPages } from './selector';
 import { useItemRequestColumns } from './components/columns';
 import { Input } from '@/components/ui/input';
+import { SortingState } from '@tanstack/react-table';
 
 export const ItemRequest = () => {
   const { t } = useTranslation();
@@ -40,6 +41,21 @@ export const ItemRequest = () => {
     setItemName('');
     setPageNo(0);
     dispatch(fetchPendingItems({ pageNo: 0, pageSize, itemName: '' }));
+  };
+
+  const handleSortChange = (sorting: SortingState) => {
+    const sortBy = sorting[0]?.id || 'id';
+    const sortDir = sorting[0]?.desc ? 'desc' : 'asc';
+    setPageNo(0);
+    dispatch(
+      fetchPendingItems({
+        pageNo: 0,
+        pageSize,
+        itemName,
+        sortBy,
+        sortDir,
+      }),
+    );
   };
 
   if (loading) {
@@ -85,6 +101,7 @@ export const ItemRequest = () => {
           columns={columns}
           data={items || []}
           dataType="itemRequests"
+          onSortChange={handleSortChange}
         />
       </div>
       <DataTablePagination

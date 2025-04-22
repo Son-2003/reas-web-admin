@@ -9,17 +9,21 @@ export const fetchPendingItems = createAppAsyncThunk(
     pageNo,
     pageSize,
     itemName = '',
+    sortBy = 'id',
+    sortDir = 'asc',
   }: {
     pageNo: number;
     pageSize: number;
     itemName?: string;
+    sortBy?: string;
+    sortDir?: string;
   }) => {
     try {
       const response = await callApi(
         {
           method: 'post',
           url: '/item/search',
-          params: { pageNo, pageSize },
+          params: { pageNo, pageSize, sortBy, sortDir },
           data: {
             itemName,
             statusItems: ['PENDING'],
