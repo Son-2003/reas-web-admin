@@ -57,7 +57,7 @@ export const ItemManagement = () => {
         }),
       ).finally(() => setLoading(false));
     }
-  }, [dispatch, userId, pageNo, pageSize, itemName, selectedValues]);
+  }, [dispatch, userId, pageNo, pageSize, selectedValues]);
 
   const options = [
     {

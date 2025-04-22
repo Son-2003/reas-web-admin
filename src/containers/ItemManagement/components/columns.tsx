@@ -38,9 +38,17 @@ export const useItemColumns = (): ColumnDef<Item>[] => {
     },
     {
       accessorKey: 'itemName',
-      header: t('itemsManagement.itemName'),
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          {t('itemsManagement.itemName')}
+          <Icons.sort className="ml-2 h-4 w-4" />
+        </Button>
+      ),
       cell: ({ row }) => <span>{row.original.itemName}</span>,
-      enableSorting: false,
+      enableSorting: true,
     },
     {
       accessorKey: 'owner',
@@ -50,10 +58,19 @@ export const useItemColumns = (): ColumnDef<Item>[] => {
     },
     {
       accessorKey: 'price',
-      header: t('itemsManagement.price'),
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          {t('itemsManagement.price')}
+          <Icons.sort className="ml-2 h-4 w-4" />
+        </Button>
+      ),
       cell: ({ row }) => <span>{row.original.price.toLocaleString()} VND</span>,
-      enableSorting: false,
+      enableSorting: true,
     },
+
     {
       accessorKey: 'status',
       header: t('itemsManagement.status'),

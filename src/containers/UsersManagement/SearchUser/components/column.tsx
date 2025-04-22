@@ -4,33 +4,11 @@ import { UserDto } from '@/common/models/user';
 import { Button } from '@/components/ui/button';
 import { Icons } from '@/components/ui/icons';
 import { CellAction } from './cell-action';
-// import { Checkbox } from '@/components/ui/checkbox';
 
 export const useUserColumns = (): ColumnDef<UserDto>[] => {
   const { t } = useTranslation();
 
   return [
-    // {
-    //   id: 'select',
-    //   header: ({ table }) => (
-    //     <Checkbox
-    //       checked={table.getIsAllPageRowsSelected()}
-    //       onCheckedChange={(value: any) =>
-    //         table.toggleAllPageRowsSelected(!!value)
-    //       }
-    //       aria-label="Select all"
-    //     />
-    //   ),
-    //   cell: ({ row }) => (
-    //     <Checkbox
-    //       checked={row.getIsSelected()}
-    //       onCheckedChange={(value: any) => row.toggleSelected(!!value)}
-    //       aria-label="Select row"
-    //     />
-    //   ),
-    //   enableSorting: false,
-    //   enableHiding: false,
-    // },
     {
       accessorKey: 'id',
       header: ({ column }) => (
@@ -42,15 +20,32 @@ export const useUserColumns = (): ColumnDef<UserDto>[] => {
           <Icons.sort className="ml-2 h-4 w-4" />
         </Button>
       ),
+      cell: ({ row }) => <span>{row.original.id}</span>,
     },
     {
       accessorKey: 'userName',
-      header: t('usersManagement.username'),
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          {t('usersManagement.username')}
+          <Icons.sort className="ml-2 h-4 w-4" />
+        </Button>
+      ),
       cell: ({ row }) => <span>{row.original.userName}</span>,
     },
     {
       accessorKey: 'fullName',
-      header: t('usersManagement.name'),
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          {t('usersManagement.name')}
+          <Icons.sort className="ml-2 h-4 w-4" />
+        </Button>
+      ),
       cell: ({ row }) => <span>{row.original.fullName}</span>,
     },
     {

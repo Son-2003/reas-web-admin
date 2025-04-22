@@ -320,7 +320,11 @@
     "methodPaymentApplePay": "Apple Pay",
     "methodPaymentVisa": "Visa",
     "methodPaymentMasterCard": "MasterCard",
-    "methodPaymentOther": "Other"
+    "methodPaymentOther": "Other",
+    "statusSuccess": "Success",
+  "statusFailed": "Failed",
+  "statusPending": "Pending",
+  "statusUnknown": "Unknown"
   },
 
    "subscriptionPlan": {

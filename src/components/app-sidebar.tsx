@@ -51,6 +51,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             url: SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE,
             icon: Settings2,
           },
+          {
+            title: 'Payment history',
+            url: PAYMENT_HISTORY_MANAGEMENT_ROUTE,
+            icon: Settings2,
+          },
           chatItem,
         ]
       : [
@@ -99,7 +104,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         ],
       },
     ],
-    navSingle, // dùng navSingle đã thêm chat
+    navSingle,
   };
 
   return (

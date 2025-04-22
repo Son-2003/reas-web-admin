@@ -5,6 +5,7 @@ import { Icons } from '@/components/ui/icons';
 import { PaymentHistory } from '@/common/models/payment-history';
 import { useTranslation } from 'react-i18next';
 import { MethodPayment } from '@/common/enums/methodPayment';
+import { StatusPayment } from '@/common/enums/statusPayment';
 
 export const usePaymentHistorycolumns = (): ColumnDef<PaymentHistory>[] => {
   const { t } = useTranslation();
@@ -60,52 +61,36 @@ export const usePaymentHistorycolumns = (): ColumnDef<PaymentHistory>[] => {
   ];
 
   return [
-    // {
-    //   id: 'select',
-    //   header: ({ table }) => (
-    //     <Checkbox
-    //       checked={table.getIsAllPageRowsSelected()}
-    //       onCheckedChange={(value: any) =>
-    //         table.toggleAllPageRowsSelected(!!value)
-    //       }
-    //       aria-label="Select all"
-    //     />
-    //   ),
-    //   cell: ({ row }) => (
-    //     <Checkbox
-    //       checked={row.getIsSelected()}
-    //       onCheckedChange={(value: any) => row.toggleSelected(!!value)}
-    //       aria-label="Select row"
-    //     />
-    //   ),
-    //   enableSorting: false,
-    //   enableHiding: false,
-    // },
     {
-      accessorKey: 'id',
+      accessorKey: 'transactionId',
       header: ({ column }) => (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Id
+          {t('paymentHistory.transactionId')}
           <Icons.sort className="ml-2 h-4 w-4" />
         </Button>
       ),
-    },
-    {
-      accessorKey: 'transactionId',
-      header: t('paymentHistory.transactionId'),
-      cell: ({ row }) => <span>{row.original.transactionId}</span>,
+      enableSorting: true,
     },
     {
       accessorKey: 'amount',
-      header: t('paymentHistory.amount'),
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          {t('paymentHistory.amount')}
+          <Icons.sort className="ml-2 h-4 w-4" />
+        </Button>
+      ),
       cell: ({ row }) => (
         <span className="font-bold">
           {row.original.amount.toLocaleString()}
         </span>
       ),
+      enableSorting: true, // bật sort
     },
     {
       accessorKey: 'methodPayment',
@@ -123,10 +108,11 @@ export const usePaymentHistorycolumns = (): ColumnDef<PaymentHistory>[] => {
           </span>
         );
       },
+      enableSorting: false,
     },
     {
-      accessorKey: 'status',
-      header: t('paymentHistory.statusPayment'),
+      accessorKey: 'description',
+      header: t('paymentHistory.description'),
       cell: ({ row }) => {
         const status = row.original.description;
         let statusColor = 'text-gray-600';
@@ -139,11 +125,53 @@ export const usePaymentHistorycolumns = (): ColumnDef<PaymentHistory>[] => {
 
         return <span className={`font-bold ${statusColor}`}>{status}</span>;
       },
+      enableSorting: false,
     },
 
     {
+      accessorKey: 'status',
+      header: t('paymentHistory.statusPayment'),
+      cell: ({ row }) => {
+        const status = row.original.statusPayment;
+
+        let statusColor = 'text-gray-600';
+        let statusLabel = '';
+
+        switch (status) {
+          case StatusPayment.SUCCESS:
+            statusColor = 'text-green-600';
+            statusLabel = t('paymentHistory.statusSuccess');
+            break;
+          case StatusPayment.FAILED:
+            statusColor = 'text-red-600';
+            statusLabel = t('paymentHistory.statusFailed');
+            break;
+          case StatusPayment.PENDING:
+            statusColor = 'text-yellow-600';
+            statusLabel = t('paymentHistory.statusPending');
+            break;
+          default:
+            statusLabel = t('paymentHistory.statusUnknown');
+            break;
+        }
+
+        return (
+          <span className={`font-bold ${statusColor}`}>{statusLabel}</span>
+        );
+      },
+      enableSorting: false,
+    },
+    {
       accessorKey: 'date',
-      header: t('paymentHistory.date'),
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          {t('paymentHistory.date')}
+          <Icons.sort className="ml-2 h-4 w-4" />
+        </Button>
+      ),
       cell: ({ row }) => {
         const date = new Date(row.original.transactionDateTime);
         const formattedDate = new Intl.DateTimeFormat('vi-VN', {
@@ -152,6 +180,12 @@ export const usePaymentHistorycolumns = (): ColumnDef<PaymentHistory>[] => {
           day: 'numeric',
         }).format(date);
         return <span>{formattedDate}</span>;
+      },
+      enableSorting: true, // bật sort
+      sortingFn: (rowA, rowB) => {
+        const dateA = new Date(rowA.original.transactionDateTime).getTime();
+        const dateB = new Date(rowB.original.transactionDateTime).getTime();
+        return dateA - dateB;
       },
     },
     {
@@ -167,6 +201,7 @@ export const usePaymentHistorycolumns = (): ColumnDef<PaymentHistory>[] => {
         }).format(date);
         return <span>{formattedTime}</span>;
       },
+      enableSorting: false,
     },
   ];
 };

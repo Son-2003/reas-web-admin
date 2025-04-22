@@ -11,23 +11,42 @@ export const fetchPaymentHistoryByUserId = createAppAsyncThunk(
     pageNo,
     pageSize,
     transactionId,
+    methodPayments,
+    statusPayments,
+    sortBy = 'id',
+    sortDir = 'asc',
   }: {
     userId: number;
     pageNo: number;
     pageSize: number;
     transactionId?: string;
+    methodPayments?: string[];
+    statusPayments?: string[];
+    sortBy?: string;
+    sortDir?: string;
   }) => {
     try {
-      const requestBody = transactionId ? { transactionId } : {};
+      const queryParams = new URLSearchParams({
+        pageNo: pageNo.toString(),
+        pageSize: pageSize.toString(),
+        sortBy,
+        sortDir,
+      }).toString();
+
+      const requestBody: Record<string, any> = {};
+      if (transactionId) requestBody.transactionId = transactionId;
+      if (methodPayments) requestBody.methodPayments = methodPayments;
+      if (statusPayments) requestBody.statusPayments = statusPayments;
+
       const response = await callApi(
         {
           method: 'post',
-          url: `payment-history/search/${userId}`,
-          params: { pageNo, pageSize },
+          url: `payment-history/search/${userId}?${queryParams}`,
           data: requestBody,
         },
         true,
       );
+
       return {
         paymentHistory: response.content as PaymentHistory[],
         totalPages: response.totalPages,

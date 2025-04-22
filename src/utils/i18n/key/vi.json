@@ -314,7 +314,11 @@
     "methodPaymentApplePay": "Apple Pay",
     "methodPaymentVisa": "Visa",
     "methodPaymentMasterCard": "MasterCard",
-    "methodPaymentOther": "Khác"
+    "methodPaymentOther": "Khác",
+    "statusSuccess": "Thành công",
+  "statusFailed": "Thất bại",
+  "statusPending": "Đang chờ",
+  "statusUnknown": "Không xác định"
   },
   "subscriptionPlan": {
     "deleted": "Đã xoá!",

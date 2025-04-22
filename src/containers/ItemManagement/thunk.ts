@@ -29,7 +29,6 @@ export const fetchItems = createAppAsyncThunk(
         pageSize: pageSize.toString(),
         sortBy,
         sortDir,
-        itemName,
       }).toString();
 
       const response = await callApi(
@@ -39,6 +38,7 @@ export const fetchItems = createAppAsyncThunk(
           data: {
             ownerIds,
             statusItems,
+            itemName,
           },
         },
         true,

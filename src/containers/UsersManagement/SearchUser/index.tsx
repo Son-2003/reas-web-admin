@@ -9,8 +9,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { SearchUserRequest } from '@/common/models/user';
 import {
-  DEFAULT_PAGE_NO,
-  DEFAULT_PAGE_SIZE,
   DEFAULT_SORT_BY,
   DEFAULT_SORT_DIR,
   SortDirection,
@@ -34,11 +32,12 @@ import { Badge } from '@/components/ui/badge';
 import { Separator as Line } from '@/components/ui/separator';
 import { CheckIcon, PlusCircleIcon } from 'lucide-react';
 import { SortingState } from '@tanstack/react-table';
+import { Input } from '@/components/ui/input';
 
 export const UsersManagement = () => {
   const { t } = useTranslation();
-  const [pageNo, setPageNo] = useState(DEFAULT_PAGE_NO);
-  const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
+  const [pageNo, setPageNo] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
   const [sortBy] = useState(DEFAULT_SORT_BY);
   const [sortDir] = useState<SortDirection>(DEFAULT_SORT_DIR);
   const [totalPages, setTotalPages] = useState(0);
@@ -55,10 +54,18 @@ export const UsersManagement = () => {
   );
   const [inputUserName, setInputUserName] = useState<string>('');
   const [searchUserName, setSearchUserName] = useState<string>('');
+  const [selectedGenders, setSelectedGenders] = useState<Set<Gender>>(
+    new Set([Gender.FEMALE, Gender.MALE, Gender.OTHER]),
+  );
 
   const statusOptions = [
     { label: 'Active', value: StatusEntity.ACTIVE },
     { label: 'Inactive', value: StatusEntity.INACTIVE },
+  ];
+  const genderOptions = [
+    { label: 'Female', value: Gender.FEMALE },
+    { label: 'Male', value: Gender.MALE },
+    { label: 'Other', value: Gender.OTHER },
   ];
 
   useEffect(() => {
@@ -78,7 +85,7 @@ export const UsersManagement = () => {
       fullName: '',
       email: '',
       phone: '',
-      genders: [Gender.FEMALE, Gender.MALE, Gender.OTHER],
+      genders: [...selectedGenders],
       statusEntities: [...selectedStatuses],
       roleNames: [isStaffsManagement ? Role.ROLE_STAFF : Role.ROLE_RESIDENT],
     };
@@ -106,6 +113,7 @@ export const UsersManagement = () => {
     sortDir,
     lastSegment,
     selectedStatuses,
+    selectedGenders,
     searchUserName,
   ]);
 
@@ -126,7 +134,7 @@ export const UsersManagement = () => {
       fullName: '',
       email: '',
       phone: '',
-      genders: [Gender.FEMALE, Gender.MALE, Gender.OTHER],
+      genders: [...selectedGenders],
       statusEntities: [...selectedStatuses],
       roleNames: [isStaffsManagement ? Role.ROLE_STAFF : Role.ROLE_RESIDENT],
     };
@@ -175,7 +183,7 @@ export const UsersManagement = () => {
       <div className="-mx-4 flex-1 overflow-auto px-4 py-4 lg:flex-row lg:space-x-12 lg:space-y-0">
         <div className="flex flex-wrap items-center gap-4 mb-4 ml-12">
           <div className="relative w-64">
-            <input
+            <Input
               type="text"
               placeholder="Search by Username"
               value={inputUserName}
@@ -186,7 +194,6 @@ export const UsersManagement = () => {
                   setPageNo(0);
                 }
               }}
-              className="border border-gray-300 dark:border-gray-700 rounded-md px-3 py-1 text-sm w-full pr-8 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {inputUserName && (
               <button
@@ -282,6 +289,90 @@ export const UsersManagement = () => {
                     }}
                   >
                     Clear Status
+                  </Button>
+                </>
+              )}
+            </PopoverContent>
+          </Popover>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-8 border-dotted border-2 border-slate-400 text-sm"
+              >
+                <PlusCircleIcon className="mr-1 h-3 w-3" />
+                Gender Filter
+                {selectedGenders.size > 0 && (
+                  <>
+                    <Line orientation="vertical" className="mx-1 h-3" />
+                    <div className="flex gap-1 max-w-[150px] overflow-hidden">
+                      {[...selectedGenders].map((gender) => {
+                        const label = genderOptions.find(
+                          (opt) => opt.value === gender,
+                        )?.label;
+                        return (
+                          <Badge
+                            key={gender}
+                            variant="secondary"
+                            className="rounded-sm px-1 font-normal text-xs truncate"
+                            title={label}
+                          >
+                            {label}
+                          </Badge>
+                        );
+                      })}
+                    </div>
+                  </>
+                )}
+              </Button>
+            </PopoverTrigger>
+
+            <PopoverContent className="w-48 p-2">
+              {genderOptions.map((option) => {
+                const isSelected = selectedGenders.has(option.value);
+                return (
+                  <div
+                    key={option.value}
+                    className={`flex items-center justify-between py-1 px-2 rounded cursor-pointer text-black dark:text-white text-sm
+            ${
+              isSelected
+                ? 'bg-gray-50 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
+                : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+            }
+          `}
+                    onClick={() => {
+                      const newSet = new Set(selectedGenders);
+                      isSelected
+                        ? newSet.delete(option.value)
+                        : newSet.add(option.value);
+                      setSelectedGenders(newSet);
+                      setPageNo(0);
+                    }}
+                  >
+                    <span className="flex items-center text-sm">
+                      {option.label}
+                    </span>
+                    {isSelected && (
+                      <CheckIcon className="w-3 h-3 text-green-500" />
+                    )}
+                  </div>
+                );
+              })}
+
+              {selectedGenders.size > 0 && (
+                <>
+                  <Line className="my-2" />
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="w-full justify-center text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white text-sm"
+                    onClick={() => {
+                      setSelectedGenders(new Set());
+                      setPageNo(0);
+                    }}
+                  >
+                    Clear Gender
                   </Button>
                 </>
               )}
