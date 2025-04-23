@@ -1,0 +1,6 @@
+const SORT_BY_ID = 'id';
+const SORT_BY_NAME = 'name';
+const SORT_DIRTECTION_ASC = 'asc';
+const SORT_DIRTECTION_DESC = 'desc';
+
+export { SORT_BY_ID, SORT_BY_NAME, SORT_DIRTECTION_ASC, SORT_DIRTECTION_DESC };

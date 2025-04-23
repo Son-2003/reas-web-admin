@@ -10,23 +10,41 @@ export const fetchPaymentHistory = createAppAsyncThunk(
     pageNo,
     pageSize,
     transactionId,
+    statusItems,
+    methodPayments,
+    sortBy = 'id',
+    sortDir = 'asc',
   }: {
     pageNo: number;
     pageSize: number;
     transactionId?: string;
+    statusItems?: string[];
+    methodPayments?: string[];
+    sortBy?: string;
+    sortDir?: string;
   }) => {
     try {
-      const requestBody = transactionId ? { transactionId } : {};
+      const queryParams = new URLSearchParams({
+        pageNo: pageNo.toString(),
+        pageSize: pageSize.toString(),
+        sortBy,
+        sortDir,
+      }).toString();
+
+      const requestBody: Record<string, any> = {};
+      if (transactionId) requestBody.transactionId = transactionId;
+      if (statusItems) requestBody.statusItems = statusItems;
+      if (methodPayments) requestBody.methodPayments = methodPayments;
 
       const response = await callApi(
         {
           method: 'post',
-          url: 'payment-history/search',
-          params: { pageNo, pageSize },
+          url: `payment-history/search?${queryParams}`,
           data: requestBody,
         },
         true,
       );
+
       return {
         paymentHistory: response.content as PaymentHistory[],
         totalPages: response.totalPages,

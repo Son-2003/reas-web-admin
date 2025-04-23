@@ -9,7 +9,6 @@ export const UserStatuses = [
 
 export const ItemStatuses = [
   { value: 'AVAILABLE', label: StatusItem.AVAILABLE, icon: Icons.check },
-  { value: 'UNAVAILABLE', label: StatusItem.UNAVAILABLE, icon: Icons.cancel },
   { value: 'EXPIRED', label: StatusItem.EXPIRED, icon: Icons.x },
   {
     value: StatusItem.NO_LONGER_FOR_EXCHANGE,
