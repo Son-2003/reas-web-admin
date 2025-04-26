@@ -77,6 +77,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     );
   };
 
+  const handleChat = () => {
+    navigate(
+      `/admin/chat?receiverUsername=${data.userName}&receiverFullName=${encodeURIComponent(data.fullName)}`
+    );
+  };
+
   const handleViewPaymentExchange = () => {
     navigate(
       PAYMENT_HISTORY_BY_USER_MANAGEMENT_ROUTE.replace(
@@ -134,13 +140,10 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
               <History className="mr-2 h-4 w-4" />
               {t('usersManagement.cell-action.viewHistoryPayment')}
             </DropdownMenuItem>
-            {/* <DropdownMenuItem
-              onClick={handleViewPaymentBetweenLocationAndSystem}
-            >
-              <Icons.check className="mr-2 h-4 w-4" />
-              Lịch sử giao dịch giữa nhà hàng và hệ thống
+            <DropdownMenuItem onClick={handleChat}>
+              <MessageCircle className="mr-2 h-4 w-4" />
+              Chat
             </DropdownMenuItem>
-            <DropdownMenuSeparator /> */}
             <DropdownMenuItem
               onClick={handleDeactivateStaff}
               className="text-red-600"

@@ -322,6 +322,10 @@
     "methodPaymentMasterCard": "MasterCard",
     "methodPaymentOther": "Other",
     "statusSuccess": "Success",
+    "filter": {
+      "method": "Method",
+      "clear": "Clear Filter"
+    },
   "statusFailed": "Failed",
   "statusPending": "Pending",
   "statusUnknown": "Unknown"

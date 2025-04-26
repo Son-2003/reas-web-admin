@@ -19,11 +19,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReduxDispatch } from '@/lib/redux/store';
 import { createStaffAccount, getUserInfo, updateUser } from '../../thunk';
 import { Gender } from '@/common/enums/gender';
-import { CreateStaffAccountRequest } from '@/common/models/user';
+import { CreateStaffAccountRequest, UpdateStaffAccountRequest } from '@/common/models/user';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { STAFFS_MANAGEMENT_ROUTE } from '@/common/constants/router';
 import { selectStaffAccountInfo } from '../../selector';
 
+// Schema for creating a new account (password required)
 const createAccountSchema = z
   .object({
     userName: z
@@ -43,30 +44,61 @@ const createAccountSchema = z
         /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/,
         'Password must be at least 8 characters long, contain at least one uppercase letter, one number, and one special character (!@#$%^&*).',
       ),
-    confirmPassword: z
-      .string()
-      .min(8, 'Confirm password must be at least 8 characters.'),
+    confirmPassword: z.string().min(8, 'Confirm password must be at least 8 characters.'),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match.',
     path: ['confirmPassword'],
   });
 
+// Schema for updating an account (password optional)
+const updateAccountSchema = z
+  .object({
+    userName: z
+      .string()
+      .min(8, 'Username must be at least 8 characters.')
+      .max(30, 'Username must not be longer than 30 characters.'),
+    fullName: z.string().min(2, 'Full name must be at least 2 characters.'),
+    email: z.string().email('Invalid email address.'),
+    phone: z.string().regex(/^0\d{9,12}$/, 'Invalid phone number format.'),
+    gender: z.enum([Gender.MALE, Gender.FEMALE, Gender.OTHER], {
+      message: 'Select a valid gender.',
+    }),
+    image: z.instanceof(File).optional(),
+    password: z
+      .string()
+      .regex(
+        /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/,
+        'Password must be at least 8 characters long, contain at least one uppercase letter, one number, and one special character (!@#$%^&*).',
+      )
+      .optional(),
+    confirmPassword: z.string().optional(),
+  })
+  .refine(
+    (data) => !data.password || data.password === data.confirmPassword,
+    {
+      message: 'Passwords do not match.',
+      path: ['confirmPassword'],
+    },
+  );
+
 type CreateAccountUserRequest = z.infer<typeof createAccountSchema>;
+type UpdateAccountUserRequest = z.infer<typeof updateAccountSchema>;
 
 export default function CreateUpdateUserForm() {
   const { t } = useTranslation();
   const dispatch = useDispatch<ReduxDispatch>();
   const navigate = useNavigate();
-  const [previewImage, setPreviewImage] = useState<string | null>(null); // State for image preview
-  const form = useForm<CreateAccountUserRequest>({
-    resolver: zodResolver(createAccountSchema),
-    mode: 'onChange',
-  });
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
   const { staffId } = useParams();
   const location = useLocation();
   const [isEdittingStaff, setIsEdittingStaff] = useState(false);
   const staffInfo = useSelector(selectStaffAccountInfo);
+
+  const form = useForm<CreateAccountUserRequest | UpdateAccountUserRequest>({
+    resolver: zodResolver(isEdittingStaff ? updateAccountSchema : createAccountSchema),
+    mode: 'onChange',
+  });
 
   useEffect(() => {
     if (location.pathname.includes('edit-staff') && staffId) {
@@ -91,8 +123,8 @@ export default function CreateUpdateUserForm() {
         phone: staffInfo.phone,
         gender: staffInfo.gender as Gender,
         image: undefined,
-        password: '',
-        confirmPassword: '',
+        password: undefined,
+        confirmPassword: undefined,
       });
       if (staffInfo.image) {
         setPreviewImage(staffInfo.image);
@@ -100,7 +132,6 @@ export default function CreateUpdateUserForm() {
     }
   }, [isEdittingStaff, staffInfo, form]);
 
-  // Helper function to upload image to Cloudinary
   const uploadImageToCloudinary = async (file: File): Promise<string> => {
     const cloudinaryFormData = new FormData();
     cloudinaryFormData.append('file', file);
@@ -120,29 +151,39 @@ export default function CreateUpdateUserForm() {
     return data.secure_url;
   };
 
-  async function onSubmit(formData: z.infer<typeof createAccountSchema>) {
+  async function onSubmit(formData: CreateAccountUserRequest | UpdateAccountUserRequest) {
     try {
       const imageUrl = formData.image
         ? await uploadImageToCloudinary(formData.image)
         : '';
 
-      const payload: CreateStaffAccountRequest = {
-        ...formData,
-        image: imageUrl,
-        gender: formData.gender as Gender,
-      };
-
       if (isEdittingStaff && staffId) {
-        const updateRequest = {
+        const payload: UpdateStaffAccountRequest = {
           id: parseInt(staffId),
-          ...payload,
+          userName: formData.userName,
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          gender: formData.gender as Gender,
+          image: imageUrl,
         };
 
-        const resultAction = await dispatch(updateUser(updateRequest));
+        const resultAction = await dispatch(updateUser(payload));
         if (updateUser.fulfilled.match(resultAction)) {
           navigate(STAFFS_MANAGEMENT_ROUTE);
         }
       } else {
+        const payload: CreateStaffAccountRequest = {
+          userName: formData.userName,
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          gender: formData.gender as Gender,
+          image: imageUrl,
+          password: formData.password!,
+          confirmPassword: formData.confirmPassword!,
+        };
+
         const resultAction = await dispatch(createStaffAccount(payload));
         if (createStaffAccount.fulfilled.match(resultAction)) {
           navigate(STAFFS_MANAGEMENT_ROUTE);
@@ -150,18 +191,18 @@ export default function CreateUpdateUserForm() {
       }
 
       toast({
-        title: 'Account Created Successfully!',
+        title: isEdittingStaff ? 'Account Updated Successfully!' : 'Account Created Successfully!',
         description: (
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
             <code className="text-white">
-              {JSON.stringify(payload, null, 2)}
+              {JSON.stringify(formData, null, 2)}
             </code>
           </pre>
         ),
       });
     } catch (error) {
       toast({
-        title: 'Error creating account',
+        title: isEdittingStaff ? 'Error updating account' : 'Error creating account',
         description:
           error instanceof Error ? error.message : 'Unknown error occurred',
         variant: 'destructive',
@@ -272,52 +313,53 @@ export default function CreateUpdateUserForm() {
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  {t('usersManagement.createAccountUser.password.label')}
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    type="password"
-                    placeholder={t(
-                      'usersManagement.createAccountUser.password.placeholder',
-                    )}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="confirmPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  {t('usersManagement.createAccountUser.confirmPassword.label')}
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    type="password"
-                    placeholder={t(
-                      'usersManagement.createAccountUser.confirmPassword.placeholder',
-                    )}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+        {!isEdittingStaff && (
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {t('usersManagement.createAccountUser.password.label')}
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      placeholder={t(
+                        'usersManagement.createAccountUser.password.placeholder',
+                      )}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {t('usersManagement.createAccountUser.confirmPassword.label')}
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      placeholder={t(
+                        'usersManagement.createAccountUser.confirmPassword.placeholder',
+                      )}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        )}
 
-        {/* Image and Gender on the same row */}
         <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
@@ -387,7 +429,6 @@ export default function CreateUpdateUserForm() {
           />
         </div>
 
-        {/* Cancel and Create Account Buttons */}
         <div className="flex space-x-4">
           <Button type="submit">
             {isEdittingStaff
@@ -398,8 +439,8 @@ export default function CreateUpdateUserForm() {
             type="button"
             variant="outline"
             onClick={() => {
-              form.reset(); // Reset the form
-              setPreviewImage(null); // Clear the image preview
+              form.reset();
+              setPreviewImage(null);
               navigate(STAFFS_MANAGEMENT_ROUTE);
             }}
           >

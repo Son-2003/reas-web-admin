@@ -77,7 +77,7 @@ export const ItemRequest = () => {
           <div className="relative">
             <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
             <Input
-              placeholder={t('itemRequest.placeholder')}
+              placeholder={t('itemRequest.searchPlaceholder')}
               value={itemName}
               onChange={(e) => setItemName(e.target.value)}
               onKeyDown={(e) => {
@@ -102,6 +102,7 @@ export const ItemRequest = () => {
           data={items || []}
           dataType="itemRequests"
           onSortChange={handleSortChange}
+          
         />
       </div>
       <DataTablePagination
