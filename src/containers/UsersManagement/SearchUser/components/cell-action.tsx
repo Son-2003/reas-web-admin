@@ -79,7 +79,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const handleChat = () => {
     navigate(
-      `/admin/chat?receiverUsername=${data.userName}&receiverFullName=${encodeURIComponent(data.fullName)}`
+      `/admin/chat?receiverUsername=${data.userName}&receiverFullName=${encodeURIComponent(data.fullName)}`,
     );
   };
 

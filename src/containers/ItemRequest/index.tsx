@@ -102,7 +102,6 @@ export const ItemRequest = () => {
           data={items || []}
           dataType="itemRequests"
           onSortChange={handleSortChange}
-          
         />
       </div>
       <DataTablePagination

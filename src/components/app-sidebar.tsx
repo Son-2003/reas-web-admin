@@ -6,7 +6,7 @@ import {
   Settings2,
   SquareTerminal,
   MessageCircle,
-} from 'lucide-react'; // Thêm icon chat
+} from 'lucide-react';
 
 import { selectUserInfo } from '@/containers/Auth/selector';
 import { NavMain } from '@/components/nav-main';

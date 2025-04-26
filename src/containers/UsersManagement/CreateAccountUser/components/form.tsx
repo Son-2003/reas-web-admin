@@ -19,7 +19,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReduxDispatch } from '@/lib/redux/store';
 import { createStaffAccount, getUserInfo, updateUser } from '../../thunk';
 import { Gender } from '@/common/enums/gender';
-import { CreateStaffAccountRequest, UpdateStaffAccountRequest } from '@/common/models/user';
+import {
+  CreateStaffAccountRequest,
+  UpdateStaffAccountRequest,
+} from '@/common/models/user';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { STAFFS_MANAGEMENT_ROUTE } from '@/common/constants/router';
 import { selectStaffAccountInfo } from '../../selector';
@@ -44,7 +47,9 @@ const createAccountSchema = z
         /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/,
         'Password must be at least 8 characters long, contain at least one uppercase letter, one number, and one special character (!@#$%^&*).',
       ),
-    confirmPassword: z.string().min(8, 'Confirm password must be at least 8 characters.'),
+    confirmPassword: z
+      .string()
+      .min(8, 'Confirm password must be at least 8 characters.'),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match.',
@@ -74,13 +79,10 @@ const updateAccountSchema = z
       .optional(),
     confirmPassword: z.string().optional(),
   })
-  .refine(
-    (data) => !data.password || data.password === data.confirmPassword,
-    {
-      message: 'Passwords do not match.',
-      path: ['confirmPassword'],
-    },
-  );
+  .refine((data) => !data.password || data.password === data.confirmPassword, {
+    message: 'Passwords do not match.',
+    path: ['confirmPassword'],
+  });
 
 type CreateAccountUserRequest = z.infer<typeof createAccountSchema>;
 type UpdateAccountUserRequest = z.infer<typeof updateAccountSchema>;
@@ -96,7 +98,9 @@ export default function CreateUpdateUserForm() {
   const staffInfo = useSelector(selectStaffAccountInfo);
 
   const form = useForm<CreateAccountUserRequest | UpdateAccountUserRequest>({
-    resolver: zodResolver(isEdittingStaff ? updateAccountSchema : createAccountSchema),
+    resolver: zodResolver(
+      isEdittingStaff ? updateAccountSchema : createAccountSchema,
+    ),
     mode: 'onChange',
   });
 
@@ -151,7 +155,9 @@ export default function CreateUpdateUserForm() {
     return data.secure_url;
   };
 
-  async function onSubmit(formData: CreateAccountUserRequest | UpdateAccountUserRequest) {
+  async function onSubmit(
+    formData: CreateAccountUserRequest | UpdateAccountUserRequest,
+  ) {
     try {
       const imageUrl = formData.image
         ? await uploadImageToCloudinary(formData.image)
@@ -191,7 +197,9 @@ export default function CreateUpdateUserForm() {
       }
 
       toast({
-        title: isEdittingStaff ? 'Account Updated Successfully!' : 'Account Created Successfully!',
+        title: isEdittingStaff
+          ? 'Account Updated Successfully!'
+          : 'Account Created Successfully!',
         description: (
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
             <code className="text-white">
@@ -202,7 +210,9 @@ export default function CreateUpdateUserForm() {
       });
     } catch (error) {
       toast({
-        title: isEdittingStaff ? 'Error updating account' : 'Error creating account',
+        title: isEdittingStaff
+          ? 'Error updating account'
+          : 'Error creating account',
         description:
           error instanceof Error ? error.message : 'Unknown error occurred',
         variant: 'destructive',
@@ -342,7 +352,9 @@ export default function CreateUpdateUserForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    {t('usersManagement.createAccountUser.confirmPassword.label')}
+                    {t(
+                      'usersManagement.createAccountUser.confirmPassword.label',
+                    )}
                   </FormLabel>
                   <FormControl>
                     <Input
