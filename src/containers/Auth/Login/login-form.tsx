@@ -13,6 +13,8 @@ import { useTranslation } from 'react-i18next';
 import { DASHBOARD_ROUTE } from '@/common/constants/router';
 import { toast } from '@/components/ui/use-toast';
 import { CheckCircle2, XCircle } from 'lucide-react';
+import { useSelector } from 'react-redux';
+import { selectNotificationToken } from '@/containers/Notification/selector';
 
 export function LoginForm({
   className,
@@ -24,14 +26,19 @@ export function LoginForm({
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch<ReduxDispatch>();
   const navigate = useNavigate();
+  const registrationToken = useSelector(selectNotificationToken);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const accountSignIn = pick({ userNameOrEmailOrPhone, password }, [
-      'userNameOrEmailOrPhone',
-      'password',
-    ]);
+    const accountSignIn = pick(
+      {
+        userNameOrEmailOrPhone,
+        password,
+        registrationTokens: registrationToken ? [registrationToken] : [],
+      },
+      ['userNameOrEmailOrPhone', 'password', 'registrationTokens'],
+    );
 
     const resultAction = await dispatch(signIn(accountSignIn));
 

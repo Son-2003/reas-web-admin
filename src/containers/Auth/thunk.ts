@@ -12,7 +12,10 @@ export const signIn = createAppAsyncThunk(
     const response = await callApi({
       method: 'post',
       url: '/auth/login',
-      data: data,
+      data: {
+        ...data,
+        registrationTokens: data.registrationTokens || [],
+      },
     });
 
     const userToken: UserToken = {

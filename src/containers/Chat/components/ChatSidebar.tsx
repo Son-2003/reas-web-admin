@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { selectChatConversations } from '../selector';
-import { fetchChatConversationsByUser } from '../thunk';
+
 import { ReduxDispatch } from '@/lib/redux/store';
 import { selectUserInfo } from '@/containers/Auth/selector';
 import { ChatMessage } from '@/common/models/chat';
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
+import { WEB_SOCKET_ENDPOINT } from '@/utils/environment';
+import { fetchChatConversationsByUser } from '../thunk';
+import { selectChatConversations } from '../selector';
 
 const ChatSidebar: React.FC = () => {
   const dispatch = useDispatch<ReduxDispatch>();
@@ -16,6 +20,7 @@ const ChatSidebar: React.FC = () => {
   const [filteredConversations, setFilteredConversations] = useState<
     ChatMessage[]
   >([]);
+  const stompClientRef = useRef<any>(null);
 
   useEffect(() => {
     if (senderUsername) {
@@ -33,6 +38,77 @@ const ChatSidebar: React.FC = () => {
       setFilteredConversations(filtered);
     }
   }, [chatConversations, senderUsername]);
+
+  const connectWebSocket = () => {
+    const client = Stomp.over(() => new SockJS(WEB_SOCKET_ENDPOINT));
+    stompClientRef.current = client;
+
+    client.connect(
+      {},
+      () => {
+        client.subscribe(
+          `/user/${senderUsername}/queue/messages`,
+          onMessageReceived,
+        );
+        client.subscribe(`/topic/public`, onMessageReceived);
+      },
+      () => {
+        setTimeout(connectWebSocket, 5000);
+      },
+    );
+
+    client.onWebSocketClose = () => {
+      setTimeout(connectWebSocket, 5000);
+    };
+  };
+
+  useEffect(() => {
+    if (senderUsername) {
+      connectWebSocket();
+    }
+
+    return () => {
+      if (stompClientRef.current?.connected) {
+        stompClientRef.current.disconnect();
+      }
+    };
+  }, [senderUsername]);
+
+  const onMessageReceived = (payload: any) => {
+    const receivedMessage: ChatMessage = JSON.parse(payload.body);
+
+    if (
+      receivedMessage.senderId !== senderUsername &&
+      receivedMessage.recipientId !== senderUsername
+    ) {
+      return;
+    }
+
+    setFilteredConversations((prevConversations) => {
+      const existingIndex = prevConversations.findIndex((conv) => {
+        const otherParty =
+          conv.senderId === senderUsername ? conv.recipientId : conv.senderId;
+        return (
+          otherParty ===
+          (receivedMessage.senderId === senderUsername
+            ? receivedMessage.recipientId
+            : receivedMessage.senderId)
+        );
+      });
+
+      if (existingIndex !== -1) {
+        const updatedConversations = [...prevConversations];
+        updatedConversations[existingIndex] = {
+          ...updatedConversations[existingIndex],
+          content: receivedMessage.content,
+          timestamp: receivedMessage.timestamp,
+        };
+        return updatedConversations;
+      } else {
+        return [receivedMessage, ...prevConversations];
+      }
+    });
+  };
 
   const handleConversationClick = (conv: ChatMessage) => {
     const receiverUsername =
@@ -64,9 +140,10 @@ const ChatSidebar: React.FC = () => {
                   : conv.recipientName}
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400 truncate overflow-hidden whitespace-nowrap w-[150px]">
-                {conv.content}
+                {conv.senderId === senderUsername
+                  ? `You: ${conv.content}` // Conditionally prepend "You: " for messages from the user
+                  : conv.content}
               </p>
-
               <p className="text-xs text-gray-400 dark:text-gray-500">
                 {new Date(conv.timestamp).toLocaleTimeString([], {
                   hour: '2-digit',
