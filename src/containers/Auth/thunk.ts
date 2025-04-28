@@ -9,6 +9,12 @@ const TypePrefix = 'user';
 export const signIn = createAppAsyncThunk(
   `${TypePrefix}/signin`,
   async (data: AccountSignIn) => {
+    // Log phần data trước khi gọi API
+    console.log('SignIn data sent:', {
+      ...data,
+      registrationTokens: data.registrationTokens || [],
+    });
+
     const response = await callApi({
       method: 'post',
       url: '/auth/login',
@@ -26,6 +32,7 @@ export const signIn = createAppAsyncThunk(
     return userToken;
   },
 );
+
 export const signUp = createAppAsyncThunk(
   `${TypePrefix}/signup`,
   async (data: AccountSignUp) => {

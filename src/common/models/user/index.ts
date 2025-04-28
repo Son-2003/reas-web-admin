@@ -27,6 +27,7 @@ export interface UserDto {
 export interface AccountSignIn {
   userNameOrEmailOrPhone: string;
   password: string;
+  registrationTokens: string[];
 }
 
 export interface AccountSignUp {

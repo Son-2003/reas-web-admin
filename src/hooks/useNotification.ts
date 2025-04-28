@@ -7,6 +7,7 @@ import { ReduxDispatch } from '@/lib/redux/store';
 
 export const useNotification = (): void => {
   const dispatch = useDispatch<ReduxDispatch>();
+
   const requestNotificationPermission = async (): Promise<void> => {
     try {
       const permission = await Notification.requestPermission();

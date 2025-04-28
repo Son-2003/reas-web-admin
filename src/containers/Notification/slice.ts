@@ -1,8 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {
-  NotificationDto,
-  NotificationResponse,
-} from '@/common/models/notification';
+import { NotificationDto } from '@/common/models/notification';
 import { ApiStatus } from '@/common/enums/apiStatus';
 import {
   getNotificationsOfCurrentUserThunk,
@@ -11,15 +8,21 @@ import {
 
 export interface NotificationState {
   token: string | null;
-  notifications: NotificationDto[] | null;
-  fetchNotificationsStatus: ApiStatus;
+  notifications: NotificationDto[];
+  fetchStatus: ApiStatus;
+  totalPages: number;
+  totalRecords: number;
+  currentPage: number;
   errorMessage?: string;
 }
 
 export const initialState: NotificationState = {
   token: null,
-  notifications: null,
-  fetchNotificationsStatus: ApiStatus.Idle,
+  notifications: [],
+  fetchStatus: ApiStatus.Idle,
+  totalPages: 1,
+  totalRecords: 0,
+  currentPage: 0,
   errorMessage: undefined,
 };
 
@@ -34,28 +37,25 @@ const notificationSlice = createSlice({
       state.token = null;
     },
     resetNotificationState(state) {
-      state.token = null;
-      state.notifications = null;
-      state.fetchNotificationsStatus = ApiStatus.Idle;
-      state.errorMessage = undefined;
+      Object.assign(state, initialState);
     },
   },
   extraReducers: (builder) => {
     // setRegistrationTokenThunk
     builder
       .addCase(setRegistrationTokenThunk.pending, (state) => {
-        state.fetchNotificationsStatus = ApiStatus.Loading;
+        state.fetchStatus = ApiStatus.Loading;
         state.errorMessage = undefined;
       })
       .addCase(
         setRegistrationTokenThunk.fulfilled,
         (state, action: PayloadAction<string>) => {
-          state.fetchNotificationsStatus = ApiStatus.Fulfilled;
+          state.fetchStatus = ApiStatus.Fulfilled;
           state.token = action.payload;
         },
       )
       .addCase(setRegistrationTokenThunk.rejected, (state, action) => {
-        state.fetchNotificationsStatus = ApiStatus.Failed;
+        state.fetchStatus = ApiStatus.Failed;
         state.errorMessage =
           action.error.message || 'Failed to register token.';
       });
@@ -63,18 +63,30 @@ const notificationSlice = createSlice({
     // getNotificationsOfCurrentUserThunk
     builder
       .addCase(getNotificationsOfCurrentUserThunk.pending, (state) => {
-        state.fetchNotificationsStatus = ApiStatus.Loading;
+        state.fetchStatus = ApiStatus.Loading;
         state.errorMessage = undefined;
       })
       .addCase(
         getNotificationsOfCurrentUserThunk.fulfilled,
-        (state, action: PayloadAction<NotificationResponse>) => {
-          state.fetchNotificationsStatus = ApiStatus.Fulfilled;
-          state.notifications = action.payload.content;
+        (
+          state,
+          action: PayloadAction<{
+            notifications: NotificationDto[];
+            totalPages: number;
+            totalRecords: number;
+            currentPage: number;
+          }>,
+        ) => {
+          state.fetchStatus = ApiStatus.Fulfilled;
+          state.notifications = action.payload.notifications;
+          state.totalPages = action.payload.totalPages;
+          state.totalRecords = action.payload.totalRecords;
+          state.currentPage = action.payload.currentPage;
+          state.errorMessage = undefined;
         },
       )
       .addCase(getNotificationsOfCurrentUserThunk.rejected, (state, action) => {
-        state.fetchNotificationsStatus = ApiStatus.Failed;
+        state.fetchStatus = ApiStatus.Failed;
         state.errorMessage =
           action.error.message || 'Failed to fetch notifications.';
       });
