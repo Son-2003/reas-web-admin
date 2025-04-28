@@ -318,8 +318,13 @@
     "statusSuccess": "Thành công",
   "statusFailed": "Thất bại",
   "statusPending": "Đang chờ",
-  "statusUnknown": "Không xác định"
-  },
+  "statusUnknown": "Không xác định",
+  "filter": {
+    "title": "Bộ lọc",
+    "clear": "Xoá bộ lọc"
+    
+  }
+},
   "subscriptionPlan": {
     "deleted": "Đã xoá!",
     "deleteSuccess": "Gói đăng ký đã được xoá thành công.",

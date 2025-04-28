@@ -6,10 +6,10 @@ import {
   Settings2,
   SquareTerminal,
   MessageCircle,
-} from 'lucide-react'; // Thêm icon chat
+  LucideIcon,
+} from 'lucide-react';
 
 import { selectUserInfo } from '@/containers/Auth/selector';
-import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 
 import {
@@ -32,20 +32,50 @@ import {
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+// Define types
+interface NavSubItem {
+  title: string;
+  url: string;
+}
+
+interface NavItem {
+  title: string;
+  url?: string;
+  icon: LucideIcon;
+  items?: NavSubItem[];
+}
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { t } = useTranslation();
   const userInfo = useSelector(selectUserInfo);
   const role = userInfo?.roleName;
 
-  const chatItem = {
+  // Define navigation items
+  const chatItem: NavItem = {
     title: 'Chat',
     url: CHAT_ROUTE,
     icon: MessageCircle,
   };
 
-  const navSingle =
+  const humanItem: NavItem = {
+    title: t('sidebar.human'),
+    icon: SquareTerminal,
+    items: [
+      {
+        title: t('sidebar.staffs'),
+        url: STAFFS_MANAGEMENT_ROUTE,
+      },
+      {
+        title: t('sidebar.residents'),
+        url: USERS_MANAGEMENT_ROUTE,
+      },
+    ],
+  };
+
+  const navSingle: NavItem[] =
     role === 'ROLE_ADMIN'
       ? [
+          humanItem,
           {
             title: 'Subcription plans',
             url: SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE,
@@ -59,6 +89,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           chatItem,
         ]
       : [
+          humanItem,
           {
             title: 'Item requests',
             url: ITEM_REQUEST_ROUTE,
@@ -86,24 +117,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         url: DASHBOARD_ROUTE,
       },
     ],
-    navMain: [
-      {
-        title: t('sidebar.human'),
-        url: '#',
-        icon: SquareTerminal,
-        isActive: true,
-        items: [
-          {
-            title: t('sidebar.staffs'),
-            url: STAFFS_MANAGEMENT_ROUTE,
-          },
-          {
-            title: t('sidebar.residents'),
-            url: USERS_MANAGEMENT_ROUTE,
-          },
-        ],
-      },
-    ],
     navSingle,
   };
 
@@ -126,17 +139,36 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
 
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        {data.navSingle.map((item) => (
-          <a
-            key={item.title}
-            href={item.url}
-            className="flex items-center gap-2 p-2 rounded transition-colors duration-200 hover:bg-gray-700 hover:text-white"
-          >
-            <item.icon className="w-5 h-5" />
-            <span>{item.title}</span>
-          </a>
-        ))}
+        {data.navSingle.map((item) =>
+          item.items ? (
+            <div key={item.title}>
+              <div className="flex items-center gap-2 p-2 font-semibold">
+                <item.icon className="w-5 h-5" />
+                <span>{item.title}</span>
+              </div>
+              <div className="ml-6">
+                {item.items.map((subItem) => (
+                  <Link
+                    key={subItem.title}
+                    to={subItem.url}
+                    className="block p-2 text-sm rounded transition-colors duration-200 hover:bg-gray-700 hover:text-white"
+                  >
+                    {subItem.title}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <Link
+              key={item.title}
+              to={item.url!}
+              className="flex items-center gap-2 p-2 rounded transition-colors duration-200 hover:bg-gray-700 hover:text-white"
+            >
+              <item.icon className="w-5 h-5" />
+              <span>{item.title}</span>
+            </Link>
+          ),
+        )}
       </SidebarContent>
 
       <SidebarFooter>

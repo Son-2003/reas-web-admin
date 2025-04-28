@@ -9,8 +9,8 @@ export const fetchPendingItems = createAppAsyncThunk(
     pageNo,
     pageSize,
     itemName = '',
-    sortBy = 'id',
-    sortDir = 'asc',
+    sortBy = '',
+    sortDir = 'desc',
   }: {
     pageNo: number;
     pageSize: number;
