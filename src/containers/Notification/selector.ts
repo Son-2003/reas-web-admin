@@ -24,3 +24,6 @@ export const selectNotificationTotalRecords = (state: ReduxState): number =>
 
 export const selectNotificationCurrentPage = (state: ReduxState): number =>
   state.notification.currentPage;
+
+export const selectNotificationCount = (state: ReduxState): number =>
+  state.notification.notificationCount;

@@ -13,6 +13,7 @@ export interface NotificationState {
   totalPages: number;
   totalRecords: number;
   currentPage: number;
+  notificationCount: number;
   errorMessage?: string;
 }
 
@@ -23,6 +24,7 @@ export const initialState: NotificationState = {
   totalPages: 1,
   totalRecords: 0,
   currentPage: 0,
+  notificationCount: 0,
   errorMessage: undefined,
 };
 
@@ -38,6 +40,9 @@ const notificationSlice = createSlice({
     },
     resetNotificationState(state) {
       Object.assign(state, initialState);
+    },
+    setNotificationCount(state, action: PayloadAction<number>) {
+      state.notificationCount = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -93,6 +98,11 @@ const notificationSlice = createSlice({
   },
 });
 
-export const { registerToken, clearToken, resetNotificationState } =
-  notificationSlice.actions;
+export const {
+  registerToken,
+  clearToken,
+  resetNotificationState,
+  setNotificationCount,
+} = notificationSlice.actions;
+
 export default notificationSlice.reducer;
