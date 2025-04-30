@@ -32,6 +32,8 @@ import {
   EDIT_STAFF_ACCOUNT_ROUTE,
   ACCOUNT_DETAIL_ROUTE,
   CHAT_ROUTE,
+  CRITICAL_REPORT_MANAGEMENT_ROUTE,
+  REPLY_CRITICAL_REPORT_ROUTE,
 } from '@/common/constants/router';
 import ProtectedRoute from './protectedRoute';
 import PaymentHistoryPage from '@/app/payment-history/page';
@@ -42,6 +44,8 @@ import CreateSubscriptionPlanPage from '@/app/create-subscription-plan/page';
 import UpdateSubscriptionPlanPage from '@/app/update-subscription-plan/page';
 import AccountDetailPage from '@/app/user-detail/page';
 import ChatPage from '@/app/chat/page';
+import CriticalReportPage from '@/app/critical-report/page';
+import ReplyCriticalReportPage from '@/app/reply-critical-report/page';
 
 const router = createBrowserRouter([
   {
@@ -130,6 +134,14 @@ const router = createBrowserRouter([
           {
             path: UPDATE_SUBSCRIPTION_PLAN_ROUTE,
             element: <UpdateSubscriptionPlanPage />,
+          },
+          {
+            path: CRITICAL_REPORT_MANAGEMENT_ROUTE,
+            element: <CriticalReportPage />,
+          },
+          {
+            path: REPLY_CRITICAL_REPORT_ROUTE,
+            element: <ReplyCriticalReportPage />,
           },
           {
             path: CHAT_ROUTE,

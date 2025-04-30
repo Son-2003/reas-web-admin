@@ -2,10 +2,12 @@
 
 import * as React from 'react';
 import {
-  BookOpen,
-  Settings2,
-  SquareTerminal,
   MessageCircle,
+  AlertCircle,
+  Upload,
+  CreditCard,
+  User,
+  Package,
 } from 'lucide-react';
 
 import { selectUserInfo } from '@/containers/Auth/selector';
@@ -22,6 +24,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import {
   CHAT_ROUTE,
+  CRITICAL_REPORT_MANAGEMENT_ROUTE,
   DASHBOARD_ROUTE,
   ITEM_REQUEST_ROUTE,
   PAYMENT_HISTORY_MANAGEMENT_ROUTE,
@@ -55,7 +58,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {
         title: t('sidebar.human'),
         url: '#',
-        icon: SquareTerminal,
+        icon: User,
         isActive: true,
         items: [
           {
@@ -73,20 +76,25 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {
               title: 'Subscription plans',
               url: SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE,
-              icon: Settings2,
+              icon: Package,
             },
           ]
         : [
             {
-              title: 'Item requests',
+              title: t('sidebar.items'),
               url: ITEM_REQUEST_ROUTE,
-              icon: BookOpen,
+              icon: Upload,
             },
           ]),
       {
         title: 'Payment history',
         url: PAYMENT_HISTORY_MANAGEMENT_ROUTE,
-        icon: Settings2,
+        icon: CreditCard,
+      },
+      {
+        title: t('sidebar.criticalReport'),
+        url: CRITICAL_REPORT_MANAGEMENT_ROUTE,
+        icon: AlertCircle,
       },
       {
         title: 'Chat',
