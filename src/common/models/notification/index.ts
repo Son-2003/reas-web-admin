@@ -4,7 +4,7 @@ export interface NotificationDto {
   senderId: string;
   recipientId: string;
   content: string;
-  timestamp: Date;
+  timestamp: string;
   contentType: string;
   notificationType: TypeNotification;
 }

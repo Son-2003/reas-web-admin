@@ -1,30 +1,163 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bell } from 'lucide-react';
-import { selectNotifications } from '@/containers/Notification/selector';
-import { useSelector } from 'react-redux';
-import { NotificationDto } from '@/common/models/notification';
+import { Stomp } from '@stomp/stompjs';
+import SockJS from 'sockjs-client';
+import { WEB_SOCKET_ENDPOINT } from '@/utils/environment';
+import { ReduxDispatch } from '@/lib/redux/store';
+import { selectUserInfo } from '@/containers/Auth/selector';
+import { ChatMessage } from '@/common/models/chat';
+import { selectChatConversations } from '@/containers/Chat/selector';
+import { fetchChatConversationsByUser } from '@/containers/Chat/thunk';
 
-interface NotificationDropdownProps {
-  notificationCount: number;
-  isLoading?: boolean;
-  errorMessage?: string;
-  currentPage: number;
-  totalPages: number;
-}
+// Helper function to format timestamp to a readable format
+const formatTimestamp = (timestamp: string): string => {
+  const date = new Date(timestamp);
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true,
+  };
+  return date.toLocaleString('en-US', options);
+};
 
-const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
-  notificationCount,
-  isLoading,
-  errorMessage,
-  currentPage,
-  totalPages,
-}) => {
+const NotificationDropdown: React.FC = () => {
+  const dispatch = useDispatch<ReduxDispatch>();
+  const chatConversations = useSelector(selectChatConversations);
+  const userInfo = useSelector(selectUserInfo);
+  const senderUsername = userInfo?.userName || '';
+  const [filteredConversations, setFilteredConversations] = useState<
+    ChatMessage[]
+  >([]);
+  const [viewedConversations, setViewedConversations] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const notifications = useSelector(selectNotifications);
+  const stompClientRef = useRef<any>(null);
+  const navigate = useNavigate();
 
-  // Đóng dropdown khi click ngoài
+  useEffect(() => {
+    if (senderUsername) {
+      dispatch(fetchChatConversationsByUser({ senderId: senderUsername }));
+    }
+  }, [dispatch, senderUsername]);
+
+  useEffect(() => {
+    if (chatConversations) {
+      const filtered = chatConversations.filter(
+        (conv: ChatMessage) =>
+          (conv.senderId === senderUsername ||
+            conv.recipientId === senderUsername) &&
+          !viewedConversations.includes(
+            conv.senderId === senderUsername ? conv.recipientId : conv.senderId,
+          ),
+      );
+      setFilteredConversations(filtered);
+    }
+  }, [chatConversations, senderUsername, viewedConversations]);
+
+  const connectWebSocket = () => {
+    const client = Stomp.over(() => new SockJS(WEB_SOCKET_ENDPOINT));
+    stompClientRef.current = client;
+
+    client.connect(
+      {},
+      () => {
+        client.subscribe(
+          `/user/${senderUsername}/queue/messages`,
+          onMessageReceived,
+        );
+        client.subscribe(`/topic/public`, onMessageReceived);
+      },
+      () => {
+        setTimeout(connectWebSocket, 5000);
+      },
+    );
+
+    client.onWebSocketClose = () => {
+      setTimeout(connectWebSocket, 5000);
+    };
+  };
+
+  useEffect(() => {
+    if (senderUsername) {
+      connectWebSocket();
+    }
+
+    return () => {
+      if (stompClientRef.current?.connected) {
+        stompClientRef.current.disconnect();
+      }
+    };
+  }, [senderUsername]);
+
+  const onMessageReceived = (payload: any) => {
+    const receivedMessage: ChatMessage = JSON.parse(payload.body);
+
+    if (
+      receivedMessage.senderId !== senderUsername &&
+      receivedMessage.recipientId !== senderUsername
+    ) {
+      return;
+    }
+
+    const otherParty =
+      receivedMessage.senderId === senderUsername
+        ? receivedMessage.recipientId
+        : receivedMessage.senderId;
+
+    setFilteredConversations((prevConversations) => {
+      const existingIndex = prevConversations.findIndex((conv) => {
+        const convOtherParty =
+          conv.senderId === senderUsername ? conv.recipientId : conv.senderId;
+        return convOtherParty === otherParty;
+      });
+
+      let updatedConversations = [...prevConversations];
+      if (existingIndex !== -1) {
+        updatedConversations[existingIndex] = {
+          ...receivedMessage,
+        };
+      } else if (!viewedConversations.includes(otherParty)) {
+        updatedConversations = [receivedMessage, ...prevConversations];
+      } else {
+        return prevConversations;
+      }
+
+      return updatedConversations;
+    });
+
+    setViewedConversations((prev) => prev.filter((id) => id !== otherParty));
+  };
+
+  const handleConversationClick = (conv: ChatMessage) => {
+    const receiverUsername =
+      conv.recipientId === senderUsername ? conv.senderId : conv.recipientId;
+    const receiverFullName =
+      conv.recipientId === senderUsername
+        ? conv.senderName
+        : conv.recipientName;
+
+    const otherParty =
+      conv.senderId === senderUsername ? conv.recipientId : conv.senderId;
+
+    setViewedConversations((prev) => [...prev, otherParty]);
+
+    setFilteredConversations((prevConversations) =>
+      prevConversations.filter((item) => item !== conv),
+    );
+
+    const url = `/admin/chat?receiverUsername=${receiverUsername}&receiverFullName=${encodeURIComponent(receiverFullName)}`;
+    navigate(url);
+
+    setIsOpen(false);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -47,11 +180,6 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
     <div className="relative" ref={dropdownRef}>
       <button onClick={() => setIsOpen(!isOpen)} className="relative p-2">
         <Bell className="w-6 h-6 text-gray-600 hover:text-black dark:text-gray-300 dark:hover:text-white transition" />
-        {notificationCount > 0 && (
-          <span className="absolute top-1 right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-            {notificationCount}
-          </span>
-        )}
       </button>
 
       <AnimatePresence>
@@ -61,49 +189,47 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="absolute right-0 mt-2 w-80 bg-white dark:bg-black shadow-lg rounded-lg p-4 z-50 border dark:border-gray-700"
+            className="absolute right-0 mt-2 w-96 bg-white dark:bg-black shadow-lg rounded-lg p-6 z-50 border dark:border-gray-700"
           >
             <h4 className="font-semibold text-gray-700 dark:text-white mb-2">
-              Thông báo
+              Notifications
             </h4>
-
-            {/* Handling loading, error, and empty states */}
-            {isLoading ? (
-              <div className="flex justify-center items-center py-6">
-                <span className="text-gray-500 dark:text-gray-400">
-                  Đang tải...
-                </span>
-              </div>
-            ) : errorMessage ? (
-              <div className="flex justify-center items-center py-6">
-                <span className="text-red-500">{errorMessage}</span>
-              </div>
-            ) : notifications.length > 0 ? (
-              <ul className="space-y-2 max-h-80 overflow-auto">
-                {notifications.map(
-                  (notification: NotificationDto, index: number) => (
-                    <li
-                      key={index}
-                      className="p-2 bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer"
-                    >
-                      {notification.content}
-                    </li>
-                  ),
-                )}
+            {filteredConversations.length > 0 ? (
+              <ul className="space-y-4 max-h-96 overflow-auto">
+                {filteredConversations.map((conv, index) => (
+                  <li
+                    key={index}
+                    className="p-4 bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer"
+                    onClick={() => handleConversationClick(conv)}
+                  >
+                    <div className="flex flex-row items-center">
+                      <div className="flex items-center justify-center w-8 h-8 bg-[#00B0B9] rounded-full mr-3">
+                        <span className="text-white text-lg">🛎️</span>
+                      </div>
+                      <div>
+                        <h5 className="font-semibold text-[#0B1D2D]">
+                          {conv.recipientId === senderUsername
+                            ? conv.senderName
+                            : conv.recipientName}
+                        </h5>
+                        <p className="text-sm text-gray-600 dark:text-gray-300">
+                          New message from{' '}
+                          {conv.recipientId === senderUsername
+                            ? conv.senderName
+                            : conv.recipientName}
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          {formatTimestamp(conv.timestamp)}
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                ))}
               </ul>
             ) : (
-              <div className="flex flex-col justify-center items-center py-6">
-                <span className="text-gray-500 dark:text-gray-400">
-                  Không có thông báo nào.
-                </span>
-              </div>
-            )}
-
-            {/* Hiển thị thông tin phân trang nếu có nhiều trang */}
-            {totalPages > 1 && (
-              <div className="mt-2 text-sm text-gray-500 dark:text-gray-400 text-center">
-                Trang {currentPage} / {totalPages}
-              </div>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                No new notifications.
+              </p>
             )}
           </motion.div>
         )}

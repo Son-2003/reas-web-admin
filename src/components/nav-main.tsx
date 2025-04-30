@@ -69,7 +69,6 @@ export function NavMain({
               </SidebarMenuItem>
             </Collapsible>
           ) : (
-            // Nếu KHÔNG có sub-items
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild tooltip={item.title}>
                 <a href={item.url} className="flex items-center gap-2">
