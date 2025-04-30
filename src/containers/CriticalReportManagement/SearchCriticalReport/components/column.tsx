@@ -26,7 +26,11 @@ export const useCriticalReportColumns =
       {
         accessorKey: 'contentReport',
         header: t('criticalReport.contentReport'),
-        cell: ({ row }) => <span>{row.original.contentReport}</span>,
+        cell: ({ row }) => (
+          <div className="whitespace-pre-wrap">
+            {row.original.contentReport.split('\\n')[0]}
+          </div>
+        ),
       },
       {
         accessorKey: 'creationDate',

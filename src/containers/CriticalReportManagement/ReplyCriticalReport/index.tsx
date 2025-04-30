@@ -133,21 +133,24 @@ export default function ReplyCriticalReport() {
             </div>
             <div>
               <p className="font-medium">Content</p>
-              <p className="text-sm whitespace-pre-wrap">
-                {criticalReportDetail.contentReport}
-              </p>
+              <div className="text-sm whitespace-pre-wrap">
+                {criticalReportDetail.contentReport?.replace(/\\n/g, '\n')}
+              </div>
             </div>
           </div>
 
           {/* Column 3 - Image */}
           <div className="flex flex-col items-center justify-center">
             {criticalReportDetail.imageUrl && (
-              <div className="w-full">
-                <img
-                  src={criticalReportDetail.imageUrl}
-                  alt="Report evidence"
-                  className="max-w-full h-48 object-contain rounded-lg border"
-                />
+              <div className="w-full grid grid-cols-2 gap-4">
+                {criticalReportDetail.imageUrl.split(',').map((url, index) => (
+                  <img
+                    key={index}
+                    src={url.trim()}
+                    alt={`Report evidence ${index + 1}`}
+                    className="w-full h-48 object-contain rounded-lg border"
+                  />
+                ))}
               </div>
             )}
           </div>
@@ -164,17 +167,28 @@ export default function ReplyCriticalReport() {
         )}
 
         {criticalReportDetail.typeReport === TypeCriticalReport.FEEDBACK && (
-          <div>
-            <h3 className="font-medium mb-2">Feedback details</h3>
-            <p>Rating: {'★'.repeat(criticalReportDetail.feedback?.rating)}</p>
-            <p>Comment: {criticalReportDetail.feedback?.comment}</p>
-            {criticalReportDetail.feedback?.imageUrl && (
-              <img
-                src={criticalReportDetail.feedback.imageUrl}
-                alt="Feedback"
-                className="max-w-xs rounded-md mt-2"
-              />
-            )}
+          <div className="grid grid-cols-3 gap-6">
+            <div className="col-span-2">
+              <h3 className="font-medium mb-2">Feedback details</h3>
+              <p>Rating: {'★'.repeat(criticalReportDetail.feedback?.rating)}</p>
+              <p>Comment: {criticalReportDetail.feedback?.comment}</p>
+            </div>
+            <div className="flex flex-col items-center justify-center">
+              {criticalReportDetail.feedback?.imageUrl && (
+                <div className="w-full grid grid-cols-2 gap-4">
+                  {criticalReportDetail.feedback.imageUrl
+                    .split(',')
+                    .map((url, index) => (
+                      <img
+                        key={index}
+                        src={url.trim()}
+                        alt={`Feedback ${index + 1}`}
+                        className="w-full h-48 object-contain rounded-lg border"
+                      />
+                    ))}
+                </div>
+              )}
+            </div>
           </div>
         )}
 
