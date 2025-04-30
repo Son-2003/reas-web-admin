@@ -10,6 +10,7 @@ import dashboardManagementReducer from '@/containers/DashBoard/slice';
 import subscriptionPlanReducer from '@/containers/SubcriptionPlanManagement/slice';
 import chatReducer from '@/containers/Chat/slice';
 import notificationReducer from '@/containers/Notification/slice';
+import criticalReportReducer from '@/containers/CriticalReportManagement/slice';
 export const reducer = {
   user: userReducer,
   userManagement: userManagementReducer,
@@ -23,4 +24,5 @@ export const reducer = {
   subscriptionPlan: subscriptionPlanReducer,
   chat: chatReducer,
   notification: notificationReducer,
+  criticalReport: criticalReportReducer,
 };
