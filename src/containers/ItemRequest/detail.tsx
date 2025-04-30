@@ -189,17 +189,14 @@ export const ItemRequestDetail = () => {
               <span className="text-black dark:text-white font-medium">
                 {item.owner.userName}
               </span>
-              <p className="text-gray-600 dark:text-gray-400 text-xs">
-                Hoạt động 2 giờ trước
-              </p>
             </div>
           </div>
 
           <div className="mt-6 relative w-96">
-            <div className="w-96 h-96 bg-gray-300 rounded-lg overflow-hidden mt-2 mb-5">
+            <div className="w-96 h-96 bg-gray-300 rounded-lg overflow-hidden mt-2 mb-5 flex items-center justify-center">
               <img
                 alt={item.itemName}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
                 src={imageUrls[currentImageIndex]}
               />
             </div>

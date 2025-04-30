@@ -26,7 +26,7 @@ import { DataTableToolbar } from './data-table-toolbar';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  data: any[];
   dataType?: string;
   onFilterChange?: (filters: string[]) => void;
   defaultSortOrder?: boolean;

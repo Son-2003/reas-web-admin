@@ -180,12 +180,12 @@ export const UsersManagement = () => {
       </div>
       <Separator />
 
-      <div className="-mx-4 flex-1 overflow-auto px-4 py-4 lg:flex-row lg:space-x-12 lg:space-y-0">
-        <div className="flex flex-wrap items-center gap-4 mb-4 ml-12">
+      <div className="-mx-4 flex-1 overflow-auto px-4 py-4 lg:flex-row lg:space-y-0">
+        <div className="flex flex-wrap items-center gap-4 mb-4">
           <div className="relative w-64">
             <Input
               type="text"
-              placeholder="Search by Username"
+              placeholder={t('usersManagement.searchUser')}
               value={inputUserName}
               onChange={(e) => setInputUserName(e.target.value)}
               onKeyDown={(e) => {

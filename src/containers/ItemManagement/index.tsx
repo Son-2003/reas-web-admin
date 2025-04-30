@@ -172,8 +172,8 @@ export const ItemManagement = () => {
       </div>
       <Separator />
 
-      <div className="-mx-4 flex-1 overflow-auto px-4 py-4 lg:flex-row lg:space-x-12 lg:space-y-0">
-        <div className="flex items-center space-x-2 ml-12">
+      <div className="-mx-4 flex-1 overflow-auto px-4 py-4 lg:flex-row lg:space-y-0">
+        <div className="flex items-center space-x-2">
           <div className="relative">
             <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
             <Input
@@ -250,7 +250,7 @@ export const ItemManagement = () => {
                   <div
                     key={option.value}
                     className={`
-                      flex items-center justify-between py-1 px-2 rounded cursor-pointer 
+                      flex items-center justify-between py-1 px-2 rounded cursor-pointer
                       text-black dark:text-white text-sm
                       ${
                         isSelected

@@ -35,10 +35,11 @@
     "management": "Quản lý",
     "human": "Con người",
     "staffs": "Nhân viên",
-    "residents": "Người dùng",
-    "products": "Sản phẩm",
+    "residents": "Cư dân",
+    "items": "Yêu cầu đăng sản phẩm",
     "settings": "Cài đặt",
-    "logout": "Đăng xuất"
+    "logout": "Đăng xuất",
+    "criticalReport": "Báo cáo"
   },
   "dashboard": {
     "title": "Bảng điều khiển",
@@ -301,6 +302,7 @@
     "title1": "Lịch sử thanh toán của người dùng",
     "transactionId": "Mã giao dịch",
     "amount": "Số tiền",
+    "description": "Nội dung chuyển khoản",
     "methodPayment": "Phương thức thanh toán",
     "statusPayment": "Trạng thái thanh toán",
     "time": "Thời gian",
@@ -318,8 +320,13 @@
     "statusSuccess": "Thành công",
   "statusFailed": "Thất bại",
   "statusPending": "Đang chờ",
-  "statusUnknown": "Không xác định"
-  },
+  "statusUnknown": "Không xác định",
+  "filter": {
+    "title": "Bộ lọc",
+    "clear": "Xoá bộ lọc"
+
+  }
+},
   "subscriptionPlan": {
     "deleted": "Đã xoá!",
     "deleteSuccess": "Gói đăng ký đã được xoá thành công.",
@@ -375,11 +382,31 @@
       "updateSuccessDescription": "Gói đã được cập nhật.",
       "updateErrorTitle": "Lỗi khi cập nhật gói",
       "updateErrorUnknown": "Đã xảy ra lỗi không xác định khi cập nhật gói."
-      
+
     }
   },
   "common": {
     "cancel": "Huỷ",
     "delete": "Xoá"
+  },
+  "criticalReport": {
+    "title": "Quản lý báo cáo",
+    "searchPlaceholder": "Tìm kiếm báo cáo tại đây...",
+    "reportId": "Id",
+    "typeReport": "Loại báo cáo",
+    "contentReport": "Nội dung báo cáo",
+    "contentResponse": "Nội dung phản hồi",
+    "creationDate": "Ngày tạo",
+    "statusCriticalReport": "Trạng thái báo cáo",
+    "reporter": "Người báo cáo",
+    "resident": "Cư dân bị báo cáo",
+    "answerer": "Người trả lời",
+    "replyReport": "Trả lời báo cáo",
+    "replyCriticalReport": {
+      "title": "Trả lời báo cáo",
+      "error": "Lỗi khi trả lời báo cáo",
+      "success": "Trả lời báo cáo thành công",
+      "rejectSuccess": "Từ chối báo cáo thành công"
+    }
   }
 }

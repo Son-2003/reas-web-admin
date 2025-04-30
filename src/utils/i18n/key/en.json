@@ -36,9 +36,10 @@
     "human": "Human",
     "staffs": "Staffs",
     "residents": "Residents",
-    "items": "Items",
+    "items": "Item upload request",
     "settings": "Settings",
-    "logout": "Logout"
+    "logout": "Logout",
+    "criticalReport": "Critical report"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -62,14 +63,14 @@
     "trending": "Trending up by 5.2% this month",
     "showing": "Showing total revenue for the last month",
     "revenue": "Revenue"
-    
+
   },
   "usersManagement": {
     "title": "Users management",
     "addUser": "Add User",
     "editUser": "Edit User",
     "deleteUser": "Delete User",
-    "searchUser": "Search User",
+    "searchUser": "Search users",
     "userList": "User List",
     "id": "Id",
     "username": "User name",
@@ -138,7 +139,7 @@
       "viewFeedback": "View feedback",
       "viewHistoryExchange": "View exchange history",
       "viewHistoryPayment": "View payment history"
-      
+
     }
   },
   "staffsManagement":{
@@ -205,8 +206,8 @@
         "discard": "discard",
         "successfully": "successfully!"
       }
-      
-      
+
+
     },
     "description": "Description:",
     "information": "Information",
@@ -307,6 +308,7 @@
     "title1": "User's payment history",
     "transactionId": "Transaction ID",
     "amount": "Amount",
+    "description": "Description",
     "methodPayment": "Payment Method",
     "statusPayment": "Payment Status",
     "time": "Time",
@@ -322,6 +324,10 @@
     "methodPaymentMasterCard": "MasterCard",
     "methodPaymentOther": "Other",
     "statusSuccess": "Success",
+    "filter": {
+      "method": "Method",
+      "clear": "Clear Filter"
+    },
   "statusFailed": "Failed",
   "statusPending": "Pending",
   "statusUnknown": "Unknown"
@@ -388,7 +394,25 @@
   "common": {
     "cancel": "Cancel",
     "delete": "Delete"
+  },
+  "criticalReport": {
+    "title": "Critical report management",
+    "searchPlaceholder": "Search reports here...",
+    "reportId": "Id",
+    "typeReport": "Report type",
+    "contentReport": "Report content",
+    "contentResponse": "Response content",
+    "creationDate": "Creation date",
+    "statusCriticalReport": "Report status",
+    "reporter": "Reporter",
+    "resident": "Reported resident",
+    "answerer": "Answerer",
+    "replyReport": "Reply report",
+    "replyCriticalReport": {
+      "title": "Reply report",
+      "error": "Failed to reply report",
+      "success": "Reply report successfully",
+      "rejectSuccess": "Reject report successfully"
+    }
   }
-  
-
 }

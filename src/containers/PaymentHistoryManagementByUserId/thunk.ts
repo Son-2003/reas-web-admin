@@ -13,8 +13,8 @@ export const fetchPaymentHistoryByUserId = createAppAsyncThunk(
     transactionId,
     methodPayments,
     statusPayments,
-    sortBy = 'id',
-    sortDir = 'asc',
+    sortBy = '',
+    sortDir = 'desc',
   }: {
     userId: number;
     pageNo: number;

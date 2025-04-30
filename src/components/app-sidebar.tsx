@@ -2,11 +2,13 @@
 
 import * as React from 'react';
 import {
-  BookOpen,
-  Settings2,
-  SquareTerminal,
   MessageCircle,
-} from 'lucide-react'; // Thêm icon chat
+  AlertCircle,
+  Upload,
+  CreditCard,
+  User,
+  Package,
+} from 'lucide-react';
 
 import { selectUserInfo } from '@/containers/Auth/selector';
 import { NavMain } from '@/components/nav-main';
@@ -22,6 +24,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import {
   CHAT_ROUTE,
+  CRITICAL_REPORT_MANAGEMENT_ROUTE,
   DASHBOARD_ROUTE,
   ITEM_REQUEST_ROUTE,
   PAYMENT_HISTORY_MANAGEMENT_ROUTE,
@@ -36,41 +39,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { t } = useTranslation();
   const userInfo = useSelector(selectUserInfo);
   const role = userInfo?.roleName;
-
-  const chatItem = {
-    title: 'Chat',
-    url: CHAT_ROUTE,
-    icon: MessageCircle,
-  };
-
-  const navSingle =
-    role === 'ROLE_ADMIN'
-      ? [
-          {
-            title: 'Subcription plans',
-            url: SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE,
-            icon: Settings2,
-          },
-          {
-            title: 'Payment history',
-            url: PAYMENT_HISTORY_MANAGEMENT_ROUTE,
-            icon: Settings2,
-          },
-          chatItem,
-        ]
-      : [
-          {
-            title: 'Item requests',
-            url: ITEM_REQUEST_ROUTE,
-            icon: BookOpen,
-          },
-          {
-            title: 'Payment history',
-            url: PAYMENT_HISTORY_MANAGEMENT_ROUTE,
-            icon: Settings2,
-          },
-          chatItem,
-        ];
 
   const data = {
     user: {
@@ -90,7 +58,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {
         title: t('sidebar.human'),
         url: '#',
-        icon: SquareTerminal,
+        icon: User,
         isActive: true,
         items: [
           {
@@ -103,8 +71,37 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           },
         ],
       },
+      ...(role === 'ROLE_ADMIN'
+        ? [
+            {
+              title: 'Subscription plans',
+              url: SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE,
+              icon: Package,
+            },
+          ]
+        : [
+            {
+              title: t('sidebar.items'),
+              url: ITEM_REQUEST_ROUTE,
+              icon: Upload,
+            },
+          ]),
+      {
+        title: 'Payment history',
+        url: PAYMENT_HISTORY_MANAGEMENT_ROUTE,
+        icon: CreditCard,
+      },
+      {
+        title: t('sidebar.criticalReport'),
+        url: CRITICAL_REPORT_MANAGEMENT_ROUTE,
+        icon: AlertCircle,
+      },
+      {
+        title: 'Chat',
+        url: CHAT_ROUTE,
+        icon: MessageCircle,
+      },
     ],
-    navSingle,
   };
 
   return (
@@ -127,16 +124,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
       <SidebarContent>
         <NavMain items={data.navMain} />
-        {data.navSingle.map((item) => (
-          <a
-            key={item.title}
-            href={item.url}
-            className="flex items-center gap-2 p-2 rounded transition-colors duration-200 hover:bg-gray-700 hover:text-white"
-          >
-            <item.icon className="w-5 h-5" />
-            <span>{item.title}</span>
-          </a>
-        ))}
       </SidebarContent>
 
       <SidebarFooter>
