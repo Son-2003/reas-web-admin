@@ -28,7 +28,7 @@ export const useCriticalReportColumns =
         header: t('criticalReport.contentReport'),
         cell: ({ row }) => (
           <div className="whitespace-pre-wrap">
-            {row.original.contentReport.split("\\n")[0]}
+            {row.original.contentReport.split('\\n')[0]}
           </div>
         ),
       },
