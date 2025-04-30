@@ -405,7 +405,8 @@
     "replyCriticalReport": {
       "title": "Trả lời báo cáo",
       "error": "Lỗi khi trả lời báo cáo",
-      "success": "Trả lời báo cáo thành công"
+      "success": "Trả lời báo cáo thành công",
+      "rejectSuccess": "Từ chối báo cáo thành công"
     }
   }
 }

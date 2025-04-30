@@ -411,7 +411,8 @@
     "replyCriticalReport": {
       "title": "Reply report",
       "error": "Failed to reply report",
-      "success": "Reply report successfully"
+      "success": "Reply report successfully",
+      "rejectSuccess": "Reject report successfully"
     }
   }
 }
