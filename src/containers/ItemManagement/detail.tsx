@@ -92,7 +92,6 @@ export const ItemDetail = () => {
     navigate(ITEMS_MANAGEMENT_ROUTE.replace(':id', userId || ''));
   };
 
-  const primaryLocation = item.owner.userLocations.find((loc) => loc.primary);
 
   const imageUrls = item.imageUrl.split(', ');
 
@@ -185,7 +184,7 @@ export const ItemDetail = () => {
             {t('itemRequest.information')}
           </span>
           <div className="overflow-x-auto mt-2">
-            <table className="min-w-full border border-gray-300 dark:border-gray-700 text-black dark:text-white text-sm">
+            <table className="min-w-full border border-gray-300 dark:border-gray-700 text-black dark:text-white text-sm"> 
               <tbody>
                 <tr className="border-b border-gray-300 dark:border-gray-700">
                   <td className="p-2 text-gray-600 dark:text-gray-400">
@@ -243,60 +242,83 @@ export const ItemDetail = () => {
           </div>
 
           <div className="grid grid-cols-[41%_59%] gap-6 mt-6">
-            <div>
-              <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
-                {t('itemRequest.userLocation')}
-              </span>
-              {primaryLocation ? (
-                <div className="text-black dark:text-white text-sm mt-2 space-y-3">
-                  <p>
-                    <strong>{t('itemRequest.address')}</strong>{' '}
-                    {primaryLocation.specificAddress.split('//')[1]}
-                  </p>
-                  <p>
-                    <strong>{t('itemRequest.area')}</strong>{' '}
-                    {primaryLocation.location.area}
-                  </p>
-                  <p>
-                    <strong>{t('itemRequest.district')}</strong>{' '}
-                    {primaryLocation.location.district}
-                  </p>
-                  <p>
-                    <strong>{t('itemRequest.ward')}</strong>{' '}
-                    {primaryLocation.location.ward}
-                  </p>
-                  <p>
-                    <strong>{t('itemRequest.cluster')}</strong>{' '}
-                    {primaryLocation.location.cluster}
-                  </p>
+          <div>
+              {item.userLocation && (
+                <div>
+                  <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
+                    {t('itemRequest.userLocation')}
+                  </span>
+                  <div className="text-black dark:text-white text-sm mt-2 space-y-3">
+                    <p>
+                      <strong>{t('itemRequest.address')}</strong>{' '}
+                      {item.userLocation.specificAddress}
+                    </p>
+                    <p>
+                      <strong>{t('itemRequest.area')}</strong>{' '}
+                      {item.userLocation.location.area}
+                    </p>
+                    <p>
+                      <strong>{t('itemRequest.district')}</strong>{' '}
+                      {item.userLocation.location.district}
+                    </p>
+                    <p>
+                      <strong>{t('itemRequest.ward')}</strong>{' '}
+                      {item.userLocation.location.ward}
+                    </p>
+                    <p>
+                      <strong>{t('itemRequest.cluster')}</strong>{' '}
+                      {item.userLocation.location.cluster}
+                    </p>
+                  </div>
                 </div>
-              ) : (
-                <p className="text-gray-600 dark:text-gray-400">
-                  No location available
-                </p>
               )}
             </div>
 
-            {item.desiredItem && (
-              <div>
-                <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
-                  Desired Item:
-                </span>
-                <div className="text-black dark:text-white text-sm mt-2 space-y-3">
-                  <p>
-                    <strong>Description:</strong> {item.desiredItem.description}
-                  </p>
-                  <p>
-                    <strong>Min price:</strong>{' '}
-                    {item.desiredItem.minPrice?.toLocaleString()} VND
-                  </p>
-                  <p>
-                    <strong>Max price:</strong>{' '}
-                    {item.desiredItem.maxPrice?.toLocaleString()} VND
-                  </p>
-                </div>
-              </div>
-            )}
+            {item.desiredItem.description && (
+                    <p>
+                      <strong>
+                        {t('itemRequest.itemRequestDetail.description')}
+                      </strong>{' '}
+                      {item.desiredItem.description}
+                    </p>
+                  )}
+                  {item.desiredItem.categoryName && (
+                    <p>
+                      <strong>{t('itemRequest.category')}</strong>{' '}
+                      {item.desiredItem.categoryName}
+                    </p>
+                  )}
+                  {item.desiredItem.brandName && (
+                    <p>
+                      <strong>{t('itemRequest.brand')}</strong>{' '}
+                      {item.desiredItem.brandName}
+                    </p>
+                  )}
+                  {item.desiredItem.conditionItem && (
+                    <p>
+                      <strong>{t('itemRequest.condition')}</strong>{' '}
+                      {ConditionItemsLabels.find(
+                        (label) =>
+                          label.value === item.desiredItem.conditionItem,
+                      )?.label || item.desiredItem.conditionItem}
+                    </p>
+                  )}
+                  {item.desiredItem.minPrice != null && (
+                    <p>
+                      <strong>
+                        {t('itemRequest.itemRequestDetail.minPrice')}
+                      </strong>{' '}
+                      {item.desiredItem.minPrice.toLocaleString()} VND
+                    </p>
+                  )}
+                  {item.desiredItem.maxPrice != null && (
+                    <p>
+                      <strong>
+                        {t('itemRequest.itemRequestDetail.maxPrice')}
+                      </strong>{' '}
+                      {item.desiredItem.maxPrice.toLocaleString()} VND
+                    </p>
+                  )}
           </div>
 
           <div className="mt-6">

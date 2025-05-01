@@ -75,8 +75,8 @@ export const ItemRequestDetail = () => {
     } catch (error) {
       console.error('Error reviewing item request:', error);
       toast({
-        title: 'Lỗi',
-        description: 'Đã có lỗi xảy ra khi xử lý yêu cầu',
+        title: 'Error',
+        description: 'An error occurred while processing the request.',
         variant: 'destructive',
         action: <XCircle className="text-red-500" />,
       });
@@ -148,7 +148,6 @@ export const ItemRequestDetail = () => {
     (acc, item) => ({ ...acc, [item.value]: item.label }),
     {} as Record<ConditionItem, string>,
   );
-  const primaryLocation = item.owner.userLocations.find((loc) => loc.primary);
 
   const imageUrls = item.imageUrl.split(', ');
 
@@ -292,36 +291,34 @@ export const ItemRequestDetail = () => {
 
           <div className="grid grid-cols-[41%_59%] gap-6 mt-6">
             <div>
-              <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
-                {t('itemRequest.userLocation')}
-              </span>
-              {primaryLocation ? (
-                <div className="text-black dark:text-white text-sm mt-2 space-y-3">
-                  <p>
-                    <strong> {t('itemRequest.address')}</strong>{' '}
-                    {primaryLocation.specificAddress.split('//')[1]}
-                  </p>
-                  <p>
-                    <strong> {t('itemRequest.area')}</strong>{' '}
-                    {primaryLocation.location.area}
-                  </p>
-                  <p>
-                    <strong> {t('itemRequest.district')}</strong>{' '}
-                    {primaryLocation.location.district}
-                  </p>
-                  <p>
-                    <strong> {t('itemRequest.ward')}</strong>{' '}
-                    {primaryLocation.location.ward}
-                  </p>
-                  <p>
-                    <strong> {t('itemRequest.cluster')}</strong>{' '}
-                    {primaryLocation.location.cluster}
-                  </p>
+              {item.userLocation && (
+                <div>
+                  <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
+                    {t('itemRequest.userLocation')}
+                  </span>
+                  <div className="text-black dark:text-white text-sm mt-2 space-y-3">
+                    <p>
+                      <strong>{t('itemRequest.address')}</strong>{' '}
+                      {item.userLocation.specificAddress}
+                    </p>
+                    <p>
+                      <strong>{t('itemRequest.area')}</strong>{' '}
+                      {item.userLocation.location.area}
+                    </p>
+                    <p>
+                      <strong>{t('itemRequest.district')}</strong>{' '}
+                      {item.userLocation.location.district}
+                    </p>
+                    <p>
+                      <strong>{t('itemRequest.ward')}</strong>{' '}
+                      {item.userLocation.location.ward}
+                    </p>
+                    <p>
+                      <strong>{t('itemRequest.cluster')}</strong>{' '}
+                      {item.userLocation.location.cluster}
+                    </p>
+                  </div>
                 </div>
-              ) : (
-                <p className="text-gray-600 dark:text-gray-400">
-                  No location available
-                </p>
               )}
             </div>
 
@@ -331,24 +328,52 @@ export const ItemRequestDetail = () => {
                   {t('itemRequest.itemRequestDetail.desiredItem')}
                 </span>
                 <div className="text-black dark:text-white text-sm mt-2 space-y-3">
-                  <p>
-                    <strong>
-                      {t('itemRequest.itemRequestDetail.description')}
-                    </strong>{' '}
-                    {item.desiredItem.description}
-                  </p>
-                  <p>
-                    <strong>
-                      {t('itemRequest.itemRequestDetail.minPrice')}
-                    </strong>{' '}
-                    {item.desiredItem.minPrice?.toLocaleString()} VND
-                  </p>
-                  <p>
-                    <strong>
-                      {t('itemRequest.itemRequestDetail.maxPrice')}
-                    </strong>{' '}
-                    {item.desiredItem.maxPrice?.toLocaleString()} VND
-                  </p>
+                  {item.desiredItem.description && (
+                    <p>
+                      <strong>
+                        {t('itemRequest.itemRequestDetail.description')}
+                      </strong>{' '}
+                      {item.desiredItem.description}
+                    </p>
+                  )}
+                  {item.desiredItem.categoryName && (
+                    <p>
+                      <strong>{t('itemRequest.category')}</strong>{' '}
+                      {item.desiredItem.categoryName}
+                    </p>
+                  )}
+                  {item.desiredItem.brandName && (
+                    <p>
+                      <strong>{t('itemRequest.brand')}</strong>{' '}
+                      {item.desiredItem.brandName}
+                    </p>
+                  )}
+                  {item.desiredItem.conditionItem && (
+                    <p>
+                      <strong>{t('itemRequest.condition')}</strong>{' '}
+                      {
+                        ConditionItemsLabels[
+                          item.desiredItem.conditionItem as ConditionItem
+                        ]
+                      }
+                    </p>
+                  )}
+                  {item.desiredItem.minPrice != null && (
+                    <p>
+                      <strong>
+                        {t('itemRequest.itemRequestDetail.minPrice')}
+                      </strong>{' '}
+                      {item.desiredItem.minPrice.toLocaleString()} VND
+                    </p>
+                  )}
+                  {item.desiredItem.maxPrice != null && (
+                    <p>
+                      <strong>
+                        {t('itemRequest.itemRequestDetail.maxPrice')}
+                      </strong>{' '}
+                      {item.desiredItem.maxPrice.toLocaleString()} VND
+                    </p>
+                  )}
                 </div>
               </div>
             )}
