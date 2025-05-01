@@ -181,7 +181,6 @@ const ChatMain: React.FC = () => {
         <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-full mr-4" />
         <div>
           <p className="font-semibold">{receiverFullName}</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">Active now</p>
         </div>
       </div>
 

@@ -232,7 +232,8 @@
     "approve": "Approve",
     "discard": "Discard",
     "cancel": "Cancel",
-    "loading": "Loading"
+    "loading": "Loading",
+    "update" : "Update"
   },
   "feedback": {
     "title": "Feedbacks of user",
@@ -388,12 +389,15 @@
       "updateSuccessDescription": "Your changes have been saved.",
       "updateErrorTitle": "Error updating plan",
       "updateErrorDescription": "An error occurred while updating the plan."
+      
 
-    }
+    },
+    "updateSubscriptionPlan": "Update subscription plan"
   },
   "common": {
     "cancel": "Cancel",
-    "delete": "Delete"
+    "delete": "Delete",
+    "clear": "Clear"
   },
   "criticalReport": {
     "title": "Critical report management",
@@ -413,6 +417,19 @@
       "error": "Failed to reply report",
       "success": "Reply report successfully",
       "rejectSuccess": "Reject report successfully"
+    },
+    "filterType": "Filter by type",
+    "type":{
+      "resident": "Resident",
+      "feedback": "Feedback",
+      "exchange": "Exchange"
+    },
+    "filterStatus": "Filter by status",
+    "status": {
+      "pending": "Pending",
+      "resolved": "Resolved",
+      "rejected": "Rejected"
     }
+    
   }
 }

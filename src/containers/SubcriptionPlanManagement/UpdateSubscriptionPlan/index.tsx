@@ -128,7 +128,7 @@ export const UpdateSubscriptionPlan = () => {
   return (
     <div className="flex flex-col gap-4 p-4 w-full h-full">
       <h1 className="text-2xl font-bold">
-        {t('subscriptionPlan.createSubscriptionPlan.title')}
+        {t('subscriptionPlan.updateSubscriptionPlan')}
       </h1>
 
       <Form {...form}>
@@ -271,9 +271,7 @@ export const UpdateSubscriptionPlan = () => {
           />
 
           <div className="flex space-x-4 justify-end">
-            <Button type="submit">
-              {t('subscriptionPlan.createSubscriptionPlan.updateButton')}
-            </Button>
+            <Button type="submit">{t('button.update')}</Button>
             <Button type="button" variant="outline" onClick={handleCancel}>
               {t('subscriptionPlan.createSubscriptionPlan.cancelButton')}
             </Button>
