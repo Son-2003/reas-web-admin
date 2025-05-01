@@ -3,32 +3,39 @@ import { Gender } from '@/common/enums/gender';
 import { MethodExchange } from '@/common/enums/methodExchange';
 import { Role } from '@/common/enums/role';
 import { StatusItem } from '@/common/enums/statusItem';
-import { TypeExchange } from '@/common/enums/typeExchange';
+import { TypeItem } from '@/common/enums/typeItem';
 
 export interface Item {
-  id: string;
+  id: number;
   itemName: string;
   description: string;
   price: number;
-  conditionItem: ConditionItem;
   imageUrl: string;
-  methodExchanges: MethodExchange[];
-  isMoneyAccepted: boolean;
+  moneyAccepted: boolean;
   statusItem: StatusItem;
-  typeExchange: TypeExchange;
-  typeItem: TypeExchange;
+  conditionItem: ConditionItem;
   termsAndConditionsExchange: string;
+  expiredTime: string;
+  approvedTime: Date;
+  methodExchanges: MethodExchange[];
   category: Category;
   brand: Brand;
   owner: Owner;
-  desiredItem?: DesiredItem;
+  desiredItem: DesiredItem;
+  userLocation: UserLocation;
+  favorite: Boolean;
+  distance: string;
+  typeItem: TypeItem;
 }
 
 export interface DesiredItem {
-  typeItem: TypeExchange;
+  id: number;
   categoryId: number;
-  brandId: number;
+  categoryName: string;
   conditionItem: ConditionItem;
+  brandId: number;
+  brandName: string;
+  typeItem: TypeItem;
   minPrice: number;
   maxPrice: number;
   description: string;

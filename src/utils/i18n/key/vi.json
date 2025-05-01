@@ -226,7 +226,8 @@
     "approve": "Duyệt",
     "discard": "Hủy",
     "cancel": "Hủy",
-    "loading": "Đang tải"
+    "loading": "Đang tải",
+    "update": "Cập nhật"
   },
   "feedback": {
     "title": "Phản hồi người dùng",
@@ -382,8 +383,11 @@
       "updateSuccessDescription": "Gói đã được cập nhật.",
       "updateErrorTitle": "Lỗi khi cập nhật gói",
       "updateErrorUnknown": "Đã xảy ra lỗi không xác định khi cập nhật gói."
+     
+      
 
-    }
+    },
+     "updateSubscriptionPlan": "Cập nhật gói đăng ký"
   },
   "common": {
     "cancel": "Huỷ",
@@ -407,6 +411,20 @@
       "error": "Lỗi khi trả lời báo cáo",
       "success": "Trả lời báo cáo thành công",
       "rejectSuccess": "Từ chối báo cáo thành công"
+    },
+    "filterType": "Loại báo cáo",
+    "type":{
+      "resident": "Cư dân",
+      "feedback": "Phản hồi",
+      "exchange": "Trao đổi"
+    },
+    "filterStatus": "Trạng thái",
+    "status": {
+      "pending": "Đang chờ",
+      "resolved": "Đã giải quyết",
+      "rejected": "Đã từ chối"
     }
+
+   
   }
 }
