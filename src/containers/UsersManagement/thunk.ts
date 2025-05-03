@@ -67,3 +67,15 @@ export const updateUser = createAppAsyncThunk(
       true,
     ),
 );
+
+export const deactivateUser = createAppAsyncThunk(
+  `${TypePrefix}/deactivateUser`,
+  async (userId: number) =>
+    await callApi(
+      {
+        method: 'delete',
+        url: `/user/deactivate-staff/${userId}`,
+      },
+      true,
+    ),
+);

@@ -61,32 +61,32 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     <>
       {isDeleteDialogOpen && (
         <div
-          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center transition-opacity duration-300"
+          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center transition-opacity duration-300 z-50"
           style={{ opacity: isDeleteDialogOpen ? 1 : 0 }}
         >
           <div
-            className="bg-black rounded-lg p-6 max-w-md mx-auto transform transition-all duration-300"
+            className="bg-white dark:bg-gray-900 rounded-lg p-6 max-w-md mx-auto transform transition-all duration-300 shadow-lg"
             style={{
               transform: isDeleteDialogOpen ? 'scale(1)' : 'scale(0.9)',
             }}
           >
             <div className="flex justify-between items-center">
-              <h2 className="text-white font-bold">
+              <h2 className="text-black dark:text-white font-bold">
                 {t('subscriptionPlan.confirmTitle')}
               </h2>
               <button
-                className="text-white p-2 hover:bg-gray-700 rounded-full"
+                className="text-black dark:text-white p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full"
                 onClick={() => setDeleteDialogOpen(false)}
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <p className="text-white text-center mt-4">
+            <p className="text-black dark:text-gray-300 text-center mt-4">
               {t('subscriptionPlan.confirmMessage')}
             </p>
             <div className="flex justify-center space-x-4 mt-6">
               <button
-                className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700"
+                className="bg-gray-200 dark:bg-gray-800 text-black dark:text-white px-4 py-2 rounded hover:bg-gray-300 dark:hover:bg-gray-700"
                 onClick={() => setDeleteDialogOpen(false)}
               >
                 {t('common.cancel')}
