@@ -83,6 +83,12 @@
     "action": "Hành động",
     "edit": "Chỉnh sửa",
     "delete": "Xóa",
+    "confirmDeactivateTitle": "Xác nhận vô hiệu hóa tài khoản",
+  "confirmDeactivateMessage": "Bạn có chắc muốn vô hiệu hóa tài khoản này?",
+  "deactivateSuccessTitle": "Đã vô hiệu hóa",
+  "deactivateSuccessMessage": "Tài khoản đã được vô hiệu hóa thành công.",
+  "deactivateErrorTitle": "Lỗi",
+  "deactivateErrorMessage": "Không thể vô hiệu hóa tài khoản.",
     "searchPlaceholder": "Tìm kiếm người dùng tại đây...",
     "accountDetail": {
       "title": "Chi tiết tài khoản"

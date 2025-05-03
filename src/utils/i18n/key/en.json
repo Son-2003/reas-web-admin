@@ -85,6 +85,12 @@
     "edit": "Edit",
     "delete": "Delete",
     "searchPlaceholder": "Search user here...",
+    "confirmDeactivateTitle": "Account deactivation",
+  "confirmDeactivateMessage": "Are you sure you want to deactivate this account?",
+  "deactivateSuccessTitle": "Success",
+  "deactivateSuccessMessage": "Account deactivated successfully.",
+  "deactivateErrorTitle": "Error",
+  "deactivateErrorMessage": "Failed to deactivate account.",
     "accountDetail": {
       "title": "Account detail"
 

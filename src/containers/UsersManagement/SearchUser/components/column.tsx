@@ -5,7 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Icons } from '@/components/ui/icons';
 import { CellAction } from './cell-action';
 
-export const useUserColumns = (): ColumnDef<UserDto>[] => {
+interface UseUserColumnsProps {
+  onRefresh: () => void;
+}
+
+export const useUserColumns = ({
+  onRefresh,
+}: UseUserColumnsProps): ColumnDef<UserDto>[] => {
   const { t } = useTranslation();
 
   return [
@@ -79,7 +85,9 @@ export const useUserColumns = (): ColumnDef<UserDto>[] => {
     {
       id: 'actions',
       header: t('usersManagement.action'),
-      cell: ({ row }) => <CellAction data={row.original} />,
+      cell: ({ row }) => (
+        <CellAction data={row.original} onRefresh={onRefresh} />
+      ),
     },
   ];
 };

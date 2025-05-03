@@ -46,7 +46,6 @@ export const UsersManagement = () => {
   const dispatch = useDispatch<ReduxDispatch>();
   const responsePagination = useSelector(selectUserSearchResult);
   const [isStaffsManagement, setIsStaffsManagement] = useState<boolean>(false);
-  const columns = useUserColumns();
   const location = useLocation();
   const [lastSegment, setLastSegment] = useState<string>('');
   const [selectedStatuses, setSelectedStatuses] = useState<Set<StatusEntity>>(
@@ -68,18 +67,8 @@ export const UsersManagement = () => {
     { label: 'Other', value: Gender.OTHER },
   ];
 
-  useEffect(() => {
-    const pathSegments = location.pathname
-      .split('/')
-      .filter((segment) => segment !== '');
-    const currentLastSegment = pathSegments[pathSegments.length - 1];
-    setLastSegment(currentLastSegment);
-    setIsStaffsManagement(currentLastSegment === 'staffs-management');
-  }, [location.pathname]);
-
-  useEffect(() => {
-    if (!lastSegment) return;
-
+  // Hàm để tải lại dữ liệu user
+  const refreshData = () => {
     const defaultSearchRequestBody: SearchUserRequest = {
       userName: searchUserName,
       fullName: '',
@@ -104,7 +93,22 @@ export const UsersManagement = () => {
         request: defaultSearchRequestBody,
       }),
     ).finally(() => setLoading(false));
+  };
 
+  const columns = useUserColumns({ onRefresh: refreshData });
+
+  useEffect(() => {
+    const pathSegments = location.pathname
+      .split('/')
+      .filter((segment) => segment !== '');
+    const currentLastSegment = pathSegments[pathSegments.length - 1];
+    setLastSegment(currentLastSegment);
+    setIsStaffsManagement(currentLastSegment === 'staffs-management');
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (!lastSegment) return;
+    refreshData();
     setTotalPages(responsePagination?.totalPages || 0);
   }, [
     pageNo,
