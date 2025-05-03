@@ -58,6 +58,12 @@ export const UpdateSubscriptionPlan = () => {
     duration: z
       .number()
       .min(1, 'subscriptionPlan.createSubscriptionPlan.validate.durationMin'),
+    numberOfFreeExtension: z
+      .number()
+      .min(
+        0,
+        t('subscriptionPlan.createSubscriptionPlan.validate.freeExtensionMin'),
+      ),
   });
 
   type SubscriptionPlanFormValues = z.infer<typeof subscriptionPlanSchema>;
@@ -72,6 +78,7 @@ export const UpdateSubscriptionPlan = () => {
       duration: 1,
       typeSubscriptionPlan: TypeSubscriptionPlan.PREMIUM_PLAN,
       imageUrl: '',
+      numberOfFreeExtension: 0, // Thêm trường này
     },
   });
 
@@ -84,6 +91,7 @@ export const UpdateSubscriptionPlan = () => {
         duration: subscriptionPlan.duration,
         typeSubscriptionPlan: subscriptionPlan.typeSubscriptionPlan,
         imageUrl: subscriptionPlan.imageUrl || 'abc',
+        numberOfFreeExtension: subscriptionPlan.numberOfFreeExtension || 0, // Gán giá trị nếu có
       });
     }
   }, [subscriptionPlan, form]);
@@ -99,6 +107,7 @@ export const UpdateSubscriptionPlan = () => {
       const payload = {
         id: id,
         ...formData,
+        numberOfFreeExtension: formData.numberOfFreeExtension, // Thêm vào payload
       };
 
       await dispatch(updateSubscriptionPlan(payload));
@@ -239,6 +248,30 @@ export const UpdateSubscriptionPlan = () => {
                       {...field}
                       onChange={(e) =>
                         field.onChange(parseFloat(e.target.value))
+                      }
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="numberOfFreeExtension"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {t('subscriptionPlan.createSubscriptionPlan.freeExtension')}
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      step="1"
+                      placeholder="0"
+                      {...field}
+                      onChange={(e) =>
+                        field.onChange(parseInt(e.target.value, 10))
                       }
                     />
                   </FormControl>
