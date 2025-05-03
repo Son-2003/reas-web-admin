@@ -74,6 +74,7 @@ export const CreateSubscriptionPlan = () => {
             1,
             t('subscriptionPlan.createSubscriptionPlan.validate.durationMin'),
           ),
+        numberOfFreeExtension: z.number().min(0),
       }),
     [t],
   );
@@ -236,6 +237,29 @@ export const CreateSubscriptionPlan = () => {
                       {...field}
                       onChange={(e) =>
                         field.onChange(parseFloat(e.target.value))
+                      }
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="numberOfFreeExtension"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {t('subscriptionPlan.createSubscriptionPlan.freeExtension')}
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      step="1"
+                      placeholder="0"
+                      {...field}
+                      onChange={(e) =>
+                        field.onChange(parseInt(e.target.value, 10))
                       }
                     />
                   </FormControl>

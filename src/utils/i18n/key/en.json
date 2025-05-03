@@ -132,10 +132,10 @@
     },
     "cell-action": {
       "title": "Action",
-      "edit": "Edit info staff",
-      "delete": "Deactivate staff",
-      "view": "View detail staff",
-      "viewItem": "View item",
+      "edit": "Edit info user",
+      "delete": "Deactivate user",
+      "view": "View detail user",
+      "viewItem": "View item ",
       "viewFeedback": "View feedback",
       "viewHistoryExchange": "View exchange history",
       "viewHistoryPayment": "View payment history"
@@ -315,7 +315,7 @@
     "time": "Time",
     "date": "Date",
     "actions": "Actions",
-    "placeholder": "Search payment history here...",
+    "searchPlaceholder": "Search by transaction ID...",
     "methodPaymentCash": "Cash",
     "methodPaymentBankTransfer": "Bank Transfer",
     "methodPaymentCreditCard": "Credit Card",
@@ -360,6 +360,8 @@
     "title": "Subscription management",
     "addNew": "Add new",
     "searchPlaceholder": "Search by name...",
+    "numberOfFreeExtension": "Number of free extensions",
+  
     "createSubscriptionPlan": {
       "heading": "Create subscription plan",
       "planName": "Plan Name",
@@ -378,6 +380,7 @@
       "successDesc": "Your new plan has been saved.",
       "errorTitle": "Error creating plan",
       "errorUnknown": "Unknown error occurred",
+      "freeExtension": "Free extension",
       "validate": {
         "nameMin": "Name must be at least 3 characters.",
         "descriptionMin": "Description must be at least 10 characters.",

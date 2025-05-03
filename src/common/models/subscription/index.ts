@@ -8,6 +8,7 @@ export interface SubscriptionResponse {
   imageUrl: string;
   typeSubscriptionPlan: TypeSubscriptionPlan;
   duration: number;
+  numberOfFreeExtension: number;
 }
 
 export interface SubscriptionPlan {
@@ -17,4 +18,5 @@ export interface SubscriptionPlan {
   imageUrl: string;
   typeSubscriptionPlan: string;
   duration: number;
+  numberOfFreeExtension: number;
 }
