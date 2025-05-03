@@ -11,28 +11,6 @@ export const useSubscriptionPlanColumns =
     const { t } = useTranslation();
 
     return [
-      // {
-      //   id: 'select',
-      //   header: ({ table }) => (
-      //     <Checkbox
-      //       checked={table.getIsAllPageRowsSelected()}
-      //       onCheckedChange={(value: any) =>
-      //         table.toggleAllPageRowsSelected(!!value)
-      //       }
-      //       aria-label={t('subscriptionPlan.selectAll')}
-      //     />
-      //   ),
-      //   cell: ({ row }) => (
-      //     <Checkbox
-      //       checked={row.getIsSelected()}
-      //       onCheckedChange={(value: any) => row.toggleSelected(!!value)}
-      //       aria-label={t('subscriptionPlan.selectRow')}
-      //     />
-      //   ),
-      //   enableSorting: false,
-      //   enableHiding: false,
-      // },
-
       {
         accessorKey: 'id',
         sortDescFirst: true,
@@ -81,6 +59,14 @@ export const useSubscriptionPlanColumns =
           return (
             <span>{t('subscriptionPlan.durationUnit', { count: months })}</span>
           );
+        },
+      },
+      {
+        accessorKey: 'numberOfFreeExtension',
+        header: t('subscriptionPlan.numberOfFreeExtension'),
+        cell: ({ row }) => {
+          const number = row.original.numberOfFreeExtension;
+          return <span>{number}</span>;
         },
       },
       {

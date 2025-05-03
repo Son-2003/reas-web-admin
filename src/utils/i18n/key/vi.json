@@ -309,7 +309,7 @@
     "time": "Thời gian",
     "date": "Ngày",
     "actions": "Hành động",
-    "searchPlaceholder": "Tìm kiếm lịch sử thanh toán tại đây...",
+    "searchPlaceholder": "Tìm kiếm theo ID",
     "methodPaymentCash": "Tiền mặt",
     "methodPaymentBankTransfer": "Chuyển khoản ngân hàng",
     "methodPaymentCreditCard": "Thẻ tín dụng",
@@ -323,6 +323,7 @@
   "statusPending": "Đang chờ",
   "statusUnknown": "Không xác định",
   "filter": {
+    "method": "Phương thức ",
     "title": "Bộ lọc",
     "clear": "Xoá bộ lọc"
 
@@ -354,6 +355,7 @@
     "title": "Quản lý gói đăng ký",
     "addNew": "Thêm mới",
     "searchPlaceholder": "Tìm kiếm theo tên...",
+    "numberOfFreeExtension": "Số lần gia hạn miễn phí",
     "createSubscriptionPlan": {
       "heading": "Tạo gói đăng ký",
       "planName": "Tên gói",
@@ -364,6 +366,7 @@
       "typeItemExtension": "Gia hạn vật phẩm",
       "price": "Giá (VND)",
       "duration": "Thời gian sử dụng (tháng)",
+      "freeExtension": "Gia hạn miễn phí",
       "description": "Mô tả",
       "descriptionPlaceholder": "Nhập tính năng và lợi ích của gói...",
       "createButton": "Tạo gói",

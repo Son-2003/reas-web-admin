@@ -46,6 +46,8 @@ import AccountDetailPage from '@/app/user-detail/page';
 import ChatPage from '@/app/chat/page';
 import CriticalReportPage from '@/app/critical-report/page';
 import ReplyCriticalReportPage from '@/app/reply-critical-report/page';
+import AdminRoute from './adminRoute';
+import StaffRoute from './staffRoute';
 
 const router = createBrowserRouter([
   {
@@ -63,6 +65,41 @@ const router = createBrowserRouter([
             index: true,
             element: <DashboardPage />,
           },
+          // ✅ Các route chỉ dành cho STAFF
+          {
+            element: <StaffRoute />,
+            children: [
+              {
+                path: ITEM_REQUEST_ROUTE,
+                element: <ItemRequestPage />,
+              },
+              {
+                path: ITEM_REQUEST_DETAIL_ROUTE,
+                element: <ItemRequestDetailPage />,
+              },
+            ],
+          },
+
+          // ✅ Các route chỉ dành cho ADMIN
+          {
+            element: <AdminRoute />,
+            children: [
+              {
+                path: SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE,
+                element: <SubscriptionPlanManagementPage />,
+              },
+              {
+                path: CREATE_SUBSCRIPTION_PLAN_ROUTE,
+                element: <CreateSubscriptionPlanPage />,
+              },
+              {
+                path: UPDATE_SUBSCRIPTION_PLAN_ROUTE,
+                element: <UpdateSubscriptionPlanPage />,
+              },
+            ],
+          },
+
+          // ✅ Các route còn lại (common)
           {
             path: USERS_MANAGEMENT_ROUTE,
             element: <UsersManagementPage />,
@@ -82,14 +119,6 @@ const router = createBrowserRouter([
           {
             path: ACCOUNT_DETAIL_ROUTE,
             element: <AccountDetailPage />,
-          },
-          {
-            path: ITEM_REQUEST_ROUTE,
-            element: <ItemRequestPage />,
-          },
-          {
-            path: ITEM_REQUEST_DETAIL_ROUTE,
-            element: <ItemRequestDetailPage />,
           },
           {
             path: ITEMS_MANAGEMENT_ROUTE,
@@ -122,18 +151,6 @@ const router = createBrowserRouter([
           {
             path: PAYMENT_HISTORY_BY_USER_MANAGEMENT_ROUTE,
             element: <PaymentHistoryByUserPage />,
-          },
-          {
-            path: SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE,
-            element: <SubscriptionPlanManagementPage />,
-          },
-          {
-            path: CREATE_SUBSCRIPTION_PLAN_ROUTE,
-            element: <CreateSubscriptionPlanPage />,
-          },
-          {
-            path: UPDATE_SUBSCRIPTION_PLAN_ROUTE,
-            element: <UpdateSubscriptionPlanPage />,
           },
           {
             path: CRITICAL_REPORT_MANAGEMENT_ROUTE,
