@@ -61,10 +61,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         icon: User,
         isActive: true,
         items: [
-          {
-            title: t('sidebar.staffs'),
-            url: STAFFS_MANAGEMENT_ROUTE,
-          },
+          ...(role !== 'ROLE_STAFF'
+            ? [
+                {
+                  title: t('sidebar.staffs'),
+                  url: STAFFS_MANAGEMENT_ROUTE,
+                },
+              ]
+            : []),
           {
             title: t('sidebar.residents'),
             url: USERS_MANAGEMENT_ROUTE,
