@@ -11,13 +11,7 @@ import {
 import { useToast } from '@/components/ui/use-toast';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  MoreHorizontal,
-  Package,
-  MessageCircle,
-  History,
-  X,
-} from 'lucide-react';
+import { MoreHorizontal, Package, MessageCircle, History } from 'lucide-react';
 import { Icons } from '@/components/ui/icons';
 import { useTranslation } from 'react-i18next';
 import {
@@ -118,12 +112,6 @@ export const CellAction: React.FC<CellActionProps> = ({ data, onRefresh }) => {
               <h2 className="text-black dark:text-white font-bold">
                 {t('usersManagement.confirmDeactivateTitle')}
               </h2>
-              <button
-                className="text-black dark:text-white p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full"
-                onClick={() => setDeactivateDialogOpen(false)}
-              >
-                <X className="w-5 h-5" />
-              </button>
             </div>
             <p className="text-black dark:text-gray-300 text-center mt-4">
               {t('usersManagement.confirmDeactivateMessage')}
@@ -140,7 +128,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data, onRefresh }) => {
                 className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
                 onClick={handleDeactivateStaff}
               >
-                {loading ? t('common.processing') : t('common.delete')}
+                {loading ? t('common.processing') : t('common.deactivate')}
               </button>
             </div>
           </div>

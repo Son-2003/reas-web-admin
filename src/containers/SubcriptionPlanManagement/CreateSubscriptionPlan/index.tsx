@@ -102,7 +102,8 @@ export const CreateSubscriptionPlan = () => {
         imageUrl: 'abc',
       };
 
-      await dispatch(createSubscriptionPlan(payload));
+      // Sử dụng .unwrap() để throw lỗi từ Redux Toolkit
+      await dispatch(createSubscriptionPlan(payload)).unwrap();
 
       toast({
         title: t('subscriptionPlan.createSubscriptionPlan.successTitle'),
@@ -111,13 +112,14 @@ export const CreateSubscriptionPlan = () => {
 
       form.reset();
       navigate(SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE);
-    } catch (error) {
+    } catch (error: any) {
+      console.log('Error:', error);
       toast({
         title: t('subscriptionPlan.createSubscriptionPlan.errorTitle'),
         description:
           error instanceof Error
             ? error.message
-            : t('subscriptionPlan.createSubscriptionPlan.errorUnknown'),
+            : t('subscriptionPlan.createSubscriptionPlan.error'),
         variant: 'destructive',
       });
     }

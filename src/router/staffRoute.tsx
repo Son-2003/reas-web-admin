@@ -3,19 +3,38 @@ import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
 import { selectUserInfo } from '@/containers/Auth/selector';
 import { LoaderCircle } from 'lucide-react';
+import { useToast } from '@/components/ui/use-toast';
 
 const StaffRoute: React.FC = () => {
   const userInfo = useSelector(selectUserInfo);
   const role = userInfo?.roleName;
   const [shouldCheckRole, setShouldCheckRole] = useState(false);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShouldCheckRole(true);
-    }, 10000);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (shouldCheckRole && role && role !== 'ROLE_STAFF') {
+      toast({
+        title: 'Access denied',
+        description: 'You do not have permission to access this page.',
+        variant: 'destructive',
+      });
+
+      const redirectTimer = setTimeout(() => {
+        setShouldRedirect(true);
+      }, 500);
+
+      return () => clearTimeout(redirectTimer);
+    }
+  }, [shouldCheckRole, role, toast]);
 
   if (!role && !shouldCheckRole) {
     return (
@@ -25,11 +44,15 @@ const StaffRoute: React.FC = () => {
     );
   }
 
-  if (role !== 'ROLE_STAFF') {
+  if (shouldRedirect) {
     return <Navigate to="/admin" />;
   }
 
-  return <Outlet />;
+  if (role === 'ROLE_STAFF') {
+    return <Outlet />;
+  }
+
+  return null;
 };
 
 export default StaffRoute;
