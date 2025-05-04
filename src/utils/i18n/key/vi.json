@@ -65,7 +65,7 @@
     "revenue": "Doanh thu"
   },
   "usersManagement": {
-    "title": "Quản lý người dùng",
+    "title": "Quản lý cư dân",
     "addUser": "Thêm người dùng",
     "editUser": "Chỉnh sửa người dùng",
     "deleteUser": "Xóa người dùng",
@@ -380,7 +380,7 @@
       "successTitle": "Tạo gói đăng ký thành công!",
       "successDesc": "Gói mới đã được lưu.",
       "errorTitle": "Lỗi khi tạo gói",
-      "errorUnknown": "Đã xảy ra lỗi không xác định",
+      "error": "Lỗi khi tạo gói đăng ký.",
       "validate": {
         "nameMin": "Tên phải có ít nhất 3 ký tự.",
         "descriptionMin": "Mô tả phải có ít nhất 10 ký tự.",
@@ -400,7 +400,12 @@
   },
   "common": {
     "cancel": "Huỷ",
-    "delete": "Xoá"
+    "delete": "Xoá",
+    "confirm": "Xác nhận",
+    "approve": "Duyệt",
+    "discard": "Từ chối",
+    "edit": "Chỉnh sửa",
+    "deactivate": "Vô hiệu hóa"
   },
   "criticalReport": {
     "title": "Quản lý báo cáo",

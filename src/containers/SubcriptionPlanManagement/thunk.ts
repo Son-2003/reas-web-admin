@@ -56,7 +56,7 @@ export const createSubscriptionPlan = createAppAsyncThunk(
         true,
       );
 
-      return response.data;
+      return response;
     } catch (error) {
       console.error('Error in createSubscriptionPlan:', error);
       throw error;

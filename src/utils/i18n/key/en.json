@@ -66,7 +66,7 @@
 
   },
   "usersManagement": {
-    "title": "Users management",
+    "title": "Residients management",
     "addUser": "Add User",
     "editUser": "Edit User",
     "deleteUser": "Delete User",
@@ -385,7 +385,7 @@
       "successTitle": "Subscription plan created successfully!",
       "successDesc": "Your new plan has been saved.",
       "errorTitle": "Error creating plan",
-      "errorUnknown": "Unknown error occurred",
+      "error": "Failed to create subscription plan.",
       "freeExtension": "Free extension",
       "validate": {
         "nameMin": "Name must be at least 3 characters.",
@@ -406,7 +406,8 @@
   "common": {
     "cancel": "Cancel",
     "delete": "Delete",
-    "clear": "Clear"
+    "clear": "Clear",
+    "deactivate": "Deactivate"
   },
   "criticalReport": {
     "title": "Critical report management",
