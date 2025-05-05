@@ -33,6 +33,7 @@
   },
   "sidebar": {
     "management": "Quản lý",
+    "account": "Tài khoản",
     "human": "Con người",
     "staffs": "Nhân viên",
     "residents": "Cư dân",
@@ -281,7 +282,9 @@
     "exchangeDate": "Ngày trao đổi",
     "exchangeLocation": "Địa điểm trao đổi",
     "confirmationAndNotes": "Xác nhận & Ghi chú",
+    "notes": "Ghi chú",
     "buyerConfirmation": "Xác nhận của người mua",
+    "sellerConfirmation": "Xác nhận của người bán",
     "confirmed": "Đã xác nhận",
     "notConfirmed": "Chưa xác nhận",
     "searchPlaceholder": "Tìm kiếm lịch sử trao đổi tại đây...",
