@@ -66,7 +66,7 @@
 
   },
   "usersManagement": {
-    "title": "Residients management",
+    "title": "Residents management",
     "addUser": "Add User",
     "editUser": "Edit User",
     "deleteUser": "Delete User",
@@ -138,9 +138,9 @@
     },
     "cell-action": {
       "title": "Action",
-      "edit": "Edit info user",
-      "delete": "Deactivate user",
-      "view": "View detail user",
+      "edit": "Edit info ",
+      "delete": "Deactivate ",
+      "view": "View detail ",
       "viewItem": "View item ",
       "viewFeedback": "View feedback",
       "viewHistoryExchange": "View exchange history",
@@ -152,7 +152,7 @@
     "title": "Staffs management"
   },
   "itemsManagement":{
-    "title": "Items management",
+    "title": "Items of",
     "itemName": "Item name",
     "owner": "Owner",
     "status": "Status",
@@ -242,7 +242,7 @@
     "update" : "Update"
   },
   "feedback": {
-    "title": "Feedbacks of user",
+    "title": "Feedbacks of",
     "loading": "Loading...",
     "error": "Unable to load feedback data.",
     "feedbackInfo": "Feedback Information",
@@ -267,11 +267,12 @@
     "confirmed": "Confirmed",
     "notConfirmed": "Not Confirmed",
     "searchPlaceholder": "Search feedback here...",
-    "userName": "User Name",
-    "actions": "Actions"
+    "userName": "Sender name",
+    "actions": "Actions",
+    "images": "Images"
   },
   "exchangeHistory": {
-    "title": "Exchange History",
+    "title": "Exchange history of",
     "loading": "Loading exchange history...",
     "error": "Failed to load exchange history.",
     "sellerItem": "Seller's Item",
@@ -312,7 +313,7 @@
   },
   "paymentHistory": {
     "title": "Payment History",
-    "title1": "User's payment history",
+    "title1": "Payment history of",
     "transactionId": "Transaction ID",
     "amount": "Amount",
     "description": "Description",
@@ -407,7 +408,8 @@
     "cancel": "Cancel",
     "delete": "Delete",
     "clear": "Clear",
-    "deactivate": "Deactivate"
+    "deactivate": "Deactivate",
+    "back": "Back"
   },
   "criticalReport": {
     "title": "Critical report management",

@@ -16,6 +16,7 @@ export const getFeedback = createAppAsyncThunk(
             userId: params.userId,
             pageNo: params.pageNo,
             pageSize: params.pageSize,
+            statusEntities: 'ACTIVE',
           },
         },
         true,

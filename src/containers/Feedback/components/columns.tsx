@@ -10,27 +10,6 @@ export const useFeedbackUserColumns = (): ColumnDef<Feedback>[] => {
   const { t } = useTranslation();
 
   return [
-    //   {
-    //   id: 'select',
-    //   header: ({ table }) => (
-    //     <Checkbox
-    //       checked={table.getIsAllPageRowsSelected()}
-    //       onCheckedChange={(value: any) =>
-    //         table.toggleAllPageRowsSelected(!!value)
-    //       }
-    //       aria-label="Select all"
-    //     />
-    //   ),
-    //   cell: ({ row }) => (
-    //     <Checkbox
-    //       checked={row.getIsSelected()}
-    //       onCheckedChange={(value: any) => row.toggleSelected(!!value)}
-    //       aria-label="Select row"
-    //     />
-    //   ),
-    //   enableSorting: false,
-    //   enableHiding: false,
-    // },
     {
       accessorKey: 'id',
       sortDescFirst: true,

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxDispatch } from '@/lib/redux/store';
@@ -32,6 +32,7 @@ export const ItemRequestDetail = () => {
   const { t } = useTranslation();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [imageDialogOpen, setImageDialogOpen] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -166,6 +167,11 @@ export const ItemRequestDetail = () => {
     setCurrentImageIndex(index);
   };
 
+  const handleImageClick = (index: number) => {
+    setCurrentImageIndex(index);
+    setImageDialogOpen(true);
+  };
+
   return (
     <div className="container mx-auto p-4 bg-white dark:bg-black transition-colors duration-300">
       <div className="mt-6 flex flex-wrap gap-4">
@@ -182,21 +188,13 @@ export const ItemRequestDetail = () => {
 
       <div className="grid grid-cols-[30%_70%] gap-6 mt-6">
         <div>
-          <div className="flex items-center space-x-4">
-            <div className="w-12 h-12 bg-gray-500 rounded-full border border-gray-300" />
-            <div>
-              <span className="text-black dark:text-white font-medium">
-                {item.owner.userName}
-              </span>
-            </div>
-          </div>
-
           <div className="mt-6 relative w-96">
-            <div className="w-96 h-96 bg-gray-300 rounded-lg overflow-hidden mt-2 mb-5 flex items-center justify-center">
+            <div className="w-96 h-96 rounded-lg overflow-hidden mt-2 mb-5 flex items-center justify-center">
               <img
                 alt={item.itemName}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain cursor-pointer"
                 src={imageUrls[currentImageIndex]}
+                onClick={() => handleImageClick(currentImageIndex)}
               />
             </div>
 
@@ -215,6 +213,7 @@ export const ItemRequestDetail = () => {
             </button>
           </div>
 
+          {/* Các dot điều hướng hình ảnh */}
           <div className="flex justify-center mt-2 space-x-2">
             {imageUrls.map((_, index) => (
               <button
@@ -232,9 +231,16 @@ export const ItemRequestDetail = () => {
           </span>
 
           <p className="text-black dark:text-white text-sm mt-2 mb-4">
-            {item.description}
+            {item.description
+              .replace(/\\n/g, '\n')
+              .split('\n')
+              .map((line, index) => (
+                <React.Fragment key={index}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}
           </p>
-
           <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
             {t('itemRequest.information')}
           </span>
@@ -445,6 +451,20 @@ export const ItemRequestDetail = () => {
                 )}
               </Button>
             </DialogFooter>
+          </DialogContent>
+        </Dialog>
+        <Dialog open={imageDialogOpen} onOpenChange={setImageDialogOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>{item.itemName}</DialogTitle>
+            </DialogHeader>
+            <div className="flex justify-center">
+              <img
+                alt={item.itemName}
+                className="w-full h-auto max-w-4xl object-contain"
+                src={imageUrls[currentImageIndex]}
+              />
+            </div>
           </DialogContent>
         </Dialog>
       </div>

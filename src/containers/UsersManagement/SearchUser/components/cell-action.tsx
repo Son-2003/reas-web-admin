@@ -48,16 +48,19 @@ export const CellAction: React.FC<CellActionProps> = ({ data, onRefresh }) => {
   };
 
   const handleViewItem = () => {
+    localStorage.setItem('username', data.userName);
     navigate(ITEMS_MANAGEMENT_ROUTE.replace(':id', String(data.id)));
   };
 
   const handleViewFeedback = () => {
+    localStorage.setItem('username', data.userName);
     navigate(
       FEEDBACK_USER_MANAGEMENT_ROUTE.replace(':userId', String(data.id)),
     );
   };
 
   const handleViewHistoryExchange = () => {
+    localStorage.setItem('username', data.userName);
     navigate(
       EXCHANGE_HISTORY_MANAGEMENT_ROUTE.replace(':userId', String(data.id)),
     );
@@ -70,6 +73,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data, onRefresh }) => {
   };
 
   const handleViewPaymentExchange = () => {
+    localStorage.setItem('username', data.userName);
     navigate(
       PAYMENT_HISTORY_BY_USER_MANAGEMENT_ROUTE.replace(
         ':userId',
