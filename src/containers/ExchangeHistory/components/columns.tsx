@@ -26,7 +26,16 @@ export const useExchangeHistoryColumns =
       {
         accessorKey: 'buyer',
         header: t('exchangeHistory.buyer'),
-        cell: ({ row }) => <span>{row.original.buyerItem.itemName}</span>,
+        cell: ({ row }) => (
+          <span>
+            {row.original.buyerItem === null
+              ? row.original.buyerItem === null &&
+                row.original.sellerItem.price === 0
+                ? 'Free item'
+                : 'Exchange with money'
+              : row.original.buyerItem.itemName}
+          </span>
+        ),
       },
       {
         accessorKey: 'seller',

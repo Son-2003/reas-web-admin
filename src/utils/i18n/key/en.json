@@ -33,6 +33,7 @@
   },
   "sidebar": {
     "management": "Management",
+    "account": "Accounts",
     "human": "Human",
     "staffs": "Staffs",
     "residents": "Residents",
@@ -288,6 +289,8 @@
     "exchangeLocation": "Exchange Location",
     "confirmationAndNotes": "Confirmation & Notes",
     "buyerConfirmation": "Buyer Confirmation",
+    "notes": "Notes",
+    "sellerConfirmation": "Seller Confirmation",
     "confirmed": "Confirmed",
     "notConfirmed": "Not Confirmed",
     "searchPlaceholder": "Search exchange history here...",
