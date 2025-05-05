@@ -34,6 +34,7 @@ export const ItemManagement = () => {
   const columns = useItemColumns();
   const [loading, setLoading] = useState(true);
   const { id: userId } = useParams<{ id: string }>();
+  const storedUsername = localStorage.getItem('username');
 
   const items = useSelector(selectItems);
   const totalPages = useSelector(selectTotalPages);
@@ -162,7 +163,10 @@ export const ItemManagement = () => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading title={t('itemsManagement.title')} description="" />
+        <Heading
+          title={`${t('itemsManagement.title')} ${storedUsername}`}
+          description=""
+        />
         <Button
           onClick={() => navigate(USERS_MANAGEMENT_ROUTE)}
           variant="outline"

@@ -1,9 +1,15 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxDispatch } from '@/lib/redux/store';
 
 import { LoaderCircle } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { selectItemDetail } from '../ItemRequest/selector';
 import { fetchItemDetail } from '../ItemRequest/thunk';
@@ -19,6 +25,7 @@ export const ItemDetail = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imageDialogOpen, setImageDialogOpen] = useState(false);
 
   useEffect(() => {
     if (itemId) {
@@ -109,6 +116,11 @@ export const ItemDetail = () => {
     setCurrentImageIndex(index);
   };
 
+  const handleImageClick = (index: number) => {
+    setCurrentImageIndex(index);
+    setImageDialogOpen(true);
+  };
+
   return (
     <div className="container mx-auto p-4 bg-white dark:bg-black transition-colors duration-300">
       <div className="flex flex-wrap gap-4 mb-6">
@@ -125,24 +137,13 @@ export const ItemDetail = () => {
 
       <div className="grid grid-cols-[30%_70%] gap-6 mt-6">
         <div>
-          <div className="flex items-center space-x-4">
-            <div className="w-12 h-12 bg-gray-500 rounded-full border border-gray-300" />
-            <div>
-              <span className="text-black dark:text-white font-medium">
-                {item.owner.userName}
-              </span>
-              <p className="text-gray-600 dark:text-gray-400 text-xs">
-                Hoạt động 2 giờ trước
-              </p>
-            </div>
-          </div>
-
           <div className="mt-6 relative w-96">
-            <div className="w-96 h-96 bg-gray-300 rounded-lg overflow-hidden mt-2 mb-5">
+            <div className="w-96 h-96 rounded-lg overflow-hidden mt-2 mb-5 flex items-center justify-center">
               <img
                 alt={item.itemName}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain cursor-pointer"
                 src={imageUrls[currentImageIndex]}
+                onClick={() => handleImageClick(currentImageIndex)} // Thêm sự kiện click
               />
             </div>
 
@@ -160,6 +161,8 @@ export const ItemDetail = () => {
               &#8250;
             </button>
           </div>
+
+          {/* Các dot điều hướng hình ảnh */}
           <div className="flex justify-center mt-2 space-x-2">
             {imageUrls.map((_, index) => (
               <button
@@ -176,7 +179,15 @@ export const ItemDetail = () => {
             {t('itemRequest.description')}
           </span>
           <p className="text-black dark:text-white text-sm mt-2 mb-4">
-            {item.description}
+            {item.description
+              .replace(/\\n/g, '\n')
+              .split('\n')
+              .map((line, index) => (
+                <React.Fragment key={index}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}
           </p>
 
           <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
@@ -273,45 +284,68 @@ export const ItemDetail = () => {
               )}
             </div>
 
-            {item.desiredItem.description && (
-              <p>
-                <strong>
-                  {t('itemRequest.itemRequestDetail.description')}
-                </strong>{' '}
-                {item.desiredItem.description}
-              </p>
-            )}
-            {item.desiredItem.categoryName && (
-              <p>
-                <strong>{t('itemRequest.category')}</strong>{' '}
-                {item.desiredItem.categoryName}
-              </p>
-            )}
-            {item.desiredItem.brandName && (
-              <p>
-                <strong>{t('itemRequest.brand')}</strong>{' '}
-                {item.desiredItem.brandName}
-              </p>
-            )}
-            {item.desiredItem.conditionItem && (
-              <p>
-                <strong>{t('itemRequest.condition')}</strong>{' '}
-                {ConditionItemsLabels.find(
-                  (label) => label.value === item.desiredItem.conditionItem,
-                )?.label || item.desiredItem.conditionItem}
-              </p>
-            )}
-            {item.desiredItem.minPrice != null && (
-              <p>
-                <strong>{t('itemRequest.itemRequestDetail.minPrice')}</strong>{' '}
-                {item.desiredItem.minPrice.toLocaleString()} VND
-              </p>
-            )}
-            {item.desiredItem.maxPrice != null && (
-              <p>
-                <strong>{t('itemRequest.itemRequestDetail.maxPrice')}</strong>{' '}
-                {item.desiredItem.maxPrice.toLocaleString()} VND
-              </p>
+            {item.desiredItem && (
+              <div>
+                <span className="text-gray-600 dark:text-gray-400 text-lg font-bold">
+                  {t('itemRequest.itemRequestDetail.desiredItem')}
+                </span>
+                <div className="text-black dark:text-white text-sm mt-2 space-y-3">
+                  {item.desiredItem.description && (
+                    <p>
+                      <strong>
+                        {t('itemRequest.itemRequestDetail.description')}
+                      </strong>{' '}
+                      {item.desiredItem.description
+                        .replace(/\\n/g, '\n')
+                        .split('\n')
+                        .map((line, index) => (
+                          <React.Fragment key={index}>
+                            {line}
+                            <br />
+                          </React.Fragment>
+                        ))}
+                    </p>
+                  )}
+                  {item.desiredItem.categoryName && (
+                    <p>
+                      <strong>{t('itemRequest.category')}</strong>{' '}
+                      {item.desiredItem.categoryName}
+                    </p>
+                  )}
+                  {item.desiredItem.brandName && (
+                    <p>
+                      <strong>{t('itemRequest.brand')}</strong>{' '}
+                      {item.desiredItem.brandName}
+                    </p>
+                  )}
+                  {item.desiredItem.conditionItem && (
+                    <p>
+                      <strong>{t('itemRequest.condition')}</strong>{' '}
+                      {ConditionItemsLabels.find(
+                        (label) =>
+                          label.value === item.desiredItem.conditionItem,
+                      )?.label || item.desiredItem.conditionItem}
+                    </p>
+                  )}
+
+                  {item.desiredItem.minPrice != null && (
+                    <p>
+                      <strong>
+                        {t('itemRequest.itemRequestDetail.minPrice')}
+                      </strong>{' '}
+                      {item.desiredItem.minPrice.toLocaleString()} VND
+                    </p>
+                  )}
+                  {item.desiredItem.maxPrice != null && (
+                    <p>
+                      <strong>
+                        {t('itemRequest.itemRequestDetail.maxPrice')}
+                      </strong>{' '}
+                      {item.desiredItem.maxPrice.toLocaleString()} VND
+                    </p>
+                  )}
+                </div>
+              </div>
             )}
           </div>
 
@@ -324,6 +358,20 @@ export const ItemDetail = () => {
             </span>
           </div>
         </div>
+        <Dialog open={imageDialogOpen} onOpenChange={setImageDialogOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>{item.itemName}</DialogTitle>
+            </DialogHeader>
+            <div className="flex justify-center">
+              <img
+                alt={item.itemName}
+                className="w-full h-auto max-w-4xl object-contain"
+                src={imageUrls[currentImageIndex]}
+              />
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
