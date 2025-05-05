@@ -54,27 +54,34 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         url: DASHBOARD_ROUTE,
       },
     ],
+
     navMain: [
-      {
-        title: t('sidebar.human'),
-        url: '#',
-        icon: User,
-        isActive: true,
-        items: [
-          ...(role !== 'ROLE_STAFF'
-            ? [
+      ...(role === 'ROLE_STAFF'
+        ? [
+            {
+              title: t('sidebar.residents'),
+              url: USERS_MANAGEMENT_ROUTE,
+              icon: User,
+            },
+          ]
+        : [
+            {
+              title: t('sidebar.account'),
+              url: '#',
+              icon: User,
+              isActive: true,
+              items: [
                 {
                   title: t('sidebar.staffs'),
                   url: STAFFS_MANAGEMENT_ROUTE,
                 },
-              ]
-            : []),
-          {
-            title: t('sidebar.residents'),
-            url: USERS_MANAGEMENT_ROUTE,
-          },
-        ],
-      },
+                {
+                  title: t('sidebar.residents'),
+                  url: USERS_MANAGEMENT_ROUTE,
+                },
+              ],
+            },
+          ]),
       ...(role === 'ROLE_ADMIN'
         ? [
             {

@@ -39,9 +39,10 @@ const ExchangeHistoryDetail: React.FC = () => {
   const sellerImageUrls = exchangeHistory?.sellerItem.imageUrl
     ? exchangeHistory.sellerItem.imageUrl.split(', ')
     : [];
-  const buyerImageUrls = exchangeHistory?.buyerItem.imageUrl
-    ? exchangeHistory.buyerItem.imageUrl.split(', ')
-    : [];
+  const buyerImageUrls =
+    exchangeHistory?.buyerItem !== null && exchangeHistory?.buyerItem.imageUrl
+      ? exchangeHistory.buyerItem.imageUrl.split(', ')
+      : [];
 
   const handlePrevSellerImage = () => {
     setCurrentSellerImageIndex((prevIndex) =>
@@ -75,7 +76,7 @@ const ExchangeHistoryDetail: React.FC = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto mt-10 p-4">
+    <div className="mx-auto mt-10 p-4">
       <div className="flex flex-wrap gap-4 mb-6">
         <Button onClick={handleBackClick} variant="outline">
           {t('button.back')}
@@ -160,63 +161,65 @@ const ExchangeHistoryDetail: React.FC = () => {
                 </div>
               </div>
 
-              <div className="bg-white dark:bg-black p-6 rounded-lg shadow-sm">
-                <h2 className="text-lg font-semibold mb-4 border-b pb-2 text-black dark:text-white">
-                  {t('exchangeHistory.buyerItem')}
-                </h2>
-                <div className="space-y-4">
-                  <div>
-                    <strong className="block text-sm text-gray-600 dark:text-gray-400">
-                      {t('exchangeHistory.itemName')}
-                    </strong>
-                    <span>{exchangeHistory.buyerItem.itemName}</span>
-                  </div>
-                  <div>
-                    <strong className="block text-sm text-gray-600 dark:text-gray-400">
-                      {t('exchangeHistory.description')}
-                    </strong>
-                    <span>{exchangeHistory.buyerItem.description}</span>
-                  </div>
-                  <div>
-                    <strong className="block text-sm text-gray-600 dark:text-gray-400">
-                      {t('exchangeHistory.price')}
-                    </strong>
-                    <span>
-                      {exchangeHistory.buyerItem.price.toLocaleString()} VND
-                    </span>
-                  </div>
-                  {buyerImageUrls.length > 0 && (
-                    <div className="relative w-full h-96 mt-2 mb-5">
-                      <img
-                        alt={exchangeHistory.buyerItem.itemName}
-                        className="w-full h-full object-cover rounded-lg border border-gray-300 dark:border-gray-600"
-                        src={buyerImageUrls[currentBuyerImageIndex]}
-                      />
-                      <button
-                        onClick={handlePrevBuyerImage}
-                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/80 text-white p-2 rounded-full hover:bg-black transition-colors"
-                      >
-                        &#8249;
-                      </button>
-                      <button
-                        onClick={handleNextBuyerImage}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/80 text-white p-2 rounded-full hover:bg-black transition-colors"
-                      >
-                        &#8250;
-                      </button>
+              {exchangeHistory.buyerItem && (
+                <div className="bg-white dark:bg-black p-6 rounded-lg shadow-sm">
+                  <h2 className="text-lg font-semibold mb-4 border-b pb-2 text-black dark:text-white">
+                    {t('exchangeHistory.buyerItem')}
+                  </h2>
+                  <div className="space-y-4">
+                    <div>
+                      <strong className="block text-sm text-gray-600 dark:text-gray-400">
+                        {t('exchangeHistory.itemName')}
+                      </strong>
+                      <span>{exchangeHistory.buyerItem.itemName}</span>
                     </div>
-                  )}
-                  <div className="flex justify-center mt-2 space-x-2">
-                    {buyerImageUrls.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => handleDotBuyerClick(index)}
-                        className={`h-2 w-2 rounded-full focus:outline-none transition-colors duration-200 ${currentBuyerImageIndex === index ? 'bg-black dark:bg-white scale-125' : 'bg-gray-400 dark:bg-gray-600'}`}
-                      ></button>
-                    ))}
+                    <div>
+                      <strong className="block text-sm text-gray-600 dark:text-gray-400">
+                        {t('exchangeHistory.description')}
+                      </strong>
+                      <span>{exchangeHistory.buyerItem.description}</span>
+                    </div>
+                    <div>
+                      <strong className="block text-sm text-gray-600 dark:text-gray-400">
+                        {t('exchangeHistory.price')}
+                      </strong>
+                      <span>
+                        {exchangeHistory.buyerItem.price.toLocaleString()} VND
+                      </span>
+                    </div>
+                    {buyerImageUrls.length > 0 && (
+                      <div className="relative w-full h-96 mt-2 mb-5">
+                        <img
+                          alt={exchangeHistory.buyerItem.itemName}
+                          className="w-full h-full object-contain rounded-lg border border-gray-300 dark:border-gray-600"
+                          src={buyerImageUrls[currentBuyerImageIndex]}
+                        />
+                        <button
+                          onClick={handlePrevBuyerImage}
+                          className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/80 text-white p-2 rounded-full hover:bg-black transition-colors"
+                        >
+                          &#8249;
+                        </button>
+                        <button
+                          onClick={handleNextBuyerImage}
+                          className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/80 text-white p-2 rounded-full hover:bg-black transition-colors"
+                        >
+                          &#8250;
+                        </button>
+                      </div>
+                    )}
+                    <div className="flex justify-center mt-2 space-x-2">
+                      {buyerImageUrls.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => handleDotBuyerClick(index)}
+                          className={`h-2 w-2 rounded-full focus:outline-none transition-colors duration-200 ${currentBuyerImageIndex === index ? 'bg-black dark:bg-white scale-125' : 'bg-gray-400 dark:bg-gray-600'}`}
+                        ></button>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               <div className="space-y-8">
                 <div className="bg-white dark:bg-black p-6 rounded-lg shadow-sm">
@@ -258,7 +261,9 @@ const ExchangeHistoryDetail: React.FC = () => {
                       <strong className="block text-sm text-gray-600 dark:text-gray-400">
                         {t('exchangeHistory.exchangeLocation')}
                       </strong>
-                      <span>{exchangeHistory.exchangeLocation}</span>
+                      <span>
+                        {exchangeHistory.exchangeLocation.split('//')[1]}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -284,6 +289,40 @@ const ExchangeHistoryDetail: React.FC = () => {
                           : t('exchangeHistory.notConfirmed')}
                       </span>
                     </div>
+                    <div>
+                      <strong className="block text-sm text-gray-600 dark:text-gray-400">
+                        {t('exchangeHistory.sellerConfirmation')}
+                      </strong>
+                      <span
+                        className={
+                          exchangeHistory.sellerConfirmation
+                            ? 'text-green-600'
+                            : 'text-red-600'
+                        }
+                      >
+                        {exchangeHistory.sellerConfirmation
+                          ? t('exchangeHistory.confirmed')
+                          : t('exchangeHistory.notConfirmed')}
+                      </span>
+                    </div>
+                    {exchangeHistory.additionalNotes && (
+                      <div>
+                        <strong className="block text-sm text-gray-600 dark:text-gray-400">
+                          {t('exchangeHistory.notes')}
+                        </strong>
+                        <span>
+                          {exchangeHistory.additionalNotes
+                            .replace(/\\n/g, '\n')
+                            .split('\n')
+                            .map((line, index) => (
+                              <React.Fragment key={index}>
+                                {line}
+                                <br />
+                              </React.Fragment>
+                            ))}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
