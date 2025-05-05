@@ -1,6 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
-// import { Checkbox } from '@/components/ui/checkbox';
 import { Icons } from '@/components/ui/icons';
 import { CellAction } from './cell-action';
 import { ExchangeHistoryByUserId } from '@/common/models/exchange-history';
@@ -11,27 +10,6 @@ export const useExchangeHistoryColumns =
     const { t } = useTranslation();
 
     return [
-      // {
-      //   id: 'select',
-      //   header: ({ table }) => (
-      //     <Checkbox
-      //       checked={table.getIsAllPageRowsSelected()}
-      //       onCheckedChange={(value: any) =>
-      //         table.toggleAllPageRowsSelected(!!value)
-      //       }
-      //       aria-label={t('selectAll')}
-      //     />
-      //   ),
-      //   cell: ({ row }) => (
-      //     <Checkbox
-      //       checked={row.getIsSelected()}
-      //       onCheckedChange={(value: any) => row.toggleSelected(!!value)}
-      //       aria-label={t('selectRow')}
-      //     />
-      //   ),
-      //   enableSorting: false,
-      //   enableHiding: false,
-      // },
       {
         accessorKey: 'id',
         sortDescFirst: true,

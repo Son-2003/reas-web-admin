@@ -34,6 +34,7 @@ export const PaymentHistoryByUserManagement = () => {
   const navigate = useNavigate();
   const columns = usePaymentHistorycolumns();
   const { userId } = useParams<{ userId: string }>();
+  const storedUsername = localStorage.getItem('username');
 
   const paymentHistory = useSelector(selectPaymentHistoryByUserId);
   const totalPages = useSelector(selectPaymentHistoryByUserIdTotalPages);
@@ -157,7 +158,10 @@ export const PaymentHistoryByUserManagement = () => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading title={t('paymentHistory.title1')} description="" />
+        <Heading
+          title={`${t('paymentHistory.title1')} ${storedUsername || 'Unknown User'}`}
+          description=""
+        />
         <Button
           onClick={() => navigate(USERS_MANAGEMENT_ROUTE)}
           variant="outline"

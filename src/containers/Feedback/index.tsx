@@ -26,6 +26,7 @@ export const FeedbackUser = () => {
   const { userId: userId } = useParams<{ userId: string }>();
   const { t } = useTranslation();
   const columns = useFeedbackUserColumns();
+  const storedUsername = localStorage.getItem('username');
   const navigate = useNavigate();
   const dispatch = useDispatch<ReduxDispatch>();
 
@@ -45,7 +46,10 @@ export const FeedbackUser = () => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading title={t('feedback.title')} description="" />
+        <Heading
+          title={`${t('feedback.title')} ${storedUsername || 'Unknown User'}`}
+          description=""
+        />
         <Button
           onClick={() => navigate(USERS_MANAGEMENT_ROUTE)}
           variant="outline"

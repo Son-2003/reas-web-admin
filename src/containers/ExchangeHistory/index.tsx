@@ -27,6 +27,7 @@ export const ExchangeHistory = () => {
   const columns = useExchangeHistoryColumns();
   const navigate = useNavigate();
   const dispatch = useDispatch<ReduxDispatch>();
+  const storedUsername = localStorage.getItem('username');
 
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(10);
@@ -44,7 +45,10 @@ export const ExchangeHistory = () => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading title={t('exchangeHistory.title')} description="" />
+        <Heading
+          title={`${t('exchangeHistory.title')} ${storedUsername || 'Unknown User'}`}
+          description=""
+        />
 
         <div className="flex flex-wrap gap-4 mb-6">
           <Button

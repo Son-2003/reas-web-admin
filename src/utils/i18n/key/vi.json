@@ -136,9 +136,9 @@
     },
     "cell-action": {
       "title": "Hành động",
-      "edit": "Chỉnh sửa thông tin nhân viên",
-      "delete": "Vô hiệu hóa nhân viên",
-      "view": "Xem thông tin nhân viên",
+      "edit": "Chỉnh sửa thông tin",
+      "delete": "Vô hiệu hóa",
+      "view": "Xem thông tin",
       "viewFeedback": "Xem phản hồi",
       "viewItem": "Xem sản phẩm",
       "viewHistoryExchange": "Xem lịch sử trao đổi",
@@ -149,7 +149,7 @@
     "title": "Quản lý nhân viên"
   },
   "itemsManagement": {
-    "title": "Quản lý sản phẩm",
+    "title": "Sản phẩm của",
     "itemName": "Tên sản phẩm",
     "owner": "Người sở hữu",
     "status": "Trạng thái",
@@ -236,7 +236,7 @@
     "update": "Cập nhật"
   },
   "feedback": {
-    "title": "Phản hồi người dùng",
+    "title": "Phản hồi của",
     "loading": "Đang tải...",
     "error": "Không thể tải dữ liệu phản hồi.",
     "feedbackInfo": "Thông tin phản hồi",
@@ -261,11 +261,12 @@
     "confirmed": "Đã xác nhận",
     "notConfirmed": "Chưa xác nhận",
     "searchPlaceholder": "Tìm kiếm phản hồi tại đây...",
-    "userName": "Tên người dùng",
-    "actions": "Hành động"
+    "userName": "Tên người gửi",
+    "actions": "Hành động",
+    "images": "Hình ảnh"
   },
   "exchangeHistory": {
-    "title": "Lịch sử trao đổi",
+    "title": "Lịch sử trao đổi của",
     "loading": "Đang tải lịch sử trao đổi...",
     "error": "Không thể tải lịch sử trao đổi.",
     "sellerItem": "Món hàng của người bán",
@@ -306,7 +307,7 @@
   },
   "paymentHistory": {
     "title": "Lịch sử thanh toán",
-    "title1": "Lịch sử thanh toán của người dùng",
+    "title1": "Lịch sử thanh toán của",
     "transactionId": "Mã giao dịch",
     "amount": "Số tiền",
     "description": "Nội dung chuyển khoản",
@@ -405,7 +406,8 @@
     "approve": "Duyệt",
     "discard": "Từ chối",
     "edit": "Chỉnh sửa",
-    "deactivate": "Vô hiệu hóa"
+    "deactivate": "Vô hiệu hóa",
+    "back": "Quay lại"
   },
   "criticalReport": {
     "title": "Quản lý báo cáo",
