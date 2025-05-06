@@ -10,6 +10,7 @@ export interface Feedback {
   imageUrl: string;
   creationDate: string;
   updated: boolean;
+  statusEntity: string;
 }
 
 export interface ExchangeHistory {

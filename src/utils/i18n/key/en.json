@@ -55,15 +55,14 @@
     "revenueChart": "Revenue chart",
     "buy": "Buy",
     "exchange": "Exchange",
-    "barChartDes": "Monthly revenue from buy and exchange",
-    "pieChartTitle": "Revenue previous month",
-    "pieChartDes": "Number of exchanges and buys",
+    "barChartDes": "Monthly revenue from plans and extensions",
+    "pieChartTitle": "Revenue of this month",
+    "pieChartDes": "Number of plans and extension",
     "premiumPlan": "Premium plan",
     "itemExtension": "Item extension",
     "trending": "Trending up by 5.2% this month",
-    "showing": "Showing total revenue for the last month",
+    "showing": "Showing total revenue of this month",
     "revenue": "Revenue"
-
   },
   "usersManagement": {
     "title": "Residents management",
@@ -291,8 +290,8 @@
     "confirmed": "Confirmed",
     "notConfirmed": "Not Confirmed",
     "searchPlaceholder": "Search exchange history here...",
-    "buyer": "Buyer",
-    "seller": "Seller",
+    "buyer": "Item's buyer",
+    "seller": "Item's seller",
     "date": "Date",
     "actions": "Actions",
     "time": "Time"
@@ -443,5 +442,15 @@
       "rejected": "Rejected"
     }
     
+  },
+  "pagination": {
+    "pageSizeLimit": "Results per page limit",
+    "pageInfo": "Page {{currentPage}} of {{totalPages}}",
+    "noData": "No data available",
+    "goToFirstPage": "Go to first page",
+    "goToPreviousPage": "Go to previous page",
+    "goToNextPage": "Go to next page",
+    "goToLastPage": "Go to last page"
   }
+
 }

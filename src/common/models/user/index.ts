@@ -63,4 +63,6 @@ export interface UpdateStaffAccountRequest {
   phone: string;
   gender: Gender;
   image: string;
+  password: string;
+  confirmPassword: string;
 }

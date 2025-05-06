@@ -55,13 +55,13 @@
     "revenueChart": "Biểu đồ doanh thu",
     "buy": "Mua bán",
     "exchange": "Trao đổi",
-    "barChartDes": "Doanh thu hàng tháng từ mua bán và trao đổi",
-    "pieChartTitle": "Doanh thu tháng trước",
-    "pieChartDes": "Số lượng trao đổi và mua bán",
+    "barChartDes": "Doanh thu hàng tháng từ bán gói đăng ký và gia hạn sản phẩm",
+    "pieChartTitle": "Doanh thu tháng này",
+    "pieChartDes": "Số lượng gói đăng ký và gia hạn sản phẩm",
     "premiumPlan": "Gói cao cấp",
     "itemExtension": "Gia hạn sản phẩm",
     "trending": "Tăng 5.2% trong tháng này",
-    "showing": "Đang hiển thị tổng doanh thu trong tháng qua",
+    "showing": "Đang hiển thị tổng doanh thu trong tháng này",
     "revenue": "Doanh thu"
   },
   "usersManagement": {
@@ -285,8 +285,8 @@
     "confirmed": "Đã xác nhận",
     "notConfirmed": "Chưa xác nhận",
     "searchPlaceholder": "Tìm kiếm lịch sử trao đổi tại đây...",
-    "buyer": "Người mua",
-    "seller": "Người bán",
+    "buyer": "Đồ của người mua",
+    "seller": "Đồ của người bán",
     "date": "Ngày",
     "actions": "Hành động",
     "time": "Thời gian"
@@ -442,5 +442,15 @@
     }
 
    
+  },
+
+  "pagination": {
+    "pageSizeLimit": "Giới hạn kết quả mỗi trang",
+    "pageInfo": "Trang {{currentPage}} trong {{totalPages}}",
+    "noData": "Không có dữ liệu",
+    "goToFirstPage": "Đi đến trang đầu tiên",
+    "goToPreviousPage": "Đi đến trang trước",
+    "goToNextPage": "Đi đến trang tiếp theo",
+    "goToLastPage": "Đi đến trang cuối cùng"
   }
 }
