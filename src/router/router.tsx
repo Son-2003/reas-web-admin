@@ -65,7 +65,6 @@ const router = createBrowserRouter([
             index: true,
             element: <DashboardPage />,
           },
-          // ✅ Các route chỉ dành cho STAFF
           {
             element: <StaffRoute />,
             children: [
@@ -80,7 +79,6 @@ const router = createBrowserRouter([
             ],
           },
 
-          // ✅ Các route chỉ dành cho ADMIN
           {
             element: <AdminRoute />,
             children: [
@@ -96,18 +94,18 @@ const router = createBrowserRouter([
                 path: UPDATE_SUBSCRIPTION_PLAN_ROUTE,
                 element: <UpdateSubscriptionPlanPage />,
               },
+              {
+                path: STAFFS_MANAGEMENT_ROUTE,
+                element: <UsersManagementPage />,
+              },
             ],
           },
 
-          // ✅ Các route còn lại (common)
           {
             path: USERS_MANAGEMENT_ROUTE,
             element: <UsersManagementPage />,
           },
-          {
-            path: STAFFS_MANAGEMENT_ROUTE,
-            element: <UsersManagementPage />,
-          },
+
           {
             path: CREATE_STAFF_ACCOUNT_ROUTE,
             element: <CreateUpdateUserPage />,

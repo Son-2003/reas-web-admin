@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 const getStatusColor = (status: StatusItem) => {
   const statusColors: Record<StatusItem, string> = {
     [StatusItem.AVAILABLE]: 'text-green-600',
-    [StatusItem.SOLD]: 'text-gray-500',
+    [StatusItem.EXCHANGED]: 'text-gray-500',
     [StatusItem.EXPIRED]: 'text-red-600',
     [StatusItem.NO_LONGER_FOR_EXCHANGE]: 'text-yellow-600',
     [StatusItem.PENDING]: 'text-blue-500',

@@ -179,7 +179,7 @@ export const ItemRequestDetail = () => {
           {t('button.back')}
         </Button>
       </div>
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-4 mt-5">
         <div className="w-12 h-12 bg-gray-500 rounded-full border border-gray-300" />
         <div>
           <span className="text-black dark:text-white font-medium">

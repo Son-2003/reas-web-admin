@@ -67,8 +67,8 @@ export const ItemManagement = () => {
       icon: Icons.check,
     },
     {
-      label: t('itemsManagement.sold'),
-      value: StatusItem.SOLD,
+      label: t('itemsManagement.exchanged'),
+      value: StatusItem.EXCHANGED,
       icon: Icons.cancel,
     },
     {

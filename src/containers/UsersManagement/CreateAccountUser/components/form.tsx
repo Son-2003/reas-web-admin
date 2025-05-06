@@ -21,7 +21,10 @@ import { createStaffAccount, getUserInfo, updateUser } from '../../thunk';
 import { Gender } from '@/common/enums/gender';
 import { CreateStaffAccountRequest } from '@/common/models/user';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { STAFFS_MANAGEMENT_ROUTE } from '@/common/constants/router';
+import {
+  STAFFS_MANAGEMENT_ROUTE,
+  USERS_MANAGEMENT_ROUTE,
+} from '@/common/constants/router';
 import { selectStaffAccountInfo } from '../../selector';
 
 const createAccountSchema = z
@@ -150,14 +153,8 @@ export default function CreateUpdateUserForm() {
       }
 
       toast({
-        title: 'Account Created Successfully!',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">
-              {JSON.stringify(payload, null, 2)}
-            </code>
-          </pre>
-        ),
+        title: 'Success',
+        description: 'Account Created Successfully!',
       });
     } catch (error) {
       toast({
@@ -242,6 +239,7 @@ export default function CreateUpdateUserForm() {
                     placeholder={t(
                       'usersManagement.createAccountUser.username.placeholder',
                     )}
+                    readOnly={isEdittingStaff}
                     {...field}
                   />
                 </FormControl>
@@ -249,6 +247,7 @@ export default function CreateUpdateUserForm() {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="email"
@@ -390,14 +389,20 @@ export default function CreateUpdateUserForm() {
         {/* Cancel and Create Account Buttons */}
         <div className="flex space-x-4">
           <Button type="submit">
-            {t('usersManagement.createAccountUser.createButton')}
+            {isEdittingStaff
+              ? t('usersManagement.createAccountUser.editButton')
+              : t('usersManagement.createAccountUser.createButton')}
           </Button>
           <Button
             type="button"
             variant="outline"
             onClick={() => {
-              form.reset(); // Reset the form
-              setPreviewImage(null); // Clear the image preview
+              setPreviewImage(null);
+              {
+                isEdittingStaff
+                  ? navigate(STAFFS_MANAGEMENT_ROUTE)
+                  : navigate(USERS_MANAGEMENT_ROUTE);
+              }
             }}
           >
             {t('usersManagement.createAccountUser.cancelButton')}
