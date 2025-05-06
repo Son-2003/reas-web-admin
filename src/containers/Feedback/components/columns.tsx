@@ -5,6 +5,7 @@ import { Icons } from '@/components/ui/icons';
 import { CellAction } from './cell-action';
 import { Feedback } from '@/common/models/feedback';
 import { useTranslation } from 'react-i18next';
+import { StatusEntity } from '@/common/enums/statusEntity';
 
 export const useFeedbackUserColumns = (): ColumnDef<Feedback>[] => {
   const { t } = useTranslation();
@@ -28,12 +29,29 @@ export const useFeedbackUserColumns = (): ColumnDef<Feedback>[] => {
       header: t('feedback.userName'),
       cell: ({ row }) => <span>{row.original.user.userName}</span>,
     },
-
     {
       accessorKey: 'rating',
       header: t('feedback.rating'),
       cell: ({ row }) => <span>{row.original.rating}</span>,
     },
+    {
+      accessorKey: 'status',
+      header: t('feedback.status'),
+      cell: ({ row }) => {
+        const status: StatusEntity =
+          StatusEntity[row.original.statusEntity as keyof typeof StatusEntity];
+        const isActive = status === StatusEntity.ACTIVE;
+
+        const statusClass = isActive ? 'text-green-600' : 'text-red-600';
+
+        return (
+          <span className={`font-semibold uppercase ${statusClass}`}>
+            {status}
+          </span>
+        );
+      },
+    },
+
     {
       id: 'actions',
       header: t('feedback.actions'),

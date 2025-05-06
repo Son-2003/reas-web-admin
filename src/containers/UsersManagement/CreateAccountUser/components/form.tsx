@@ -79,10 +79,16 @@ const updateAccountSchema = z
       .optional(),
     confirmPassword: z.string().optional(),
   })
-  .refine((data) => !data.password || data.password === data.confirmPassword, {
-    message: 'Passwords do not match.',
-    path: ['confirmPassword'],
-  });
+  .refine(
+    (data) =>
+      data.password &&
+      data.confirmPassword &&
+      data.password === data.confirmPassword,
+    {
+      message: 'Passwords do not match.',
+      path: ['confirmPassword'],
+    },
+  );
 
 type CreateAccountUserRequest = z.infer<typeof createAccountSchema>;
 type UpdateAccountUserRequest = z.infer<typeof updateAccountSchema>;
@@ -172,6 +178,8 @@ export default function CreateUpdateUserForm() {
           phone: formData.phone,
           gender: formData.gender as Gender,
           image: imageUrl,
+          password: formData.password ?? '',
+          confirmPassword: formData.confirmPassword ?? '',
         };
 
         const resultAction = await dispatch(updateUser(payload));
@@ -323,54 +331,50 @@ export default function CreateUpdateUserForm() {
           />
         </div>
 
-        {!isEdittingStaff && (
-          <div className="grid grid-cols-2 gap-4">
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t('usersManagement.createAccountUser.password.label')}
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      type="password"
-                      placeholder={t(
-                        'usersManagement.createAccountUser.password.placeholder',
-                      )}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="confirmPassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t(
-                      'usersManagement.createAccountUser.confirmPassword.label',
+        <div className="grid grid-cols-2 gap-4">
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {t('usersManagement.createAccountUser.password.label')}
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder={t(
+                      'usersManagement.createAccountUser.password.placeholder',
                     )}
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      type="password"
-                      placeholder={t(
-                        'usersManagement.createAccountUser.confirmPassword.placeholder',
-                      )}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-        )}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="confirmPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {t('usersManagement.createAccountUser.confirmPassword.label')}
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder={t(
+                      'usersManagement.createAccountUser.confirmPassword.placeholder',
+                    )}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <div className="grid grid-cols-2 gap-4">
           <FormField

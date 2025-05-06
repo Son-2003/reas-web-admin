@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useToast } from '@/components/ui/use-toast';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { MoreHorizontal, Package, MessageCircle, History } from 'lucide-react';
 import { Icons } from '@/components/ui/icons';
 import { useTranslation } from 'react-i18next';
@@ -38,6 +38,8 @@ export const CellAction: React.FC<CellActionProps> = ({ data, onRefresh }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const dispatch = useDispatch<ReduxDispatch>();
+  const location = useLocation();
+  const isStaffPage = location.pathname.includes('staffs-management');
 
   const handleViewDetailsClick = () => {
     navigate(ACCOUNT_DETAIL_ROUTE.replace(':staffId', String(data.id)));
@@ -48,19 +50,19 @@ export const CellAction: React.FC<CellActionProps> = ({ data, onRefresh }) => {
   };
 
   const handleViewItem = () => {
-    localStorage.setItem('username', data.userName);
+    localStorage.setItem('username', data.fullName);
     navigate(ITEMS_MANAGEMENT_ROUTE.replace(':id', String(data.id)));
   };
 
   const handleViewFeedback = () => {
-    localStorage.setItem('username', data.userName);
+    localStorage.setItem('username', data.fullName);
     navigate(
       FEEDBACK_USER_MANAGEMENT_ROUTE.replace(':userId', String(data.id)),
     );
   };
 
   const handleViewHistoryExchange = () => {
-    localStorage.setItem('username', data.userName);
+    localStorage.setItem('username', data.fullName);
     navigate(
       EXCHANGE_HISTORY_MANAGEMENT_ROUTE.replace(':userId', String(data.id)),
     );
@@ -73,7 +75,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data, onRefresh }) => {
   };
 
   const handleViewPaymentExchange = () => {
-    localStorage.setItem('username', data.userName);
+    localStorage.setItem('username', data.fullName);
     navigate(
       PAYMENT_HISTORY_BY_USER_MANAGEMENT_ROUTE.replace(
         ':userId',
@@ -159,22 +161,27 @@ export const CellAction: React.FC<CellActionProps> = ({ data, onRefresh }) => {
               <Icons.edit className="mr-2 h-4 w-4" />
               {t('usersManagement.cell-action.edit')}
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleViewItem}>
-              <Package className="mr-2 h-4 w-4" />
-              {t('usersManagement.cell-action.viewItem')}
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleViewFeedback}>
-              <MessageCircle className="mr-2 h-4 w-4" />
-              {t('usersManagement.cell-action.viewFeedback')}
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleViewHistoryExchange}>
-              <History className="mr-2 h-4 w-4" />
-              {t('usersManagement.cell-action.viewHistoryExchange')}
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleViewPaymentExchange}>
-              <History className="mr-2 h-4 w-4" />
-              {t('usersManagement.cell-action.viewHistoryPayment')}
-            </DropdownMenuItem>
+            {!isStaffPage && (
+              <>
+                <DropdownMenuItem onClick={handleViewItem}>
+                  <Package className="mr-2 h-4 w-4" />
+                  {t('usersManagement.cell-action.viewItem')}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleViewFeedback}>
+                  <MessageCircle className="mr-2 h-4 w-4" />
+                  {t('usersManagement.cell-action.viewFeedback')}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleViewHistoryExchange}>
+                  <History className="mr-2 h-4 w-4" />
+                  {t('usersManagement.cell-action.viewHistoryExchange')}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleViewPaymentExchange}>
+                  <History className="mr-2 h-4 w-4" />
+                  {t('usersManagement.cell-action.viewHistoryPayment')}
+                </DropdownMenuItem>
+              </>
+            )}
+
             <DropdownMenuItem onClick={handleChat}>
               <MessageCircle className="mr-2 h-4 w-4" />
               Chat
