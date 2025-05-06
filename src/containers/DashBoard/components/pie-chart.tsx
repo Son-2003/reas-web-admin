@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import { TrendingUp } from 'lucide-react';
 import { Label, Pie, PieChart } from 'recharts';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxDispatch } from '@/lib/redux/store';
@@ -158,9 +157,7 @@ export function SalesPieChart() {
             <span>{chartConfig.item.label}</span>
           </div>
         </div>
-        <div className="flex items-center gap-2 font-medium leading-none mt-4">
-          {t('dashboard.trending')} <TrendingUp className="h-4 w-4" />
-        </div>
+
         <div className="leading-none text-muted-foreground">
           {t('dashboard.showing')}
         </div>

@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useTranslation } from 'react-i18next';
 
 interface DataTablePaginationProps {
   currentPage: number;
@@ -28,11 +29,12 @@ export function DataTablePagination({
   setPageNo,
   setPageSize,
 }: DataTablePaginationProps) {
+  const { t } = useTranslation();
   return (
     <div className="flex items-center justify-end">
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium">Giới hạn kết quả mỗi trang</p>
+          <p className="text-sm font-medium">{t('pagination.pageSizeLimit')}</p>
           <Select
             value={`${pageSize}`}
             onValueChange={(value: any) => {
@@ -53,8 +55,11 @@ export function DataTablePagination({
         </div>
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
           {totalPages > 0
-            ? `Trang ${currentPage + 1} trong ${totalPages}`
-            : 'Không có dữ liệu'}
+            ? t('pagination.pageInfo', {
+                currentPage: currentPage + 1,
+                totalPages,
+              })
+            : t('pagination.noData')}
         </div>
 
         <div className="flex items-center space-x-2">
@@ -64,7 +69,7 @@ export function DataTablePagination({
             onClick={() => setPageNo(0)}
             disabled={currentPage === 0}
           >
-            <span className="sr-only">Go to first page</span>
+            <span className="sr-only">{t('pagination.goToFirstPage')}</span>
             <DoubleArrowLeftIcon className="h-4 w-4" />
           </Button>
           <Button
@@ -73,7 +78,7 @@ export function DataTablePagination({
             onClick={() => setPageNo(currentPage - 1)}
             disabled={currentPage === 0}
           >
-            <span className="sr-only">Go to previous page</span>
+            <span className="sr-only">{t('pagination.goToPreviousPage')}</span>
             <ChevronLeftIcon className="h-4 w-4" />
           </Button>
           <Button
@@ -82,7 +87,7 @@ export function DataTablePagination({
             onClick={() => setPageNo(currentPage + 1)}
             disabled={currentPage >= totalPages - 1}
           >
-            <span className="sr-only">Go to next page</span>
+            <span className="sr-only">{t('pagination.goToNextPage')}</span>
             <ChevronRightIcon className="h-4 w-4" />
           </Button>
           <Button
@@ -91,7 +96,7 @@ export function DataTablePagination({
             onClick={() => setPageNo(totalPages - 1)}
             disabled={currentPage >= totalPages - 1}
           >
-            <span className="sr-only">Go to last page</span>
+            <span className="sr-only">{t('pagination.goToLastPage')}</span>
             <DoubleArrowRightIcon className="h-4 w-4" />
           </Button>
         </div>

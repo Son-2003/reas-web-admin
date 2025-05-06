@@ -125,10 +125,6 @@ export default function Dashboard() {
                     ? '...'
                     : `${revenue.toLocaleString()}`}
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  {/* Optional: dùng thêm tỉ lệ tăng nếu có */}
-                  +20.1% from last month
-                </p>
               </CardContent>
             </Card>
             <Card>
@@ -157,9 +153,6 @@ export default function Dashboard() {
                     ? '...'
                     : `${currentActiveUsers.toLocaleString()}`}
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  +180.1% from last month
-                </p>
               </CardContent>
             </Card>
             {/* 🧾 Transactions Card */}
@@ -188,10 +181,6 @@ export default function Dashboard() {
                     ? '...'
                     : `${successfulTransactions.toLocaleString()}`}
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  {/* Optional: dùng thêm tỉ lệ tăng nếu có */}
-                  +19% from last month
-                </p>
               </CardContent>
             </Card>
             <Card>
@@ -218,10 +207,6 @@ export default function Dashboard() {
                     ? '...'
                     : `${successfulExchanges.toLocaleString()}`}
                 </div>
-
-                <p className="text-xs text-muted-foreground">
-                  +201 since last hour
-                </p>
               </CardContent>
             </Card>
           </div>
@@ -242,7 +227,6 @@ export default function Dashboard() {
                 <CardDescription>{t('dashboard.pieChartDes')}</CardDescription>
               </CardHeader>
               <CardContent>
-                {/* <RecentSales /> */}
                 <SalesPieChart />
               </CardContent>
             </Card>

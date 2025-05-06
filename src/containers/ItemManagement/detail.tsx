@@ -128,6 +128,19 @@ export const ItemDetail = () => {
           Back
         </Button>
       </div>
+      <div className="flex items-center space-x-2">
+        <img
+          src={item.owner.image}
+          alt="User Avatar"
+          className="w-12 h-12 rounded-full border border-gray-300 object-cover"
+        />
+        <div>
+          <span className="text-black dark:text-white font-medium">
+            {item.owner.userName}
+          </span>
+        </div>
+      </div>
+
       <div>
         <div className="w-6 h-6 bg-[url(/logo.svg)] bg-no-repeat bg-cover" />
         <span className="text-black dark:text-white text-xl font-bold">

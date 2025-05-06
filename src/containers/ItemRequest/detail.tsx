@@ -179,6 +179,14 @@ export const ItemRequestDetail = () => {
           {t('button.back')}
         </Button>
       </div>
+      <div className="flex items-center space-x-4">
+        <div className="w-12 h-12 bg-gray-500 rounded-full border border-gray-300" />
+        <div>
+          <span className="text-black dark:text-white font-medium">
+            {item.owner.userName}
+          </span>
+        </div>
+      </div>
       <div>
         <div className="w-6 h-6 bg-[url(/logo.svg)] bg-no-repeat bg-cover" />
         <span className="text-black dark:text-white text-xl font-bold">
