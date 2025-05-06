@@ -154,7 +154,9 @@ export default function CreateUpdateUserForm() {
 
       toast({
         title: 'Success',
-        description: 'Account Created Successfully!',
+        description: isEdittingStaff
+          ? 'Account Edited Successfully!'
+          : 'Account Created Successfully!',
       });
     } catch (error) {
       toast({
