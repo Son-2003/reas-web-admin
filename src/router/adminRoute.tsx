@@ -3,14 +3,12 @@ import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
 import { selectUserInfo } from '@/containers/Auth/selector';
 import { LoaderCircle } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
 
 const AdminRoute: React.FC = () => {
   const userInfo = useSelector(selectUserInfo);
   const role = userInfo?.roleName;
   const [shouldCheckRole, setShouldCheckRole] = useState(false);
   const [shouldRedirect, setShouldRedirect] = useState(false);
-  const { toast } = useToast();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -22,19 +20,13 @@ const AdminRoute: React.FC = () => {
 
   useEffect(() => {
     if (shouldCheckRole && role && role !== 'ROLE_ADMIN') {
-      toast({
-        title: 'Access denied',
-        description: 'You do not have permission to access this page.',
-        variant: 'destructive',
-      });
-
       const redirectTimer = setTimeout(() => {
         setShouldRedirect(true);
       }, 500);
 
       return () => clearTimeout(redirectTimer);
     }
-  }, [shouldCheckRole, role, toast]);
+  }, [shouldCheckRole, role]);
 
   if (!role && !shouldCheckRole) {
     return (
@@ -45,7 +37,7 @@ const AdminRoute: React.FC = () => {
   }
 
   if (shouldRedirect) {
-    return <Navigate to="/admin" />;
+    return <Navigate to="/admin/users-management" />;
   }
 
   if (role === 'ROLE_ADMIN') {
