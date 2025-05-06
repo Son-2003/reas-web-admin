@@ -21,7 +21,10 @@ import { createStaffAccount, getUserInfo, updateUser } from '../../thunk';
 import { Gender } from '@/common/enums/gender';
 import { CreateStaffAccountRequest } from '@/common/models/user';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { STAFFS_MANAGEMENT_ROUTE, USERS_MANAGEMENT_ROUTE } from '@/common/constants/router';
+import {
+  STAFFS_MANAGEMENT_ROUTE,
+  USERS_MANAGEMENT_ROUTE,
+} from '@/common/constants/router';
 import { selectStaffAccountInfo } from '../../selector';
 
 const createAccountSchema = z
@@ -151,9 +154,10 @@ export default function CreateUpdateUserForm() {
 
       toast({
         title: 'Success',
-        description: isEdittingStaff ? 'Account Edited Successfully!' : 'Account Created Successfully!',
+        description: isEdittingStaff
+          ? 'Account Edited Successfully!'
+          : 'Account Created Successfully!',
       });
-      
     } catch (error) {
       toast({
         title: 'Error creating account',
@@ -396,8 +400,10 @@ export default function CreateUpdateUserForm() {
             variant="outline"
             onClick={() => {
               setPreviewImage(null);
-              {isEdittingStaff 
-                ? navigate(STAFFS_MANAGEMENT_ROUTE) : navigate(USERS_MANAGEMENT_ROUTE)
+              {
+                isEdittingStaff
+                  ? navigate(STAFFS_MANAGEMENT_ROUTE)
+                  : navigate(USERS_MANAGEMENT_ROUTE);
               }
             }}
           >
