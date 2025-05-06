@@ -71,7 +71,7 @@ export const CreateSubscriptionPlan = () => {
         duration: z
           .number()
           .min(
-            1,
+            0,
             t('subscriptionPlan.createSubscriptionPlan.validate.durationMin'),
           ),
         numberOfFreeExtension: z.number().min(0),
