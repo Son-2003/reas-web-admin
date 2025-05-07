@@ -12,7 +12,10 @@ export default function CreateUpdateUser() {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname.includes('edit-staff') && staffId) {
+    if (
+      location.pathname.includes('edit-staff') ||
+      (location.pathname.includes('edit-user') && staffId)
+    ) {
       setIsEdittingStaff(true);
     } else {
       setIsEdittingStaff(false);
