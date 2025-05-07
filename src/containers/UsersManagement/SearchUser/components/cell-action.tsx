@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import {
   ACCOUNT_DETAIL_ROUTE,
   EDIT_STAFF_ACCOUNT_ROUTE,
+  EDIT_USER_ACCOUNT_ROUTE,
   EXCHANGE_HISTORY_MANAGEMENT_ROUTE,
   FEEDBACK_USER_MANAGEMENT_ROUTE,
   ITEMS_MANAGEMENT_ROUTE,
@@ -47,6 +48,10 @@ export const CellAction: React.FC<CellActionProps> = ({ data, onRefresh }) => {
 
   const handleUpdateInfoStaff = () => {
     navigate(EDIT_STAFF_ACCOUNT_ROUTE.replace(':staffId', String(data.id)));
+  };
+
+  const handleUpdateInfoResident = () => {
+    navigate(EDIT_USER_ACCOUNT_ROUTE.replace(':staffId', String(data.id)));
   };
 
   const handleViewItem = () => {
@@ -157,7 +162,11 @@ export const CellAction: React.FC<CellActionProps> = ({ data, onRefresh }) => {
               <Icons.info className="mr-2 h-4 w-4" />
               {t('usersManagement.cell-action.view')}
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleUpdateInfoStaff}>
+            <DropdownMenuItem
+              onClick={
+                isStaffPage ? handleUpdateInfoStaff : handleUpdateInfoResident
+              }
+            >
               <Icons.edit className="mr-2 h-4 w-4" />
               {t('usersManagement.cell-action.edit')}
             </DropdownMenuItem>

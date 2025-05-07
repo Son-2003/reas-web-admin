@@ -72,7 +72,10 @@ export default function CreateUpdateUserForm() {
   const staffInfo = useSelector(selectStaffAccountInfo);
 
   useEffect(() => {
-    if (location.pathname.includes('edit-staff') && staffId) {
+    if (
+      location.pathname.includes('edit-staff') ||
+      (location.pathname.includes('edit-user') && staffId)
+    ) {
       setIsEdittingStaff(true);
     } else {
       setIsEdittingStaff(false);
@@ -400,10 +403,10 @@ export default function CreateUpdateUserForm() {
             variant="outline"
             onClick={() => {
               setPreviewImage(null);
-              {
-                isEdittingStaff
-                  ? navigate(STAFFS_MANAGEMENT_ROUTE)
-                  : navigate(USERS_MANAGEMENT_ROUTE);
+              if (location.pathname.includes('edit-staff')) {
+                navigate(STAFFS_MANAGEMENT_ROUTE);
+              } else {
+                navigate(USERS_MANAGEMENT_ROUTE);
               }
             }}
           >

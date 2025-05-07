@@ -34,6 +34,7 @@ import {
   CHAT_ROUTE,
   CRITICAL_REPORT_MANAGEMENT_ROUTE,
   REPLY_CRITICAL_REPORT_ROUTE,
+  EDIT_USER_ACCOUNT_ROUTE,
 } from '@/common/constants/router';
 import ProtectedRoute from './protectedRoute';
 import PaymentHistoryPage from '@/app/payment-history/page';
@@ -98,6 +99,14 @@ const router = createBrowserRouter([
                 path: STAFFS_MANAGEMENT_ROUTE,
                 element: <UsersManagementPage />,
               },
+              {
+                path: CREATE_STAFF_ACCOUNT_ROUTE,
+                element: <CreateUpdateUserPage />,
+              },
+              {
+                path: EDIT_STAFF_ACCOUNT_ROUTE,
+                element: <CreateUpdateUserPage />,
+              },
             ],
           },
 
@@ -107,13 +116,10 @@ const router = createBrowserRouter([
           },
 
           {
-            path: CREATE_STAFF_ACCOUNT_ROUTE,
+            path: EDIT_USER_ACCOUNT_ROUTE,
             element: <CreateUpdateUserPage />,
           },
-          {
-            path: EDIT_STAFF_ACCOUNT_ROUTE,
-            element: <CreateUpdateUserPage />,
-          },
+
           {
             path: ACCOUNT_DETAIL_ROUTE,
             element: <AccountDetailPage />,
