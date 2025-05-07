@@ -25,6 +25,7 @@ const SUBSCRIPTION_PLAN_MANAGEMENT_ROUTE =
 const CREATE_SUBSCRIPTION_PLAN_ROUTE = '/admin/create-subscription-plan';
 const UPDATE_SUBSCRIPTION_PLAN_ROUTE = '/admin/update-subscription-plan/:id';
 const ACCOUNT_DETAIL_ROUTE = '/admin/account-detail/:staffId';
+const ACCOUNT_DETAIL_USER_ROUTE = '/admin/account-detail-user/:staffId';
 const CHAT_ROUTE = '/admin/chat';
 const CRITICAL_REPORT_MANAGEMENT_ROUTE = '/admin/critical-reports';
 const REPLY_CRITICAL_REPORT_ROUTE = '/admin/critical-reports/:reportId';
@@ -51,6 +52,7 @@ export {
   CREATE_SUBSCRIPTION_PLAN_ROUTE,
   UPDATE_SUBSCRIPTION_PLAN_ROUTE,
   ACCOUNT_DETAIL_ROUTE,
+  ACCOUNT_DETAIL_USER_ROUTE,
   CHAT_ROUTE,
   CRITICAL_REPORT_MANAGEMENT_ROUTE,
   REPLY_CRITICAL_REPORT_ROUTE,

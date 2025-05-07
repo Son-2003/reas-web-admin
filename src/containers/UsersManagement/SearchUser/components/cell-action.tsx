@@ -16,6 +16,7 @@ import { Icons } from '@/components/ui/icons';
 import { useTranslation } from 'react-i18next';
 import {
   ACCOUNT_DETAIL_ROUTE,
+  ACCOUNT_DETAIL_USER_ROUTE,
   EDIT_STAFF_ACCOUNT_ROUTE,
   EDIT_USER_ACCOUNT_ROUTE,
   EXCHANGE_HISTORY_MANAGEMENT_ROUTE,
@@ -44,6 +45,10 @@ export const CellAction: React.FC<CellActionProps> = ({ data, onRefresh }) => {
 
   const handleViewDetailsClick = () => {
     navigate(ACCOUNT_DETAIL_ROUTE.replace(':staffId', String(data.id)));
+  };
+
+  const handleViewDetailUserlick = () => {
+    navigate(ACCOUNT_DETAIL_USER_ROUTE.replace(':staffId', String(data.id)));
   };
 
   const handleUpdateInfoStaff = () => {
@@ -158,7 +163,11 @@ export const CellAction: React.FC<CellActionProps> = ({ data, onRefresh }) => {
             <DropdownMenuLabel>
               {t('usersManagement.cell-action.title')}
             </DropdownMenuLabel>
-            <DropdownMenuItem onClick={handleViewDetailsClick}>
+            <DropdownMenuItem
+              onClick={
+                isStaffPage ? handleViewDetailsClick : handleViewDetailUserlick
+              }
+            >
               <Icons.info className="mr-2 h-4 w-4" />
               {t('usersManagement.cell-action.view')}
             </DropdownMenuItem>

@@ -161,6 +161,9 @@ export default function CreateUpdateUserForm() {
         if (createStaffAccount.fulfilled.match(resultAction)) {
           if (location.pathname.includes('edit-staff')) {
             navigate(STAFFS_MANAGEMENT_ROUTE);
+          }
+          if (location.pathname.includes('create-account-staff')) {
+            navigate(STAFFS_MANAGEMENT_ROUTE);
           } else {
             navigate(USERS_MANAGEMENT_ROUTE);
           }
