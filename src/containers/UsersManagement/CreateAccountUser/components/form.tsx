@@ -130,24 +130,24 @@ export default function CreateUpdateUserForm() {
 
   async function onSubmit(formData: z.infer<typeof createAccountSchema>) {
     setIsLoading(true);
-  
+
     try {
       const imageUrl = formData.image
         ? await uploadImageToCloudinary(formData.image)
         : '';
-  
+
       const payload: CreateStaffAccountRequest = {
         ...formData,
         image: imageUrl,
         gender: formData.gender as Gender,
       };
-  
+
       if (isEdittingStaff && staffId) {
         const updateRequest = {
           id: parseInt(staffId),
           ...payload,
         };
-  
+
         const resultAction = await dispatch(updateUser(updateRequest));
         if (updateUser.fulfilled.match(resultAction)) {
           if (location.pathname.includes('edit-staff')) {
@@ -166,7 +166,7 @@ export default function CreateUpdateUserForm() {
           }
         }
       }
-  
+
       toast({
         title: 'Success',
         description: isEdittingStaff
@@ -181,7 +181,7 @@ export default function CreateUpdateUserForm() {
         variant: 'destructive',
       });
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   }
 
@@ -340,7 +340,7 @@ export default function CreateUpdateUserForm() {
           <FormField
             control={form.control}
             name="image"
-            render={({ }) => (
+            render={({}) => (
               <FormItem>
                 <FormLabel>
                   {t('usersManagement.createAccountUser.profileImage.label')}
@@ -423,7 +423,10 @@ export default function CreateUpdateUserForm() {
             variant="outline"
             onClick={() => {
               setPreviewImage(null);
-              if (location.pathname.includes('edit-staff') || location.pathname.includes('create-account-staff')) {
+              if (
+                location.pathname.includes('edit-staff') ||
+                location.pathname.includes('create-account-staff')
+              ) {
                 navigate(STAFFS_MANAGEMENT_ROUTE);
               } else {
                 navigate(USERS_MANAGEMENT_ROUTE);
