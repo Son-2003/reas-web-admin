@@ -21,7 +21,10 @@ import { createStaffAccount, getUserInfo, updateUser } from '../../thunk';
 import { Gender } from '@/common/enums/gender';
 import { CreateStaffAccountRequest } from '@/common/models/user';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { STAFFS_MANAGEMENT_ROUTE } from '@/common/constants/router';
+import {
+  STAFFS_MANAGEMENT_ROUTE,
+  USERS_MANAGEMENT_ROUTE,
+} from '@/common/constants/router';
 import { selectStaffAccountInfo } from '../../selector';
 
 const createAccountSchema = z
@@ -371,9 +374,11 @@ export default function AccountDetailForm() {
             type="button"
             variant="outline"
             onClick={() => {
-              form.reset(); // Reset the form
-              // setPreviewImage(null); // Clear the image preview
-              navigate(STAFFS_MANAGEMENT_ROUTE);
+              if (location.pathname.includes('account-detail-user')) {
+                navigate(USERS_MANAGEMENT_ROUTE);
+              } else {
+                navigate(STAFFS_MANAGEMENT_ROUTE);
+              }
             }}
           >
             {t('button.back')}
