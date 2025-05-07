@@ -26,6 +26,7 @@ import {
   USERS_MANAGEMENT_ROUTE,
 } from '@/common/constants/router';
 import { selectStaffAccountInfo } from '../../selector';
+import { LoaderCircle } from 'lucide-react';
 
 const createAccountSchema = z
   .object({
@@ -61,7 +62,7 @@ export default function CreateUpdateUserForm() {
   const { t } = useTranslation();
   const dispatch = useDispatch<ReduxDispatch>();
   const navigate = useNavigate();
-  const [previewImage, setPreviewImage] = useState<string | null>(null); // State for image preview
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
   const form = useForm<CreateAccountUserRequest>({
     resolver: zodResolver(createAccountSchema),
     mode: 'onChange',
@@ -70,6 +71,7 @@ export default function CreateUpdateUserForm() {
   const location = useLocation();
   const [isEdittingStaff, setIsEdittingStaff] = useState(false);
   const staffInfo = useSelector(selectStaffAccountInfo);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (
@@ -127,34 +129,44 @@ export default function CreateUpdateUserForm() {
   };
 
   async function onSubmit(formData: z.infer<typeof createAccountSchema>) {
+    setIsLoading(true);
+  
     try {
       const imageUrl = formData.image
         ? await uploadImageToCloudinary(formData.image)
         : '';
-
+  
       const payload: CreateStaffAccountRequest = {
         ...formData,
         image: imageUrl,
         gender: formData.gender as Gender,
       };
-
+  
       if (isEdittingStaff && staffId) {
         const updateRequest = {
           id: parseInt(staffId),
           ...payload,
         };
-
+  
         const resultAction = await dispatch(updateUser(updateRequest));
         if (updateUser.fulfilled.match(resultAction)) {
-          navigate(STAFFS_MANAGEMENT_ROUTE);
+          if (location.pathname.includes('edit-staff')) {
+            navigate(STAFFS_MANAGEMENT_ROUTE);
+          } else {
+            navigate(USERS_MANAGEMENT_ROUTE);
+          }
         }
       } else {
         const resultAction = await dispatch(createStaffAccount(payload));
         if (createStaffAccount.fulfilled.match(resultAction)) {
-          navigate(STAFFS_MANAGEMENT_ROUTE);
+          if (location.pathname.includes('edit-staff')) {
+            navigate(STAFFS_MANAGEMENT_ROUTE);
+          } else {
+            navigate(USERS_MANAGEMENT_ROUTE);
+          }
         }
       }
-
+  
       toast({
         title: 'Success',
         description: isEdittingStaff
@@ -168,6 +180,8 @@ export default function CreateUpdateUserForm() {
           error instanceof Error ? error.message : 'Unknown error occurred',
         variant: 'destructive',
       });
+    } finally {
+      setIsLoading(false); 
     }
   }
 
@@ -326,7 +340,7 @@ export default function CreateUpdateUserForm() {
           <FormField
             control={form.control}
             name="image"
-            render={({}) => (
+            render={({ }) => (
               <FormItem>
                 <FormLabel>
                   {t('usersManagement.createAccountUser.profileImage.label')}
@@ -391,19 +405,25 @@ export default function CreateUpdateUserForm() {
           />
         </div>
 
-        {/* Cancel and Create Account Buttons */}
         <div className="flex space-x-4">
-          <Button type="submit">
-            {isEdittingStaff
-              ? t('usersManagement.createAccountUser.editButton')
-              : t('usersManagement.createAccountUser.createButton')}
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? (
+              <>
+                <LoaderCircle className="animate-spin mr-2" size={16} />
+                {t('button.loading')}
+              </>
+            ) : isEdittingStaff ? (
+              t('usersManagement.createAccountUser.editButton')
+            ) : (
+              t('usersManagement.createAccountUser.createButton')
+            )}
           </Button>
           <Button
             type="button"
             variant="outline"
             onClick={() => {
               setPreviewImage(null);
-              if (location.pathname.includes('edit-staff')) {
+              if (location.pathname.includes('edit-staff') || location.pathname.includes('create-account-staff')) {
                 navigate(STAFFS_MANAGEMENT_ROUTE);
               } else {
                 navigate(USERS_MANAGEMENT_ROUTE);
